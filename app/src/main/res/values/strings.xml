@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">EnterpriseProject</string>
+
+    //Login/Signup pages
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="enter_pass">Enter Password</string>
+    <string name="confirm_pass">Confirm Password</string>
+    <string name="show_pass">Show Password</string>
+    <string name="hide_pass">Hide Password</string>
+    <string name="forgotten">Forgot password?</string>
+    <string name="not_user">Not a member yet? Sign up here</string>
+
+    //Sign up fields
+    <string name="full_name"></string>
+    <string name="mobileNumber"></string>
+    <string name="location"></string>
+
+    <string name="registration">Enter Vehicle registration</string>
+
+    <string name="terms_conditions">By signing up you agree to our Terms and Conditions</string>
+
+</resources>
