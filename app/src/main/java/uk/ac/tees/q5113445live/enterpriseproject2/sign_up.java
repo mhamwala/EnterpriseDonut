@@ -14,6 +14,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class sign_up extends AppCompatActivity
 {
@@ -31,6 +33,8 @@ public class sign_up extends AppCompatActivity
 
         final EditText emailEdit = findViewById(R.id.enterEmail);
         final EditText passEdit = findViewById(R.id.enterPass);
+        final EditText nameEdit = findViewById(R.id.enterName);
+        final EditText locEdit = findViewById(R.id.enterLoc);
 
         Button signUp = findViewById(R.id.signUpButton);
         signUp.setOnClickListener(new Button.OnClickListener()
@@ -38,19 +42,33 @@ public class sign_up extends AppCompatActivity
                    @Override
                    public void onClick(View v)
                    {
-                       String email = emailEdit.getText().toString();
+                       User user = new User();
+                       user.setEmail( emailEdit.getText().toString());
+                       user.setName(nameEdit.getText().toString());
+                       user.setLocation(locEdit.getText().toString());
                        String password = passEdit.getText().toString();
-                       createAccount(email, password);
+
+
+                       createAccount(user, password);
+
                    }
                }
         );
     }
-
-    private void createAccount(String email, String password)
+    private void newUser(User user)
     {
-        Log.d(TAG, "createAccount:" + email);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("message");
+
+        myRef.child("users").child(user.getUid()).setValue(user);
+
+    }
+
+    private void createAccount(final User userIn, String password)
+    {
+        Log.d(TAG, "createAccount:" + userIn.getEmail());
         // [START create_user_with_email]
-        mAuth.createUserWithEmailAndPassword(email, password)
+        mAuth.createUserWithEmailAndPassword(userIn.getEmail(), password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task)
@@ -59,6 +77,8 @@ public class sign_up extends AppCompatActivity
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            userIn.setUid(user.getUid());
+                            newUser(userIn);
                             updateUI(user);
                         }
                         else
