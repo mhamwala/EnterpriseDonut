@@ -13,9 +13,9 @@
     <string name="not_user">Not a member yet? Sign up here</string>
 
     //Sign up fields
-    <string name="full_name"></string>
-    <string name="mobileNumber"></string>
-    <string name="location"></string>
+    <string name="full_name">Enter your full name</string>
+    <string name="mobileNumber">Enter your mobile number</string>
+    <string name="location">Enter your location</string>
 
     <string name="registration">Enter Vehicle registration</string>
 
