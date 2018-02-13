@@ -9,21 +9,40 @@ public class User
     String name;
     String location;
     String email;
-    String uid;
+
+    double number;
+
+    public double getNumber() {
+        return number;
+    }
+
+    public void setNumber(double number) {
+        this.number = number;
+    }
 
     User()
     {
         name = "";
         email = "";
+
         location ="";
-        uid = "";
+
+        number = 0;
     }
-    User(String n, String e, String l, String id)
+    User(String n, String e, String l,  int num)
     {
         name= n;
         email =e;
         location = l;
-        uid = id;
+
+        number = num;
+    }
+    User(String n, String e, String l)
+    {
+        name= n;
+        email =e;
+        location = l;
+        number = 0;
     }
 
     public String getName()
@@ -51,20 +70,7 @@ public class User
         this.email = email;
     }
 
-    public String getUid() {
-        return uid;
-    }
 
-    public void setUid(String uid) {
-        this.uid = uid;
-    }
 
-    User(String n, String e, String l)
-    {
-        name= n;
-        email =e;
-        location = l;
 
-        uid = "";
-    }
 }

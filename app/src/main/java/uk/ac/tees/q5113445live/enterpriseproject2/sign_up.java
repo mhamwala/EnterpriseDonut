@@ -21,6 +21,7 @@ public class sign_up extends AppCompatActivity
 {
     private static final String TAG = "SignUpActivity";
     private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
 
 
 
@@ -30,11 +31,13 @@ public class sign_up extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
         mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         final EditText emailEdit = findViewById(R.id.enterEmail);
         final EditText passEdit = findViewById(R.id.enterPass);
         final EditText nameEdit = findViewById(R.id.enterName);
         final EditText locEdit = findViewById(R.id.enterLoc);
+        final EditText numEdit = findViewById(R.id.enterNumber);
 
         Button signUp = findViewById(R.id.signUpButton);
         signUp.setOnClickListener(new Button.OnClickListener()
@@ -42,26 +45,32 @@ public class sign_up extends AppCompatActivity
                    @Override
                    public void onClick(View v)
                    {
-                       User user = new User();
-                       user.setEmail( emailEdit.getText().toString());
-                       user.setName(nameEdit.getText().toString());
-                       user.setLocation(locEdit.getText().toString());
-                       String password = passEdit.getText().toString();
+
+                       try
+                       {
+                           User user = new User();
+                           user.setEmail( emailEdit.getText().toString());
+                           user.setName(nameEdit.getText().toString());
+                           user.setLocation(locEdit.getText().toString());
+                           double number = Double.parseDouble(numEdit.getText().toString());
+                           user.setNumber(number);
+                           String password = passEdit.getText().toString();
+                           createAccount(user, password);
+                       }
+                       catch (NumberFormatException e)
+                       {
+                           System.out.println("INSIDE NUMBER FORMAT EXCEPTION");
+                       }
 
 
-                       createAccount(user, password);
 
                    }
                }
         );
     }
-    private void newUser(User user)
+    private void newUser(User user, String id)
     {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("message");
-
-        myRef.child("users").child(user.getUid()).setValue(user);
-
+        mDatabase.child("users").child(id).setValue(user);
     }
 
     private void createAccount(final User userIn, String password)
@@ -77,8 +86,8 @@ public class sign_up extends AppCompatActivity
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            userIn.setUid(user.getUid());
-                            newUser(userIn);
+
+                            newUser(userIn, user.getUid());
                             updateUI(user);
                         }
                         else
