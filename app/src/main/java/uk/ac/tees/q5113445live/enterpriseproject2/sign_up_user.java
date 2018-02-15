@@ -87,6 +87,7 @@ public class sign_up_user extends AppCompatActivity
         Intent intent;
         intent = new Intent(this, sign_up_driver.class);
         startActivity(intent);
+        finish();
     }
     private void newUser(User user, String id)
     {
