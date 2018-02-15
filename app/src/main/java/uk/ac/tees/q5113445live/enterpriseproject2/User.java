@@ -9,40 +9,69 @@ public class User
     String name;
     String location;
     String email;
+    String regNumber;
+    boolean driver = false;
 
-    double number;
+    String number;
 
-    public double getNumber() {
-        return number;
-    }
 
-    public void setNumber(double number) {
-        this.number = number;
-    }
+
 
     User()
     {
         name = "";
         email = "";
-
         location ="";
-
-        number = 0;
+        number = "";
+        regNumber = "";
     }
-    User(String n, String e, String l,  int num)
+    User(String n, String e, String l,  String num)
     {
         name= n;
-        email =e;
+        email = e;
         location = l;
-
         number = num;
+        regNumber = "";
+        driver = false;
     }
-    User(String n, String e, String l)
+    User(String n, String e, String l,  String num, String reg)
     {
         name= n;
-        email =e;
+        email = e;
         location = l;
-        number = 0;
+        number = num;
+        regNumber = reg;
+        driver = true;
+    }
+
+    public String getNumber()
+    {
+        return number;
+    }
+
+    public void setNumber(String number)
+    {
+        this.number = number;
+    }
+    public String getRegNumber()
+    {
+        return regNumber;
+    }
+
+
+    public void setRegNumber(String regNumber)
+    {
+        this.regNumber = regNumber;
+    }
+
+    public boolean isDriver()
+    {
+        return driver;
+    }
+
+    public void setDriver(boolean driver)
+    {
+        this.driver = driver;
     }
 
     public String getName()

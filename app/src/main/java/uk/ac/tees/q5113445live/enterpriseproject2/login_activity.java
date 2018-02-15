@@ -72,7 +72,7 @@ public class login_activity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                //Starts the sign_up activity
+                //Starts the sign_up_user activity
                 signUp(view);
 
             }
@@ -98,7 +98,7 @@ public class login_activity extends AppCompatActivity
     public void signUp(View view)
     {
         Intent intent;
-        intent = new Intent(this, sign_up.class);
+        intent = new Intent(this, sign_up_user.class);
         startActivity(intent);
     }
     private void signIn(String email, String password)

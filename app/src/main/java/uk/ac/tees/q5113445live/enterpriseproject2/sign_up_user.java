@@ -1,5 +1,6 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -17,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class sign_up extends AppCompatActivity
+public class sign_up_user extends AppCompatActivity
 {
     private static final String TAG = "SignUpActivity";
     private FirebaseAuth mAuth;
@@ -29,15 +31,29 @@ public class sign_up extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        setContentView(R.layout.activity_sign_up);
 
         final EditText emailEdit = findViewById(R.id.enterEmail);
         final EditText passEdit = findViewById(R.id.enterPass);
         final EditText nameEdit = findViewById(R.id.enterName);
         final EditText locEdit = findViewById(R.id.enterLoc);
         final EditText numEdit = findViewById(R.id.enterNumber);
+        final Switch userSwitch = findViewById(R.id.userSwitch);
+        //userSwitch.setChecked(false);
+        userSwitch.setOnClickListener(new Switch.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                boolean check = userSwitch.isChecked();
+                System.out.println("Value of switch" + check);
+                changeUserType(v);
+            }
+        });
 
         Button signUp = findViewById(R.id.signUpButton);
         signUp.setOnClickListener(new Button.OnClickListener()
@@ -48,12 +64,13 @@ public class sign_up extends AppCompatActivity
 
                        try
                        {
-                           User user = new User();
-                           user.setEmail( emailEdit.getText().toString());
-                           user.setName(nameEdit.getText().toString());
-                           user.setLocation(locEdit.getText().toString());
-                           double number = Double.parseDouble(numEdit.getText().toString());
-                           user.setNumber(number);
+                           User user = new User
+                           (
+                               nameEdit.getText().toString(),
+                               emailEdit.getText().toString(),
+                               locEdit.getText().toString(),
+                               numEdit.getText().toString()
+                           );
                            String password = passEdit.getText().toString();
                            createAccount(user, password);
                        }
@@ -61,17 +78,21 @@ public class sign_up extends AppCompatActivity
                        {
                            System.out.println("INSIDE NUMBER FORMAT EXCEPTION");
                        }
-
-
-
                    }
                }
         );
+    }
+    private void changeUserType(View v)
+    {
+        Intent intent;
+        intent = new Intent(this, sign_up_driver.class);
+        startActivity(intent);
     }
     private void newUser(User user, String id)
     {
         mDatabase.child("users").child(id).setValue(user);
     }
+
 
     private void createAccount(final User userIn, String password)
     {
@@ -94,7 +115,7 @@ public class sign_up extends AppCompatActivity
                         {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(sign_up.this, "Authentication failed.",
+                            Toast.makeText(sign_up_user.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
