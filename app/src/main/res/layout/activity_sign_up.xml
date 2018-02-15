@@ -14,6 +14,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Enter Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userSwitch"
         tools:layout_editor_absoluteX="99dp"
         tools:text="@string/full_name" />
@@ -26,6 +28,8 @@
         android:ems="10"
         android:inputType="textEmailAddress"
         android:text="Enter Email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterLoc"
         tools:layout_editor_absoluteX="99dp"
         tools:text="@string/enter_email" />
@@ -38,6 +42,8 @@
         android:ems="10"
         android:inputType="textPassword"
         android:text="Enter Password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterEmail"
         tools:layout_editor_absoluteX="99dp"
         tools:text="@string/enter_pass" />
@@ -52,6 +58,8 @@
         app:layout_constraintTop_toBottomOf="@+id/enterPass"
         app:layout_constraintVertical_bias="0.142"
         tools:layout_editor_absoluteX="98dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:text="@string/sign_up" />
 
     <EditText
@@ -60,10 +68,11 @@
         android:layout_height="42dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="number"
+        android:inputType="phone"
         android:text="Enter Number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterName"
-        tools:layout_editor_absoluteX="99dp"
         tools:text="@string/mobileNumber" />
 
     <EditText
@@ -74,6 +83,8 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Enter Location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterNumber"
         tools:layout_editor_absoluteX="99dp"
         tools:text="@string/location" />
@@ -96,6 +107,8 @@
         android:track="@drawable/common_google_signin_btn_icon_dark_normal_background"
         android:trackTint="@color/colorAccent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteX="88dp" />
 
 

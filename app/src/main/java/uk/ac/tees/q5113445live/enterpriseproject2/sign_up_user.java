@@ -64,12 +64,13 @@ public class sign_up_user extends AppCompatActivity
 
                        try
                        {
-                           User user = new User();
-                           user.setEmail( emailEdit.getText().toString());
-                           user.setName(nameEdit.getText().toString());
-                           user.setLocation(locEdit.getText().toString());
-                           double number = Double.parseDouble(numEdit.getText().toString());
-                           user.setNumber(number);
+                           User user = new User
+                           (
+                               nameEdit.getText().toString(),
+                               emailEdit.getText().toString(),
+                               locEdit.getText().toString(),
+                               numEdit.getText().toString()
+                           );
                            String password = passEdit.getText().toString();
                            createAccount(user, password);
                        }

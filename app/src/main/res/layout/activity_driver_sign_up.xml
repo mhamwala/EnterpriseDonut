@@ -10,36 +10,45 @@
         android:id="@+id/enterName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Enter Name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userSwitch"
-        tools:layout_editor_absoluteX="99dp"
         tools:text="@string/full_name" />
 
     <EditText
         android:id="@+id/enterEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textEmailAddress"
         android:text="Enter Email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterReg"
-        tools:layout_editor_absoluteX="99dp"
         tools:text="@string/enter_email" />
 
     <EditText
         android:id="@+id/enterPass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPassword"
         android:text="Enter Password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterEmail"
-        tools:layout_editor_absoluteX="99dp"
         tools:text="@string/enter_pass" />
 
     <Button
@@ -47,46 +56,59 @@
         android:layout_width="214dp"
         android:layout_height="46dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterPass"
         app:layout_constraintVertical_bias="0.142"
-        tools:layout_editor_absoluteX="98dp"
         tools:text="@string/sign_up" />
 
     <EditText
         android:id="@+id/enterNumber"
         android:layout_width="wrap_content"
         android:layout_height="42dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
-        android:inputType="number"
+        android:inputType="phone"
         android:text="Enter Number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterName"
-        tools:layout_editor_absoluteX="99dp"
         tools:text="@string/mobileNumber" />
 
     <EditText
         android:id="@+id/enterLoc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Enter Location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterNumber"
-        tools:layout_editor_absoluteX="99dp"
         tools:text="@string/location" />
+
     <EditText
         android:id="@+id/enterReg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:text="Enter Registration"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterLoc"
-        tools:layout_editor_absoluteX="99dp"
         tools:text="@string/location" />
 
     <Switch
