@@ -1,5 +1,6 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +19,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class sign_up extends AppCompatActivity
+public class sign_up_user extends AppCompatActivity
 {
     private static final String TAG = "SignUpActivity";
     private FirebaseAuth mAuth;
@@ -41,25 +42,16 @@ public class sign_up extends AppCompatActivity
         final EditText nameEdit = findViewById(R.id.enterName);
         final EditText locEdit = findViewById(R.id.enterLoc);
         final EditText numEdit = findViewById(R.id.enterNumber);
-
         final Switch userSwitch = findViewById(R.id.userSwitch);
-        userSwitch.setChecked(false);
+        //userSwitch.setChecked(false);
         userSwitch.setOnClickListener(new Switch.OnClickListener()
         {
             @Override
             public void onClick(View v)
             {
-                if (userSwitch.isChecked())
-                {
-                    setContentView(R.layout.activity_driver_sign_up);
-
-                }
-                else
-                {
-                    userSwitch.setChecked(true);
-                    setContentView(R.layout.activity_sign_up);
-                }
-
+                boolean check = userSwitch.isChecked();
+                System.out.println("Value of switch" + check);
+                changeUserType(v);
             }
         });
 
@@ -85,12 +77,15 @@ public class sign_up extends AppCompatActivity
                        {
                            System.out.println("INSIDE NUMBER FORMAT EXCEPTION");
                        }
-
-
-
                    }
                }
         );
+    }
+    private void changeUserType(View v)
+    {
+        Intent intent;
+        intent = new Intent(this, sign_up_driver.class);
+        startActivity(intent);
     }
     private void newUser(User user, String id)
     {
@@ -119,7 +114,7 @@ public class sign_up extends AppCompatActivity
                         {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(sign_up.this, "Authentication failed.",
+                            Toast.makeText(sign_up_user.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
