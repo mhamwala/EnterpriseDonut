@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="uk.ac.tees.q5113445live.enterpriseproject2.sign_up">
+
+    <EditText
+        android:id="@+id/enterName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="120dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Enter Name"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="99dp"
+        tools:text="@string/full_name" />
+
+    <EditText
+        android:id="@+id/enterEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textEmailAddress"
+        android:text="Enter Email"
+        app:layout_constraintTop_toBottomOf="@+id/enterLoc"
+        tools:layout_editor_absoluteX="99dp"
+        tools:text="@string/enter_email" />
+
+    <EditText
+        android:id="@+id/enterPass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:text="Enter Password"
+        app:layout_constraintTop_toBottomOf="@+id/enterEmail"
+        tools:layout_editor_absoluteX="99dp"
+        tools:text="@string/enter_pass" />
+
+    <Button
+        android:id="@+id/signUpButton"
+        android:layout_width="214dp"
+        android:layout_height="46dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/enterPass"
+        app:layout_constraintVertical_bias="0.142"
+        tools:layout_editor_absoluteX="98dp"
+        tools:text="@string/sign_up" />
+
+    <EditText
+        android:id="@+id/enterNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="Enter Number"
+        app:layout_constraintTop_toBottomOf="@+id/enterName"
+        tools:layout_editor_absoluteX="99dp"
+        tools:text="@string/mobileNumber" />
+
+    <EditText
+        android:id="@+id/enterLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Enter Location"
+        app:layout_constraintTop_toBottomOf="@+id/enterNumber"
+        tools:layout_editor_absoluteX="99dp"
+        tools:text="@string/location" />
+
+
+
+</android.support.constraint.ConstraintLayout>

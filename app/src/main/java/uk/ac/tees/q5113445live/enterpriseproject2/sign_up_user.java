@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -29,15 +30,38 @@ public class sign_up extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        setContentView(R.layout.activity_sign_up);
 
         final EditText emailEdit = findViewById(R.id.enterEmail);
         final EditText passEdit = findViewById(R.id.enterPass);
         final EditText nameEdit = findViewById(R.id.enterName);
         final EditText locEdit = findViewById(R.id.enterLoc);
         final EditText numEdit = findViewById(R.id.enterNumber);
+
+        final Switch userSwitch = findViewById(R.id.userSwitch);
+        userSwitch.setChecked(false);
+        userSwitch.setOnClickListener(new Switch.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                if (userSwitch.isChecked())
+                {
+                    setContentView(R.layout.activity_driver_sign_up);
+
+                }
+                else
+                {
+                    userSwitch.setChecked(true);
+                    setContentView(R.layout.activity_sign_up);
+                }
+
+            }
+        });
 
         Button signUp = findViewById(R.id.signUpButton);
         signUp.setOnClickListener(new Button.OnClickListener()
@@ -72,6 +96,7 @@ public class sign_up extends AppCompatActivity
     {
         mDatabase.child("users").child(id).setValue(user);
     }
+
 
     private void createAccount(final User userIn, String password)
     {
