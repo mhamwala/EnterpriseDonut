@@ -19,13 +19,12 @@
         app:srcCompat="@drawable/circle" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/showUserEmail"
         android:layout_width="319dp"
         android:layout_height="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="28dp"
-        android:text="Welcome 'User' "
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.51"
@@ -53,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.093"
         app:layout_constraintStart_toEndOf="@+id/textView2"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/showUserEmail" />
 
     <TextView
         android:id="@+id/textView2"
@@ -65,7 +64,7 @@
         android:textAlignment="center"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/showUserEmail" />
 
     <TextView
         android:id="@+id/textView3"
@@ -82,7 +81,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/showUserEmail"
         app:layout_constraintVertical_bias="0.166" />
 
     <Button

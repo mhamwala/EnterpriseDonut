@@ -11,11 +11,7 @@ public class User
     String email;
     String regNumber;
     boolean driver = false;
-
     String number;
-
-
-
 
     User()
     {
