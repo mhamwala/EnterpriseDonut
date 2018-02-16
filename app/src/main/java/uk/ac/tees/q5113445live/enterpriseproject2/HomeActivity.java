@@ -1,8 +1,11 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import android.content.Intent;
 import android.renderscript.Sampler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 public class HomeActivity extends AppCompatActivity
 {
     private DatabaseReference mDatabase;
+    Button requestCourier;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -53,8 +57,17 @@ public class HomeActivity extends AppCompatActivity
 
 
         String name = mDatabase.getKey();
+        requestCourierButton();
+    }
 
-
-
+    public void requestCourierButton() {
+        requestCourier = findViewById(R.id.RequestButton);
+        requestCourier.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(HomeActivity.this, RequestCourier.class);
+                startActivity(home);
+            }
+        });
     }
 }
