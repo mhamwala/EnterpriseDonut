@@ -28,4 +28,12 @@
     <string name="RequestButton">Request Service</string>
     <string name="userDetails">User Details</string>
 
+    //request courier service page
+    <string name="deliveryType">delivery type</string>
+    <string name="distance">distance</string>
+    <string name="size">size</string>
+    <string name="weight">weight</string>
+    <string name="pay">pay</string>
+
+
 </resources>
