@@ -18,11 +18,13 @@
     <string name="location">Enter your location</string>
 
     <string name="registration">Enter Vehicle registration</string>
-
     <string name="terms_conditions">By signing up you agree to our Terms and Conditions</string>
 
-    //home page
+    //Home Page fields
     <string name="showUserName">Get the current users name</string>
+    <string name="showUserNumber">Get the current users number</string>
+    <string name="showUserLocation">Get the current users location</string>
+    <string name="showUserEmail">Get the current users email</string>
     <string name="RequestButton">Request Service</string>
     <string name="userDetails">User Details</string>
 
