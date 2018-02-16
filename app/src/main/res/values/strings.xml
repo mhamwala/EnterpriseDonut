@@ -21,4 +21,8 @@
 
     <string name="terms_conditions">By signing up you agree to our Terms and Conditions</string>
 
+    //home page
+    <string name="RequestButton">Request Service</string>
+    <string name="userDetails">User Details</string>
+
 </resources>
