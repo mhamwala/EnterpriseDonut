@@ -32,16 +32,21 @@ public class login_activity extends AppCompatActivity
     public void onStart()
     {
         super.onStart();
-        //Check if user is signed in (non-null) and update UI accordingly.
+        //Check if user is signed if (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
     }
 
+    //User is passed in to decide what activity to change to.
     private void updateUI(FirebaseUser currentUser)
     {
         if(currentUser != null)
         {
-
+            //Change to homepage
+        }
+        else
+        {
+            //Show message saying if Email password doesn't exist or other errors.
         }
     }
 
@@ -54,8 +59,8 @@ public class login_activity extends AppCompatActivity
 
         final EditText emailEdit = findViewById(R.id.usernameText);
         final EditText passEdit = findViewById(R.id.passwordText);
-        TextView forgotPass = (TextView) this.findViewById(R.id.forgotPassword);
 
+        TextView forgotPass = findViewById(R.id.forgotPassword);
         forgotPass.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -67,8 +72,7 @@ public class login_activity extends AppCompatActivity
 
         });
 
-        TextView newUser = (TextView) this.findViewById(R.id.notMember);
-
+        TextView newUser = this.findViewById(R.id.notMember);
         newUser.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -115,7 +119,6 @@ public class login_activity extends AppCompatActivity
                             Toast.makeText(login_activity.this, "Login Successful",
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
                             // once log in is successful sends user to landing page. nathan
                             Intent home = new Intent(login_activity.this, HomeActivity.class);
                             startActivity(home);
