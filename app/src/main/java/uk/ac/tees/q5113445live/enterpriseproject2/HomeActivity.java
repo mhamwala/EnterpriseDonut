@@ -20,7 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 public class HomeActivity extends AppCompatActivity
 {
     private DatabaseReference mDatabase;
-    Button requestCourier;
+    Button tempButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,16 +58,30 @@ public class HomeActivity extends AppCompatActivity
 
         String name = mDatabase.getKey();
         requestCourierButton();
+        userDetailsButton();
     }
 
     public void requestCourierButton() {
-        requestCourier = findViewById(R.id.RequestButton);
-        requestCourier.setOnClickListener(new View.OnClickListener() {
+        tempButton = findViewById(R.id.RequestButton);
+        tempButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent home = new Intent(HomeActivity.this, RequestCourier.class);
                 startActivity(home);
             }
         });
+
+    }
+
+    public void userDetailsButton() {
+        tempButton = findViewById(R.id.userDetails);
+        tempButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(HomeActivity.this, UserDetailsActivity.class);
+                startActivity(home);
+            }
+        });
+
     }
 }

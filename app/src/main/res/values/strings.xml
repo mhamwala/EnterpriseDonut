@@ -23,5 +23,6 @@
 
     //home page
     <string name="RequestButton">Request Service</string>
+    <string name="userDetails">User Details</string>
 
 </resources>

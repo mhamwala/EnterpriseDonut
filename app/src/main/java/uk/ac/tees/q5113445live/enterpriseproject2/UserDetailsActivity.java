@@ -3,14 +3,13 @@ package uk.ac.tees.q5113445live.enterpriseproject2;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class RequestCourier extends AppCompatActivity {
+public class UserDetailsActivity extends AppCompatActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request_courier);
-
+        setContentView(R.layout.activity_user_details);
     }
+
+
 }
