@@ -40,11 +40,9 @@ public class HomeActivity extends AppCompatActivity
             {
                 User user = dataSnapshot.getValue(User.class);
                 System.out.println(user);
-                TextView userText = findViewById(R.id.showUserEmail);
+                TextView userText = findViewById(R.id.showUserName);
                 userText.setText(user.getName());
 
-
-                System.out.println("HELLO");
             }
 
             @Override

@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/circle" />
 
     <TextView
-        android:id="@+id/showUserEmail"
+        android:id="@+id/showUserName"
         android:layout_width="319dp"
         android:layout_height="32dp"
         android:layout_marginEnd="8dp"

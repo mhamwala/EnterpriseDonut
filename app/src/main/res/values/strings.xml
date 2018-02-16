@@ -22,6 +22,7 @@
     <string name="terms_conditions">By signing up you agree to our Terms and Conditions</string>
 
     //home page
+    <string name="showUserName">Get the current users name</string>
     <string name="RequestButton">Request Service</string>
     <string name="userDetails">User Details</string>
 
