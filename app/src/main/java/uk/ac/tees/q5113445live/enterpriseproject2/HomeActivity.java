@@ -1,8 +1,11 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import android.content.Intent;
 import android.renderscript.Sampler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -17,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 public class HomeActivity extends AppCompatActivity
 {
     private DatabaseReference mDatabase;
+    Button tempButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -36,11 +40,8 @@ public class HomeActivity extends AppCompatActivity
             {
                 User user = dataSnapshot.getValue(User.class);
                 System.out.println(user);
-                TextView userText = findViewById(R.id.showUserEmail);
+                TextView userText = findViewById(R.id.showUserName);
                 userText.setText(user.getName());
-
-
-                System.out.println("HELLO");
             }
 
             @Override
@@ -53,8 +54,31 @@ public class HomeActivity extends AppCompatActivity
 
 
         String name = mDatabase.getKey();
+        requestCourierButton();
+        userDetailsButton();
+    }
 
+    public void requestCourierButton() {
+        tempButton = findViewById(R.id.RequestButton);
+        tempButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(HomeActivity.this, RequestCourier.class);
+                startActivity(home);
+            }
+        });
 
+    }
+
+    public void userDetailsButton() {
+        tempButton = findViewById(R.id.userDetails);
+        tempButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(HomeActivity.this, UserDetailsActivity.class);
+                startActivity(home);
+            }
+        });
 
     }
 }

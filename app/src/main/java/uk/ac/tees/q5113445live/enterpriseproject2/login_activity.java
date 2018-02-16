@@ -37,18 +37,6 @@ public class login_activity extends AppCompatActivity
         updateUI(currentUser);
     }
 
-    public void homePage() {
-        but1 = findViewById(R.id.loginButton);
-        but1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent home = new Intent(login_activity.this, HomeActivity.class);
-                startActivity(home);
-            }
-        });
-    }
-
-
     private void updateUI(FirebaseUser currentUser)
     {
         if(currentUser != null)
@@ -128,7 +116,10 @@ public class login_activity extends AppCompatActivity
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
-                            homePage();
+                            // once log in is successful sends user to landing page. nathan
+                            Intent home = new Intent(login_activity.this, HomeActivity.class);
+                            startActivity(home);
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
