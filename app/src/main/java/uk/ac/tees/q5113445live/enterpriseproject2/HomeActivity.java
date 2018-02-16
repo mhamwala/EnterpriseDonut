@@ -42,7 +42,6 @@ public class HomeActivity extends AppCompatActivity
                 System.out.println(user);
                 TextView userText = findViewById(R.id.showUserName);
                 userText.setText(user.getName());
-
             }
 
             @Override
