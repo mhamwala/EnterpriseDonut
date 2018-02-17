@@ -47,13 +47,15 @@ public class RequestCourier extends AppCompatActivity {
                                                     {
                         try
                         {
-                            Delivery delivery = new Delivery(
+                            Delivery delivery = new Delivery
+                                    (
                                             deliveryType.getText().toString(),
                                             distance.getText().toString(),
                                             size.getText().toString(),
                                             weight.getText().toString(),
                                             pay.getText().toString()
                                     );
+                            newDelivery(delivery, "1");
                            // uploadCourierRequest(delivery);
                         }
                         catch (NumberFormatException e)
@@ -66,39 +68,9 @@ public class RequestCourier extends AppCompatActivity {
 
 
     }
-/*
-    private void uploadCourierRequest(final Delivery deliveryIn)
+    private void newDelivery(Delivery delivery, String id)
     {
-        Log.d(TAG, "createAccount:" + userIn.getEmail());
-        // [START create_user_with_email]
-        mAuth.createUserWithEmailAndPassword(userIn.getEmail(), password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task)
-                    {
-                        if (task.isSuccessful())
-                        {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-
-                            newUser(userIn, user.getUid());
-                            updateUI(user);
-                        }
-                        else
-                        {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                            Toast.makeText(sign_up_user.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-
-                        // [START_EXCLUDE]
-
-                        // [END_EXCLUDE]
-                    }
-                });
+        mDatabase.child("delivery").child(id).setValue(delivery);
     }
-*/
+
 }

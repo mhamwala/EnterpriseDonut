@@ -14,12 +14,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="@string/full_name"
         android:inputType="textPersonName"
-        android:text="Enter Name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userSwitch"
-        tools:text="@string/full_name" />
+        app:layout_constraintTop_toBottomOf="@+id/userSwitch" />
 
     <EditText
         android:id="@+id/enterEmail"
@@ -29,12 +28,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="@string/usernameText"
         android:inputType="textEmailAddress"
-        android:text="Enter Email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterReg"
-        tools:text="@string/enter_email" />
+        app:layout_constraintTop_toBottomOf="@+id/enterReg" />
 
     <EditText
         android:id="@+id/enterPass"
@@ -44,12 +42,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="@string/enter_pass"
         android:inputType="textPassword"
-        android:text="Enter Password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterEmail"
-        tools:text="@string/enter_pass" />
+        app:layout_constraintTop_toBottomOf="@+id/enterEmail" />
 
     <Button
         android:id="@+id/signUpButton"
@@ -59,12 +56,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
+        android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterPass"
-        app:layout_constraintVertical_bias="0.142"
-        tools:text="@string/sign_up" />
+        app:layout_constraintVertical_bias="0.142" />
 
     <EditText
         android:id="@+id/enterNumber"
@@ -74,12 +71,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="@string/mobileNumber"
         android:inputType="phone"
-        android:text="Enter Number"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterName"
-        tools:text="@string/mobileNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/enterName" />
 
     <EditText
         android:id="@+id/enterLoc"
@@ -89,12 +85,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="@string/location"
         android:inputType="textPersonName"
-        android:text="Enter Location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterNumber"
-        tools:text="@string/location" />
+        app:layout_constraintTop_toBottomOf="@+id/enterNumber" />
 
     <EditText
         android:id="@+id/enterReg"
@@ -104,12 +99,11 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:hint="@string/registration"
         android:inputType="textPersonName"
-        android:text="Enter Registration"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/enterLoc"
-        tools:text="@string/location" />
+        app:layout_constraintTop_toBottomOf="@+id/enterLoc" />
 
     <Switch
         android:id="@+id/userSwitch"
@@ -124,8 +118,12 @@
         android:switchMinWidth="@android:dimen/thumbnail_width"
         android:switchPadding="@android:dimen/thumbnail_width"
         android:switchTextAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/colorPrimary"
+
+        android:textColorLink="@color/colorPrimary"
         android:textOff="User"
         android:textOn="Driver"
+
         android:thumb="@drawable/common_google_signin_btn_text_dark_normal_background"
         android:thumbTint="@color/colorPrimaryDark"
         android:track="@drawable/common_google_signin_btn_icon_dark_normal_background"
