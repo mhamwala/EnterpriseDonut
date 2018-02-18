@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_color"
     tools:context="uk.ac.tees.q5113445live.enterpriseproject2.HomeActivity"
     tools:layout_editor_absoluteY="25dp">
 
@@ -28,6 +29,7 @@
         android:layout_width="348dp"
         android:layout_height="328dp"
         android:layout_marginBottom="72dp"
+
         android:background="@color/Background1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
