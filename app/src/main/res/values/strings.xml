@@ -25,7 +25,7 @@
     <string name="showUserNumber">Get the current users number</string>
     <string name="showUserLocation">Get the current users location</string>
     <string name="showUserEmail">Get the current users email</string>
-    <string name="RequestButton">Request Service</string>
+    <string name="RequestButton">User</string>
     <string name="userDetails">User Details</string>
 
     //request courier service page
