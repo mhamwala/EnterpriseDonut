@@ -65,7 +65,7 @@
         android:id="@+id/textView3"
         android:layout_width="315dp"
         android:layout_height="109dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="20dp"
         android:background="@color/Background2"
         android:text="Wallet"
         android:textAlignment="center"
