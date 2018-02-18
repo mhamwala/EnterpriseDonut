@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_color"
     tools:context="uk.ac.tees.q5113445live.enterpriseproject2.HomeActivity"
     tools:layout_editor_absoluteY="25dp">
 
@@ -28,7 +29,8 @@
         android:layout_width="348dp"
         android:layout_height="328dp"
         android:layout_marginBottom="72dp"
-        android:background="@color/Background1"
+
+        android:background="@drawable/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -51,15 +53,17 @@
 
     <Button
         android:id="@+id/settingsButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="116dp"
+        android:layout_height="48dp"
         android:layout_marginBottom="4dp"
-        android:layout_marginRight="40dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/button_background"
         android:text="@string/settingsButton"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridLayout"
+        app:layout_constraintVertical_bias="0.0"
         tools:text="@string/settingsButton" />
 
     <TextView
@@ -79,19 +83,20 @@
 
     <Button
         android:id="@+id/userDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="102dp"
+        android:layout_height="47dp"
         android:layout_marginBottom="4dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/button_background"
         android:text="User Details"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/settingsButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridLayout"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.076" />
 
     <TextView
         android:id="@+id/textView2"
@@ -125,9 +130,11 @@
         android:layout_marginEnd="60dp"
         android:layout_marginTop="8dp"
         android:text="User"
+        android:background="@drawable/button_background"
         app:layout_constraintBottom_toBottomOf="@+id/gridLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.583" />
 
     <Button
         android:id="@+id/driverButton"
@@ -138,11 +145,13 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:text="Driver"
+        android:background="@drawable/button_background"
         app:layout_constraintBottom_toBottomOf="@+id/gridLayout"
-        app:layout_constraintEnd_toStartOf="@+id/userButton"
-        app:layout_constraintHorizontal_bias="0.303"
+        app:layout_constraintEnd_toStartOf="@+id/RequestButton"
+        app:layout_constraintHorizontal_bias="0.675"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="0.526"
         tools:text="@string/driverButton" />
 
 </android.support.constraint.ConstraintLayout>
