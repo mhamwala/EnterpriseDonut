@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_color"
     tools:context="uk.ac.tees.q5113445live.enterpriseproject2.sign_up_user">
 
     <EditText
@@ -12,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="52dp"
         android:ems="10"
         android:hint="@string/full_name"
         android:inputType="textPersonName"
@@ -57,11 +58,12 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
         android:text="@string/sign_up"
+        android:background="@drawable/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterPass"
-        app:layout_constraintVertical_bias="0.142" />
+        app:layout_constraintVertical_bias="0.324" />
 
     <EditText
         android:id="@+id/enterNumber"
@@ -83,11 +85,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/location"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterNumber" />
 
@@ -108,27 +110,24 @@
     <Switch
         android:id="@+id/userSwitch"
         android:layout_width="223dp"
-        android:layout_height="59dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="28dp"
         android:layout_marginTop="16dp"
-        android:checked="true"
+        android:checked="false"
         android:showText="true"
         android:splitTrack="false"
         android:switchMinWidth="@android:dimen/thumbnail_width"
         android:switchPadding="@android:dimen/thumbnail_width"
         android:switchTextAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/colorPrimary"
-
         android:textColorLink="@color/colorPrimary"
         android:textOff="User"
-        android:textOn="Driver"
 
+        android:textOn="Driver"
         android:thumb="@drawable/common_google_signin_btn_text_dark_normal_background"
         android:thumbTint="@color/colorPrimaryDark"
         android:track="@drawable/common_google_signin_btn_icon_dark_normal_background"
         android:trackTint="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:checked="true" />
