@@ -27,9 +27,10 @@
     <string name="showUserEmail">Get the current users email</string>
     <string name="RequestButton">User</string>
     <string name="userDetails">User Details</string>
-    <string name="settings">Settings page</string>
+    <string name="settingsButton">Settings page</string>
+    <string name="driverButton">Driver page</string>
 
-    //request courier service page
+    //Request courier service page
     <string name="deliveryType">delivery type</string>
     <string name="distance">distance</string>
     <string name="size">size</string>

@@ -57,6 +57,7 @@ public class HomeActivity extends AppCompatActivity
         requestCourierButton();
         userDetailsButton();
         settingsButton();
+        driverButton();
     }
 
     public void requestCourierButton() {
@@ -84,11 +85,23 @@ public class HomeActivity extends AppCompatActivity
     }
 
     public void settingsButton() {
-        tempButton = findViewById(R.id.settings);
+        tempButton = findViewById(R.id.settingsButton);
         tempButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent home = new Intent(HomeActivity.this, SettingsActivity.class);
+                startActivity(home);
+            }
+        });
+
+    }
+
+    public void driverButton() {
+        tempButton = findViewById(R.id.driverButton);
+        tempButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(HomeActivity.this, DriverActivity.class);
                 startActivity(home);
             }
         });
