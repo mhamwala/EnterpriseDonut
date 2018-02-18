@@ -18,7 +18,7 @@ public class UserActivity extends AppCompatActivity {
     }
 
     public void RequestCourierButton() {
-        tempButton = findViewById(R.id.requestButton);
+        tempButton = findViewById(R.id.requestCourier);
         tempButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
