@@ -56,6 +56,7 @@ public class HomeActivity extends AppCompatActivity
         String name = mDatabase.getKey();
         requestCourierButton();
         userDetailsButton();
+        settingsButton();
     }
 
     public void requestCourierButton() {
@@ -76,6 +77,18 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent home = new Intent(HomeActivity.this, UserDetailsActivity.class);
+                startActivity(home);
+            }
+        });
+
+    }
+
+    public void settingsButton() {
+        tempButton = findViewById(R.id.settings);
+        tempButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(HomeActivity.this, SettingsActivity.class);
                 startActivity(home);
             }
         });

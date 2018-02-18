@@ -27,6 +27,7 @@
     <string name="showUserEmail">Get the current users email</string>
     <string name="RequestButton">User</string>
     <string name="userDetails">User Details</string>
+    <string name="settings">Settings page</string>
 
     //request courier service page
     <string name="deliveryType">delivery type</string>
