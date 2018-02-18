@@ -112,6 +112,8 @@ public class sign_up_user extends AppCompatActivity
 
                         newUser(userIn, user.getUid());
                         updateUI(user);
+                        Intent home = new Intent(sign_up_user.this, HomeActivity.class);
+                        startActivity(home);
                     }
                     else
                     {
