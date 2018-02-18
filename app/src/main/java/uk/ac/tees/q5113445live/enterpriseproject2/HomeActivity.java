@@ -54,18 +54,19 @@ public class HomeActivity extends AppCompatActivity
 
 
         String name = mDatabase.getKey();
-        requestCourierButton();
+        //requestCourierButton();
         userDetailsButton();
         settingsButton();
         driverButton();
+        userButton();
     }
 
-    public void requestCourierButton() {
-        tempButton = findViewById(R.id.RequestButton);
+    public void userButton() {
+        tempButton = findViewById(R.id.userButton);
         tempButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent home = new Intent(HomeActivity.this, RequestCourier.class);
+                Intent home = new Intent(HomeActivity.this, UserActivity.class);
                 startActivity(home);
             }
         });
