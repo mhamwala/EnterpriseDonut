@@ -8,21 +8,24 @@
     tools:context="uk.ac.tees.q5113445live.enterpriseproject2.HomeActivity"
     tools:layout_editor_absoluteY="25dp">
 
+
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="109dp"
-        android:layout_height="75dp"
+        android:id="@+id/logoImage"
+        android:layout_width="147dp"
+        android:layout_height="124dp"
         android:layout_marginBottom="8dp"
+
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@color/Background1"
-        android:contentDescription="TODO"
-        app:layout_constraintBottom_toTopOf="@+id/showUserName"
+        android:background="@drawable/ic_action_name"
+        app:layout_constraintBottom_toBottomOf="@+id/showUserName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/circle" />
+        app:layout_constraintVertical_bias="0.0" />
+
 
     <GridLayout
         android:id="@+id/gridLayout"
@@ -33,9 +36,7 @@
         android:background="@drawable/button_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView3"
-        app:layout_constraintVertical_bias="1.0">
+        app:layout_constraintRight_toRightOf="parent">
 
     </GridLayout>
 
@@ -84,8 +85,8 @@
 
     <Button
         android:id="@+id/userDetails"
-        android:layout_width="111dp"
-        android:layout_height="45dp"
+        android:layout_width="124dp"
+        android:layout_height="50dp"
         android:layout_marginBottom="4dp"
         android:layout_marginEnd="108dp"
         android:layout_marginStart="4dp"
@@ -94,10 +95,10 @@
         android:text="User Details"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/settingsButton"
-        app:layout_constraintHorizontal_bias="0.545"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/gridLayout"
-        app:layout_constraintVertical_bias="0.076" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/textView2"

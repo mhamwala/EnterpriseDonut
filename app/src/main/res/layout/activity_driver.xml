@@ -95,7 +95,7 @@
         android:layout_width="134dp"
         android:layout_height="123dp"
         android:layout_marginBottom="128dp"
-        android:layout_marginRight="28dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/button_background"
         android:text="All Available Jobs"
