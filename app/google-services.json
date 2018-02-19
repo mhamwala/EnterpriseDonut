@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "71403366865-c0hnjipuh7plcedn75pbst8pmq9teke7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uk.ac.tees.q5113445live.enterpriseproject2",
+            "certificate_hash": "4c94116183e0d3ea0b1c905e6bb2ce26102f2947"
+          }
+        },
+        {
           "client_id": "71403366865-4inc9q9tf528ks0ipvushhirfeljaq7n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
