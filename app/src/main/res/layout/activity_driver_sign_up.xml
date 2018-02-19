@@ -13,11 +13,12 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/full_name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/userSwitch" />
 
@@ -51,14 +52,14 @@
 
     <Button
         android:id="@+id/signUpButton"
-        android:layout_width="214dp"
-        android:layout_height="46dp"
+        android:layout_width="293dp"
+        android:layout_height="45dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="40dp"
-        android:text="@string/sign_up"
         android:background="@drawable/button_background"
+        android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,6 +77,7 @@
         android:hint="@string/mobileNumber"
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterName" />
 
@@ -111,16 +113,16 @@
         android:id="@+id/userSwitch"
         android:layout_width="223dp"
         android:layout_height="28dp"
-        android:layout_marginTop="16dp"
-        android:checked="false"
+        android:layout_marginTop="48dp"
+        android:checked="true"
         android:showText="true"
         android:splitTrack="false"
         android:switchMinWidth="@android:dimen/thumbnail_width"
         android:switchPadding="@android:dimen/thumbnail_width"
         android:switchTextAppearance="@style/TextAppearance.AppCompat.Body1"
+
         android:textColorLink="@color/colorPrimary"
         android:textOff="User"
-
         android:textOn="Driver"
         android:thumb="@drawable/common_google_signin_btn_text_dark_normal_background"
         android:thumbTint="@color/colorPrimaryDark"
@@ -131,6 +133,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:checked="true" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="418dp" />
 
 
 </android.support.constraint.ConstraintLayout>
