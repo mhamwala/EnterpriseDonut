@@ -120,8 +120,8 @@
         android:switchMinWidth="@android:dimen/thumbnail_width"
         android:switchPadding="@android:dimen/thumbnail_width"
         android:switchTextAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColorLink="@color/colorPrimary"
 
+        android:textColorLink="@color/colorPrimary"
         android:textOff="User"
         android:textOn="Driver"
         android:thumb="@drawable/common_google_signin_btn_text_dark_normal_background"
@@ -133,6 +133,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:checked="true" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="418dp" />
 
 
 </android.support.constraint.ConstraintLayout>
