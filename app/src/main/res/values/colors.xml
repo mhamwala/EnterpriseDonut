@@ -2,5 +2,10 @@
 <resources>
     <color name="colorPrimary">#fcfbf9</color>
     <color name="colorPrimaryDark">#303f9f</color>
-    <color name="colorAccent">#aeacac</color>
+    <color name="colorAccent">#e5e5e5</color>
+    <color name="Background1">#ebece4</color>
+    <color name="Background2">#aaaaaa</color>
+    <color name="Blackboard">#565656</color>
+    
+
 </resources>

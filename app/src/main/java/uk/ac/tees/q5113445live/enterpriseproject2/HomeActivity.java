@@ -54,16 +54,19 @@ public class HomeActivity extends AppCompatActivity
 
 
         String name = mDatabase.getKey();
-        requestCourierButton();
+        //requestCourierButton();
         userDetailsButton();
+        settingsButton();
+        driverButton();
+        userButton();
     }
 
-    public void requestCourierButton() {
-        tempButton = findViewById(R.id.RequestButton);
+    public void userButton() {
+        tempButton = findViewById(R.id.userButton);
         tempButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent home = new Intent(HomeActivity.this, RequestCourier.class);
+                Intent home = new Intent(HomeActivity.this, UserActivity.class);
                 startActivity(home);
             }
         });
@@ -76,6 +79,30 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Intent home = new Intent(HomeActivity.this, UserDetailsActivity.class);
+                startActivity(home);
+            }
+        });
+
+    }
+
+    public void settingsButton() {
+        tempButton = findViewById(R.id.settingsButton);
+        tempButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(HomeActivity.this, SettingsActivity.class);
+                startActivity(home);
+            }
+        });
+
+    }
+
+    public void driverButton() {
+        tempButton = findViewById(R.id.driverButton);
+        tempButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(HomeActivity.this, DriverActivity.class);
                 startActivity(home);
             }
         });
