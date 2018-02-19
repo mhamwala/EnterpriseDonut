@@ -153,6 +153,39 @@ public class sign_up_user extends AppCompatActivity
         Intent home = new Intent(sign_up_user.this, HomeActivity.class);
         startActivity(home);
     }
+    private void createAccount(final User userIn, String password)
+    {
+        Log.d(TAG, "createAccount:" + userIn.getEmail());
+        // [START create_user_with_email]
+        mAuth.createUserWithEmailAndPassword(userIn.getEmail(), password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task)
+                    {
+                        if (task.isSuccessful())
+                        {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(TAG, "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+
+                            newUser(userIn, user.getUid());
+                            updateUI(user);
+                        }
+                        else
+                        {
+                            // If sign in fails, display a message to the user.
+                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(sign_up_user.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+
+                        // [START_EXCLUDE]
+
+                        // [END_EXCLUDE]
+                    }
+                });
+    }
     private void uploadProfile()
     {
         if(selectedImage != null)
@@ -182,14 +215,14 @@ public class sign_up_user extends AppCompatActivity
                     .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>()
                     {
                         @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot)
+                        {
                             double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
                                     .getTotalByteCount());
                             progressDialog.setMessage("Uploaded "+(int)progress+"%");
                         }
                     });
         }
-
 
     }
 
@@ -214,39 +247,7 @@ public class sign_up_user extends AppCompatActivity
     }
 
 
-    private void createAccount(final User userIn, String password)
-    {
-    Log.d(TAG, "createAccount:" + userIn.getEmail());
-    // [START create_user_with_email]
-    mAuth.createUserWithEmailAndPassword(userIn.getEmail(), password)
-            .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task)
-                {
-                    if (task.isSuccessful())
-                    {
-                        // Sign in success, update UI with the signed-in user's information
-                        Log.d(TAG, "createUserWithEmail:success");
-                        FirebaseUser user = mAuth.getCurrentUser();
 
-                        newUser(userIn, user.getUid());
-                        updateUI(user);
-                    }
-                    else
-                    {
-                        // If sign in fails, display a message to the user.
-                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                        Toast.makeText(sign_up_user.this, "Authentication failed.",
-                                Toast.LENGTH_SHORT).show();
-                        updateUI(null);
-                    }
-
-                    // [START_EXCLUDE]
-
-                    // [END_EXCLUDE]
-                }
-            });
-}
 
     private void updateUI(FirebaseUser currentUser)
     {
