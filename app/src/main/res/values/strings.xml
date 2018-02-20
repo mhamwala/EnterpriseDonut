@@ -25,7 +25,6 @@
     <string name="showUserNumber">Get the current users number</string>
     <string name="showUserLocation">Get the current users location</string>
     <string name="showUserEmail">Get the current users email</string>
-
     <string name="userDetails">User Details</string>
     <string name="signOut">Sign Out</string>
     <string name="settingsButton">Settings page</string>
@@ -33,7 +32,7 @@
 
     //User Page
     <string name="requestCourier">User</string>
-
+    
     //Request courier service page
     <string name="deliveryType">delivery type</string>
     <string name="distance">distance</string>
