@@ -10,15 +10,24 @@ public class UserActivity extends AppCompatActivity {
 
     Button tempButton;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         RequestCourierButton();
+
+        userDetailsButton();
     }
 
+<<<<<<< HEAD
     public void RequestCourierButton()
     {
+=======
+
+    public void RequestCourierButton() {
+>>>>>>> Develop
         tempButton = findViewById(R.id.requestCourier);
         tempButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,4 +38,17 @@ public class UserActivity extends AppCompatActivity {
         });
 
     }
+
+    public void userDetailsButton() {
+        tempButton = findViewById(R.id.userDetails);
+        tempButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(UserActivity.this, UserDetailsActivity.class);
+                startActivity(home);
+            }
+        });
+
+    }
+
 }
