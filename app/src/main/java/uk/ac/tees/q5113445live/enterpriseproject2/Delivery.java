@@ -7,20 +7,24 @@ package uk.ac.tees.q5113445live.enterpriseproject2;
 public class Delivery
 {
     private String deliveryType;
-    private String distance;
+    private String collect;
+    private String deliver;
     private String pay;
     private String weight;
     private String size;
+
+    //Need variables for delivered from, delivered to
 
     Delivery()
     {
 
     }
 
-    Delivery(String a, String b, String c, String d, String e)
+    Delivery(String a, String b, String c, String d, String e, String f)
     {
         this.deliveryType = a;
-        this.distance = b;
+        this.collect = b;
+        this.deliver =f;
         this.pay = c;
         this.weight = d;
         this.size = e;
@@ -35,11 +39,11 @@ public class Delivery
     }
 
     public String getDistance() {
-        return distance;
+        return collect;
     }
 
     public void setDistance(String distance) {
-        this.distance = distance;
+        this.collect = distance;
     }
 
     public String getPay() {
@@ -65,6 +69,17 @@ public class Delivery
     public void setSize(String size) {
         this.size = size;
     }
+
+    public void basePay(String from, String to, String size)
+    {
+       //Work out mileage from two places
+       // mileage * size /5 * 2
+    }
+    public void findDistance(String from, String to)
+    {
+        //This function will work out the mileage between two locations.
+    }
+
 
 
 
