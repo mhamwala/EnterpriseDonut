@@ -32,13 +32,13 @@
 
     //User Page
     <string name="requestCourier">User</string>
-    
+
     //Request courier service page
     <string name="deliveryType">delivery type</string>
-    <string name="distance">distance</string>
+    <string name="deliverTo">delivering To</string>
     <string name="size">size</string>
     <string name="weight">weight</string>
-    <string name="pay">pay</string>
-
+    <string name="basePay">pay</string>
+    <string name="collect">collect</string>
 
 </resources>
