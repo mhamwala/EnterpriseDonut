@@ -27,6 +27,7 @@
     <string name="showUserEmail">Get the current users email</string>
 
     <string name="userDetails">User Details</string>
+    <string name="signOut">Sign Out</string>
     <string name="settingsButton">Settings page</string>
     <string name="driverButton">Driver page</string>
 

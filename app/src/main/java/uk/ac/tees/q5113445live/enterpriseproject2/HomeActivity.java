@@ -33,6 +33,7 @@ public class HomeActivity extends AppCompatActivity
 {
     private DatabaseReference mDatabase;
     private StorageReference mStorageRef;
+    private FirebaseUser user;
     private ImageView imageView;
 
     Button tempButton;
@@ -42,7 +43,7 @@ public class HomeActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home2);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         String userId = user.getUid();
 
 
@@ -81,7 +82,7 @@ public class HomeActivity extends AppCompatActivity
 
         String name = mDatabase.getKey();
         //requestCourierButton();
-        userDetailsButton();
+        signOutButton();
         settingsButton();
         driverButton();
         userButton();
@@ -99,12 +100,16 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    public void userDetailsButton() {
-        tempButton = findViewById(R.id.userDetails);
+    public void signOutButton()
+    {
+        tempButton = findViewById(R.id.signOut);
+
         tempButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent home = new Intent(HomeActivity.this, UserDetailsActivity.class);
+            public void onClick(View view)
+            {
+                FirebaseAuth.getInstance().signOut();
+                Intent home = new Intent(HomeActivity.this, login_activity.class);
                 startActivity(home);
             }
         });

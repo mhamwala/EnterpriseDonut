@@ -83,7 +83,7 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <Button
-        android:id="@+id/userDetails"
+        android:id="@+id/signOut"
         android:layout_width="111dp"
         android:layout_height="45dp"
         android:layout_marginBottom="4dp"
@@ -91,7 +91,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/button_background"
-        android:text="User Details"
+        android:text="@string/signOut"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/settingsButton"
         app:layout_constraintHorizontal_bias="0.545"

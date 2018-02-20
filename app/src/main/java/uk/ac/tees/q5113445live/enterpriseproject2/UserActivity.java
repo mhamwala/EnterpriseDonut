@@ -17,12 +17,13 @@ public class UserActivity extends AppCompatActivity {
         RequestCourierButton();
     }
 
-    public void RequestCourierButton() {
+    public void RequestCourierButton()
+    {
         tempButton = findViewById(R.id.requestCourier);
         tempButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent home = new Intent(UserActivity.this, RequestCourier.class);
+                Intent home = new Intent(UserActivity.this, AdvertiseItem.class);
                 startActivity(home);
             }
         });
