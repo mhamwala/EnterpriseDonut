@@ -24,7 +24,7 @@
         <activity android:name=".UserDetailsActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".DriverActivity" />
-        <activity android:name=".UserActivity"></activity>
+        <activity android:name=".UserActivity" />
     </application>
 
 </manifest>

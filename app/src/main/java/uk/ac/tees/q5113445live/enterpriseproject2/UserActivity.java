@@ -26,7 +26,7 @@ public class UserActivity extends AppCompatActivity {
         tempButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent home = new Intent(UserActivity.this, AdvertiseItem.class);
+                Intent home = new Intent(UserActivity.this, RequestCourier.class);
                 startActivity(home);
             }
         });

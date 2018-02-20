@@ -14,7 +14,6 @@ public class Delivery
     private String size;
 
     //Need variables for delivered from, delivered to
-
     Delivery()
     {
 
@@ -24,7 +23,7 @@ public class Delivery
     {
         this.deliveryType = a;
         this.collect = b;
-        this.deliver =f;
+        this.deliver = f;
         this.pay = c;
         this.weight = d;
         this.size = e;
@@ -37,6 +36,14 @@ public class Delivery
     public void setDeliveryType(String deliveryType) {
         this.deliveryType = deliveryType;
     }
+
+    public String getCollect() {return collect;    }
+
+    public void setCollect(String collect) {this.collect = collect;    }
+
+    public String getDeliver() {return deliver;}
+
+    public void setDeliver(String deliver) {this.deliver = deliver;}
 
     public String getDistance() {
         return collect;
@@ -70,6 +77,8 @@ public class Delivery
         this.size = size;
     }
 
+
+    // Calculating the Base/Minimum pay for a request to be sent out
     public void basePay(String from, String to, String size)
     {
        //Work out mileage from two places
