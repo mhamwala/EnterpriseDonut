@@ -18,8 +18,13 @@
         </activity>
         <activity android:name=".login_activity" />
         <activity android:name=".sign_up_user" />
-        <activity android:name=".sign_up_driver"/>
-
+        <activity android:name=".sign_up_driver" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".RequestCourier" />
+        <activity android:name=".UserDetailsActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".DriverActivity" />
+        <activity android:name=".UserActivity"></activity>
     </application>
 
 </manifest>

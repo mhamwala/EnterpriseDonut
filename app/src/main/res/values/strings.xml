@@ -2,9 +2,9 @@
     <string name="app_name">EnterpriseProject</string>
 
     //Login/Signup pages
-    <string name="login">Login</string>
+    <string name="loginButton">Login</string>
     <string name="sign_up">Sign Up</string>
-    <string name="enter_email">Enter Email</string>
+    <string name="usernameText">Enter Email</string>
     <string name="enter_pass">Enter Password</string>
     <string name="confirm_pass">Confirm Password</string>
     <string name="show_pass">Show Password</string>
@@ -18,7 +18,27 @@
     <string name="location">Enter your location</string>
 
     <string name="registration">Enter Vehicle registration</string>
-
     <string name="terms_conditions">By signing up you agree to our Terms and Conditions</string>
+
+    //Home Page fields
+    <string name="showUserName">Get the current users name</string>
+    <string name="showUserNumber">Get the current users number</string>
+    <string name="showUserLocation">Get the current users location</string>
+    <string name="showUserEmail">Get the current users email</string>
+
+    <string name="userDetails">User Details</string>
+    <string name="settingsButton">Settings page</string>
+    <string name="driverButton">Driver page</string>
+
+    //User Page
+    <string name="requestCourier">User</string>
+
+    //Request courier service page
+    <string name="deliveryType">delivery type</string>
+    <string name="distance">distance</string>
+    <string name="size">size</string>
+    <string name="weight">weight</string>
+    <string name="pay">pay</string>
+
 
 </resources>

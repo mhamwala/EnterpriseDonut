@@ -1,5 +1,9 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import android.graphics.Bitmap;
+import android.media.Image;
+import android.net.Uri;
+
 /**
  * Created by Luke on 13/02/2018.
  */
@@ -11,9 +15,7 @@ public class User
     String email;
     String regNumber;
     boolean driver = false;
-
     String number;
-
 
 
 
@@ -34,7 +36,8 @@ public class User
         regNumber = "";
         driver = false;
     }
-    User(String n, String e, String l,  String num, String reg)
+
+    User(String n, String e, String l, String num, String reg)
     {
         name= n;
         email = e;
@@ -42,6 +45,8 @@ public class User
         number = num;
         regNumber = reg;
         driver = true;
+        //profile = p;
+
     }
 
     public String getNumber()

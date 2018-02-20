@@ -92,6 +92,7 @@ public class sign_up_driver extends AppCompatActivity
         Intent intent;
         intent = new Intent(this, sign_up_user.class);
         startActivity(intent);
+        finish();
     }
     private void newUser(User user, String id)
     {
@@ -115,6 +116,8 @@ public class sign_up_driver extends AppCompatActivity
 
                             newUser(userIn, user.getUid());
                             updateUI(user);
+                            Intent home = new Intent(sign_up_driver.this, HomeActivity.class);
+                            startActivity(home);
                         }
                         else
                         {
