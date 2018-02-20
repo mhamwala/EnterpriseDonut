@@ -20,13 +20,8 @@ public class UserActivity extends AppCompatActivity {
         userDetailsButton();
     }
 
-<<<<<<< HEAD
-    public void RequestCourierButton()
-    {
-=======
 
     public void RequestCourierButton() {
->>>>>>> Develop
         tempButton = findViewById(R.id.requestCourier);
         tempButton.setOnClickListener(new View.OnClickListener() {
             @Override
