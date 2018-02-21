@@ -25,8 +25,8 @@
     <string name="showUserNumber">Get the current users number</string>
     <string name="showUserLocation">Get the current users location</string>
     <string name="showUserEmail">Get the current users email</string>
-
     <string name="userDetails">User Details</string>
+    <string name="signOut">Sign Out</string>
     <string name="settingsButton">Settings page</string>
     <string name="driverButton">Driver page</string>
 
@@ -35,10 +35,10 @@
 
     //Request courier service page
     <string name="deliveryType">delivery type</string>
-    <string name="distance">distance</string>
+    <string name="deliverTo">delivering To</string>
     <string name="size">size</string>
     <string name="weight">weight</string>
-    <string name="pay">pay</string>
-
+    <string name="basePay">pay</string>
+    <string name="collect">collect</string>
 
 </resources>

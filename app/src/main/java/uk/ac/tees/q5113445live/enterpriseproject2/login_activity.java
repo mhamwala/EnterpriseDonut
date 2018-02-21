@@ -42,7 +42,10 @@ public class login_activity extends AppCompatActivity
     {
         if(currentUser != null)
         {
-            //Change to homepage
+            Intent home = new Intent(login_activity.this,
+            HomeActivity.class);
+            startActivity(home);
+            finish();
         }
         else
         {

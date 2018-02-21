@@ -20,13 +20,12 @@ public class UserDetailsActivity extends AppCompatActivity
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_details);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
-
+        mDatabase = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
 
         ValueEventListener userListener = new ValueEventListener()
         {
@@ -51,7 +50,7 @@ public class UserDetailsActivity extends AppCompatActivity
 
             }
         };
-        mDatabase.addListenerForSingleValueEvent(userListener);
+        mDatabase.addValueEventListener(userListener);
 
 
         String name = mDatabase.getKey();

@@ -17,7 +17,6 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         RequestCourierButton();
-
         userDetailsButton();
     }
 
