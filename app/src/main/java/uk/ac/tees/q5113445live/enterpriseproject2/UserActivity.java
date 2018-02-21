@@ -21,9 +21,11 @@ public class UserActivity extends AppCompatActivity {
     }
 
 
-    public void RequestCourierButton() {
+    public void RequestCourierButton()
+    {
         tempButton = findViewById(R.id.requestCourier);
-        tempButton.setOnClickListener(new View.OnClickListener() {
+        tempButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view) {
                 Intent home = new Intent(UserActivity.this, RequestCourier.class);
