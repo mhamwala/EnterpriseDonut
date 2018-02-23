@@ -27,10 +27,11 @@ public class RequestCourier extends AppCompatActivity
         setContentView(R.layout.activity_advertise_item);
 
         final EditText deliveryType = findViewById(R.id.deliveryType);
-        final EditText distance = findViewById(R.id.distance);
+        final EditText distance = findViewById(R.id.deliverTo);
         final EditText size = findViewById(R.id.size);
         final EditText weight = findViewById(R.id.weight);
         final EditText pay = findViewById(R.id.pay);
+        final EditText collect = findViewById(R.id.collect);
 
         Button advertiseItem = findViewById(R.id.button5);
 
@@ -47,7 +48,8 @@ public class RequestCourier extends AppCompatActivity
                                             distance.getText().toString(),
                                             size.getText().toString(),
                                             weight.getText().toString(),
-                                            pay.getText().toString()
+                                            pay.getText().toString(),
+                                            collect.getText().toString()
                                     );
                             newDelivery(delivery, "1");
                            // uploadCourierRequest(delivery);

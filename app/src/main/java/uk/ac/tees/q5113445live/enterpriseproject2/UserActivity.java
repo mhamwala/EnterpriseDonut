@@ -17,22 +17,18 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
         RequestCourierButton();
-
         userDetailsButton();
     }
 
-<<<<<<< HEAD
+
     public void RequestCourierButton()
     {
-=======
-
-    public void RequestCourierButton() {
->>>>>>> Develop
         tempButton = findViewById(R.id.requestCourier);
-        tempButton.setOnClickListener(new View.OnClickListener() {
+        tempButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View view) {
-                Intent home = new Intent(UserActivity.this, AdvertiseItem.class);
+                Intent home = new Intent(UserActivity.this, RequestCourier.class);
                 startActivity(home);
             }
         });
