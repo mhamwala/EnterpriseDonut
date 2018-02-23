@@ -109,9 +109,8 @@ public class sign_up_user extends AppCompatActivity
                                numEdit.getText().toString()
                            );
                            String password = passEdit.getText().toString();
-
                            createAccount(user, password);
-                           uploadProfile();
+
 
                        }
                        catch (NumberFormatException e)
@@ -167,9 +166,9 @@ public class sign_up_user extends AppCompatActivity
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
                             newUser(userIn, user.getUid());
-                            updateUI(user);
+                            uploadProfile();
+
                         }
                         else
                         {
