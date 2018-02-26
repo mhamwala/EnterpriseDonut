@@ -1,13 +1,182 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="uk.ac.tees.q5113445live.enterpriseproject2.Fragment2">
+    android:background="@drawable/background_color"
 
-    <!-- TODO: Update blank fragment layout -->
+    tools:context="uk.ac.tees.q5113445live.enterpriseproject2.RequestCourier">
+
+    <Button
+        android:id="@+id/button5"
+        android:layout_width="233dp"
+
+        android:layout_height="53dp"
+        android:layout_marginBottom="52dp"
+        android:background="@drawable/button_background"
+        android:text="Request Services"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/textView"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Delivery Type"
+        app:layout_constraintBottom_toTopOf="@+id/textView17"
+        app:layout_constraintEnd_toStartOf="@+id/deliveryType"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.538" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/deliveryType"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/deliveryType"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/collect"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/collect"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:hint="@string/collect"
+        android:inputType="textPostalAddress"
+        app:layout_constraintBottom_toTopOf="@+id/deliverTo"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/size"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:hint="@string/size"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/weight"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/weight"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:hint="@string/weight"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/pay"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <EditText
+        android:id="@+id/pay"
+        android:layout_width="185dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:hint="@string/basePay"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Deliver To"
+        app:layout_constraintBottom_toTopOf="@+id/textView9"
+        app:layout_constraintEnd_toStartOf="@+id/collect"
+        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Collect from"
+        app:layout_constraintBottom_toTopOf="@+id/textView8"
+        app:layout_constraintEnd_toStartOf="@+id/collect"
+        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="44dp"
+        android:layout_marginStart="16dp"
+        android:text="Size"
+        app:layout_constraintBottom_toTopOf="@+id/textView10"
+        app:layout_constraintEnd_toStartOf="@+id/size"
+        app:layout_constraintHorizontal_bias="0.342"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:text="Weight"
+        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:layout_constraintEnd_toStartOf="@+id/weight"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:text="Base Pay"
+        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintEnd_toStartOf="@+id/pay"
+        app:layout_constraintHorizontal_bias="0.571"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/deliverTo"
+        android:layout_width="184dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:hint="@string/deliverTo"
+        android:inputType="textPostalAddress"
+        app:layout_constraintBottom_toTopOf="@+id/size"
+        app:layout_constraintRight_toRightOf="parent" />
+</android.support.constraint.ConstraintLayout>
