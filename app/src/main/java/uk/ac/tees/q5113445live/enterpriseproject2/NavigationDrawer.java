@@ -1,12 +1,8 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -18,8 +14,8 @@ import android.view.MenuItem;
 
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        Fragment1.OnFragmentInteractionListener,
-        Fragment2.OnFragmentInteractionListener,
+        HomeFragment.OnFragmentInteractionListener,
+        AdvertiseFragment.OnFragmentInteractionListener,
         Fragment3.OnFragmentInteractionListener
 {
 
@@ -43,7 +39,7 @@ public class NavigationDrawer extends AppCompatActivity
 
         //NOTE:  Open fragment1 initially.
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.mainFrame, new Fragment1());
+        ft.replace(R.id.mainFrame, new HomeFragment());
         ft.commit();
     }
 
@@ -94,10 +90,10 @@ public class NavigationDrawer extends AppCompatActivity
 
         if (id == R.id.nav_frag1)
         {
-            fragment = new Fragment1();
+            fragment = new HomeFragment();
         } else if (id == R.id.nav_frag2)
         {
-            fragment = new Fragment2();
+            fragment = new AdvertiseFragment();
         }else if (id == R.id.nav_frag3)
         {
             fragment = new Fragment3();
