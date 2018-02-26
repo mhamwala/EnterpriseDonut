@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,7 +9,18 @@
     tools:context="uk.ac.tees.q5113445live.enterpriseproject2.HomeActivity"
     tools:layout_editor_absoluteY="25dp">
 
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_color"
+        tools:context="uk.ac.tees.q5113445live.enterpriseproject2.HomeActivity"
+        tools:layout_editor_absoluteY="25dp">
 
+
+
+    <!-- Main Content -->
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="102dp"
@@ -159,5 +171,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         tools:text="@string/driverButton" />
-
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>

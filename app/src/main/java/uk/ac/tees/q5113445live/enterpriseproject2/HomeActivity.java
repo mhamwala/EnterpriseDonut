@@ -5,9 +5,12 @@ import android.renderscript.Sampler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -29,7 +32,7 @@ import com.google.firebase.storage.StorageReference;
 import java.io.File;
 import java.io.IOException;
 
-public class HomeActivity extends AppCompatActivity
+public class HomeActivity extends NavigationDrawer
 {
     private DatabaseReference mDatabase;
     private StorageReference mStorageRef;
@@ -44,6 +47,7 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home2);
         user = FirebaseAuth.getInstance().getCurrentUser();
+
         String userId = user.getUid();
 
 
@@ -88,7 +92,8 @@ public class HomeActivity extends AppCompatActivity
         userButton();
     }
 
-    public void userButton() {
+    public void userButton()
+    {
         tempButton = findViewById(R.id.userButton);
         tempButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +133,8 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    public void driverButton() {
+    public void driverButton()
+    {
         tempButton = findViewById(R.id.driverButton);
         tempButton.setOnClickListener(new View.OnClickListener() {
             @Override
