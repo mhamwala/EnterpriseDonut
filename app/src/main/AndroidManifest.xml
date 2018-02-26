@@ -26,7 +26,6 @@
         <activity android:name=".DriverActivity" />
         <activity android:name=".UserActivity" />
         <activity android:name=".VehicleDetailsActivity" />
-        <activity android:name=".AllAvaliableJobsActivity"></activity>
     </application>
 
 </manifest>
