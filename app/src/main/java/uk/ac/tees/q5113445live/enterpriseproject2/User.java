@@ -58,6 +58,7 @@ public class User
     {
         this.number = number;
     }
+
     public String getRegNumber()
     {
         return regNumber;

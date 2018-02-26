@@ -6,6 +6,8 @@
     <color name="Background1">#ebece4</color>
     <color name="Background2">#aaaaaa</color>
     <color name="Blackboard">#565656</color>
-    
+    <color name="Background">#0D47A1</color>
+    <color name="Background3">#F57F17
+    </color>
 
 </resources>
