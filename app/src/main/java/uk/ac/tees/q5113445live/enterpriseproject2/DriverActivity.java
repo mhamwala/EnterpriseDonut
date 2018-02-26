@@ -15,7 +15,7 @@ public class DriverActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver);
         VehicleDetailsButton();
-        AllJobsButton();
+
     }
 
 
@@ -33,19 +33,7 @@ public class DriverActivity extends AppCompatActivity
 
     }
 
-    public void AllJobsButton()
-    {
-        but1 = findViewById(R.id.AllJobs);
-        but1.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view) {
-                Intent home = new Intent(DriverActivity.this, AllAvaliableJobsActivity.class);
-                startActivity(home);
-            }
-        });
 
-    }
 
 
 

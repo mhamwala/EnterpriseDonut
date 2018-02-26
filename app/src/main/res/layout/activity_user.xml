@@ -4,21 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_color"
+    android:background="@color/Background"
     tools:context="uk.ac.tees.q5113445live.enterpriseproject2.UserActivity">
 
 
     <Button
         android:id="@+id/requestCourier"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="146dp"
+        android:layout_height="65dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
 
-        android:background="@drawable/button_circle"
+        android:background="@color/Background3"
         android:text="Request courier service"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -30,14 +30,14 @@
 
     <Button
         android:id="@+id/userDetails"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="146dp"
+        android:layout_height="61dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/button_circle"
+        android:background="@color/Background3"
         android:text="@string/userDetails"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

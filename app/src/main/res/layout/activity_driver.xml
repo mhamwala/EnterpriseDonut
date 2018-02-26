@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_color"
+    android:background="@color/Background"
     tools:context="uk.ac.tees.q5113445live.enterpriseproject2.DriverActivity">
 
     <TextView
@@ -88,7 +88,7 @@
         android:layout_marginLeft="84dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/button_background"
+        android:background="@color/Background3"
         android:text="Vehicle Details"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -106,7 +106,7 @@
         android:layout_marginBottom="128dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:background="@drawable/button_background"
+        android:background="@color/Background3"
         android:text="All Available Jobs"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"

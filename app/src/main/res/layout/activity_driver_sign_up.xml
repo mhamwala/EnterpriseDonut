@@ -4,8 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_color"
+    android:background="@color/Background"
     tools:context="uk.ac.tees.q5113445live.enterpriseproject2.sign_up_user">
+
+    <GridLayout
+        android:layout_width="282dp"
+        android:layout_height="348dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/Background1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.403">
+
+    </GridLayout>
 
     <EditText
         android:id="@+id/enterName"
@@ -13,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="28dp"
         android:ems="10"
         android:hint="@string/full_name"
         android:inputType="textPersonName"
@@ -56,7 +72,7 @@
         android:layout_height="45dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/button_background"
+        android:background="@color/Background3"
         android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,7 +130,7 @@
         android:id="@+id/userSwitch"
         android:layout_width="223dp"
         android:layout_height="28dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="28dp"
         android:checked="true"
         android:showText="true"
         android:splitTrack="false"
@@ -134,18 +150,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:checked="true" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/button_background"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="418dp" />
 
 
 </android.support.constraint.ConstraintLayout>
