@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/background_color"
-        tools:context="uk.ac.tees.q5113445live.enterpriseproject2.HomeActivity"
-        tools:layout_editor_absoluteY="25dp">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_color"
+    tools:context="uk.ac.tees.q5113445live.enterpriseproject2.HomeActivity"
+    tools:layout_editor_absoluteY="25dp">
 
 
     <!-- Main Content -->
@@ -161,4 +161,4 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:layout_constraintVertical_bias="0.526"
         tools:text="@string/driverButton" />
-    </android.support.constraint.ConstraintLayout>
+</android.support.constraint.ConstraintLayout>
