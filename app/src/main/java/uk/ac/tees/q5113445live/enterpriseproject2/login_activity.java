@@ -43,7 +43,7 @@ public class login_activity extends AppCompatActivity
         if(currentUser != null)
         {
             Intent home = new Intent(login_activity.this,
-            HomeActivity.class);
+            NavigationDrawer.class);
             startActivity(home);
             finish();
         }
@@ -123,7 +123,7 @@ public class login_activity extends AppCompatActivity
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             // once log in is successful sends user to landing page. nathan
-                            Intent home = new Intent(login_activity.this, HomeActivity.class);
+                            Intent home = new Intent(login_activity.this, NavigationDrawer.class);
                             startActivity(home);
 
                         } else {
