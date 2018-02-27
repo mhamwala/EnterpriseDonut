@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -30,6 +31,8 @@ public class AdvertiseFragment extends Fragment {
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private FirebaseUser user;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -66,6 +69,7 @@ public class AdvertiseFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        user = FirebaseAuth.getInstance().getCurrentUser();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -76,7 +80,7 @@ public class AdvertiseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_fragment2, container, false);
+        View view= inflater.inflate(R.layout.fragment_advertise, container, false);
         if (mListener != null)
         {
             mListener.onFragmentInteraction("Advertise");
@@ -106,7 +110,8 @@ public class AdvertiseFragment extends Fragment {
                                     pay.getText().toString(),
                                     collect.getText().toString()
                             );
-                    newDelivery(delivery, "1");
+                    String key = mDatabase.getDatabase().getReference("delivery").push().getKey();
+                    newDelivery(delivery,user.getUid(), key);
                     // uploadCourierRequest(delivery);
                 }
                 catch (NumberFormatException e)
@@ -157,8 +162,8 @@ public class AdvertiseFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(String title);
     }
-    private void newDelivery(Delivery delivery, String id)
+    private void newDelivery(Delivery delivery,String user, String id)
     {
-        mDatabase.child("delivery").child(id).setValue(delivery);
+        mDatabase.child("delivery").child(user).child(id).setValue(delivery);
     }
 }

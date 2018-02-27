@@ -19,15 +19,9 @@
 
         <activity android:name=".sign_up_user" />
         <activity android:name=".sign_up_driver" />
-        <activity android:name=".HomeActivity" />
-        <activity android:name=".RequestCourier" />
-        <activity android:name=".UserDetailsActivity" />
         <activity android:name=".SettingsActivity" />
         <activity android:name=".DriverActivity" />
-        <activity android:name=".UserActivity" />
         <activity android:name=".VehicleDetailsActivity" />
-
-        <activity android:name=".AllAvaliableJobsActivity" />
         <activity
             android:name=".NavigationDrawer"
             android:label="@string/title_activity_navigation_drawer"
