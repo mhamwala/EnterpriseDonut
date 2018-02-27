@@ -1,23 +1,33 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link Fragment3.OnFragmentInteractionListener} interface
+ * {@link DetailsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link Fragment3#newInstance} factory method to
+ * Use the {@link DetailsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment3 extends Fragment
+public class DetailsFragment extends Fragment
 {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,10 +37,15 @@ public class Fragment3 extends Fragment
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private DatabaseReference mDatabase;
+    private StorageReference mStorageRef;
+    private FirebaseUser user;
+
 
     private OnFragmentInteractionListener mListener;
 
-    public Fragment3() {
+    public DetailsFragment()
+    {
         // Required empty public constructor
     }
 
@@ -40,11 +55,11 @@ public class Fragment3 extends Fragment
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment Fragment3.
+     * @return A new instance of fragment DetailsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static Fragment3 newInstance(String param1, String param2) {
-        Fragment3 fragment = new Fragment3();
+    public static DetailsFragment newInstance(String param1, String param2) {
+        DetailsFragment fragment = new DetailsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -53,9 +68,18 @@ public class Fragment3 extends Fragment
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+        mStorageRef = FirebaseStorage.getInstance().getReference("images").child(user.getUid());
+
+        if (getArguments() != null)
+
+        {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
@@ -63,15 +87,37 @@ public class Fragment3 extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragment3, container, false);
+                             Bundle savedInstanceState)
+    {
+        final View view = inflater.inflate(R.layout.fragment_user_details, container, false);
+        ValueEventListener userListener = new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                User user = dataSnapshot.getValue(User.class);
+                nameText(user,view);
+                numText(user,view);
+                locationText(user,view);
+                emailText(user, view);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+
+            }
+        };
+        mDatabase.addListenerForSingleValueEvent(userListener);
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(String title)
     {
-        if (mListener != null) {
+        if (mListener != null)
+        {
             mListener.onFragmentInteraction(title);
         }
     }
@@ -106,5 +152,26 @@ public class Fragment3 extends Fragment
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(String title);
+    }
+
+    public void nameText(User user, View view)
+    {
+        TextView userName = view.findViewById(R.id.showUserName);
+        userName.setText(user.getName());
+    }
+    public void numText(User user, View view)
+    {
+        TextView userNumber = view.findViewById(R.id.showUserNumber);
+        userNumber.setText(user.getNumber());
+    }
+    public void locationText(User user, View view)
+    {
+        TextView userLocation = view.findViewById(R.id.showUserLocation);
+        userLocation.setText(user.getLocation());
+    }
+    public void emailText(User user, View view)
+    {
+        TextView userEmail = view.findViewById(R.id.showUserEmail);
+        userEmail.setText(user.getEmail());
     }
 }
