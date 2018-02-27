@@ -10,13 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.io.IOException;
 
 
 /**
@@ -44,6 +52,7 @@ public class HomeFragment extends Fragment
     private StorageReference mStorageRef;
     private FirebaseUser user;
     private ImageView imageView;
+    private View view;
 
     Button tempButton;
 
@@ -77,7 +86,6 @@ public class HomeFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
         user = FirebaseAuth.getInstance().getCurrentUser();
-
         mDatabase = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
         mStorageRef = FirebaseStorage.getInstance().getReference("images").child(user.getUid());
         if (getArguments() != null)
@@ -93,11 +101,10 @@ public class HomeFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        View view= inflater.inflate(R.layout.fragment_fragment1, container, false);
-        String userId = user.getUid();
-        // NOTE : We are calling the onFragmentInteraction() declared in the MainActivity
-        // ie we are sending "Fragment 1" as title parameter when fragment1 is activated
-        if (mListener != null) {
+        final View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        if (mListener != null)
+        {
             mListener.onFragmentInteraction("Home");
         }
 
@@ -105,10 +112,44 @@ public class HomeFragment extends Fragment
         // For eg: Button btn1= (Button) view.findViewById(R.id.frag1_btn1);
         // btn1.setOnclickListener(...
 
+        ValueEventListener userListener = new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+
+                User user = dataSnapshot.getValue(User.class);
+                System.out.println(user);
+                TextView userText = view.findViewById(R.id.showUserName);
+                userText.setText(user.getName());
+                imageView = view.findViewById(R.id.imageView);
+                try
+                {
+                    getProfileImage();
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+
+            }
+        };
+        mDatabase.addListenerForSingleValueEvent(userListener);
+
+
+        String name = mDatabase.getKey();
+        /*
         signOutButton(view);
         settingsButton(view);
         driverButton(view);
         userButton(view);
+        */
         return view;
     }
 
@@ -125,9 +166,12 @@ public class HomeFragment extends Fragment
     public void onAttach(Context context)
     {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
+        if (context instanceof OnFragmentInteractionListener)
+        {
             mListener = (OnFragmentInteractionListener) context;
-        } else {
+        }
+        else
+        {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
@@ -155,7 +199,7 @@ public class HomeFragment extends Fragment
         // TODO: Update argument type and name
         void onFragmentInteraction(String title);
     }
-    public void userButton(View view)
+    /*public void userButton(View view)
     {
         tempButton = view.findViewById(R.id.userButton);
         tempButton.setOnClickListener(new View.OnClickListener()
@@ -166,8 +210,8 @@ public class HomeFragment extends Fragment
                 startActivity(home);
             }
         });
-
     }
+
 
     public void signOutButton(View view)
     {
@@ -185,7 +229,8 @@ public class HomeFragment extends Fragment
 
     }
 
-    public void settingsButton(View view) {
+    public void settingsButton(View view)
+    {
         tempButton = view.findViewById(R.id.settingsButton);
         tempButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,5 +254,13 @@ public class HomeFragment extends Fragment
             }
         });
 
+    }
+    */
+    public void getProfileImage() throws IOException
+    {
+        Glide.with(this /* context */)
+                .using(new FirebaseImageLoader())
+                .load(mStorageRef)
+                .into(imageView);
     }
 }

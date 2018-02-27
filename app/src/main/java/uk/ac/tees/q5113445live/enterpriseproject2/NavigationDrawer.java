@@ -1,5 +1,6 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -11,14 +12,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.io.IOException;
 
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
         AdvertiseFragment.OnFragmentInteractionListener,
-        Fragment3.OnFragmentInteractionListener
+        DetailsFragment.OnFragmentInteractionListener
 {
 
+    private DatabaseReference mDatabase;
+    private StorageReference mStorageRef;
+    private FirebaseUser user;
+    private ImageView imageView;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -33,9 +55,15 @@ public class NavigationDrawer extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.nav_frag1);
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+        mStorageRef = FirebaseStorage.getInstance().getReference("images").child(user.getUid());
+        getDetails();
 
         //NOTE:  Open fragment1 initially.
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -96,7 +124,17 @@ public class NavigationDrawer extends AppCompatActivity
             fragment = new AdvertiseFragment();
         }else if (id == R.id.nav_frag3)
         {
-            fragment = new Fragment3();
+            fragment = new DetailsFragment();
+        }
+        else if (id == R.id.nav_signout)
+        {
+            FirebaseAuth.getInstance().signOut();
+            Intent home = new Intent(this, login_activity.class);
+            startActivity(home);
+        }
+        else if (id == R.id.nav_advertised)
+        {
+            //fragment = new ItemFragment();
         }
 
         //NOTE: Fragment changing code
@@ -117,5 +155,46 @@ public class NavigationDrawer extends AppCompatActivity
     public void onFragmentInteraction(String title)
     {
         getSupportActionBar().setTitle(title);
+
+    }
+
+    public void getDetails()
+    {
+        ValueEventListener userListener = new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+
+                User user = dataSnapshot.getValue(User.class);
+                System.out.println(user);
+                TextView userText = findViewById(R.id.nav_name);
+                userText.setText(user.getName());
+                imageView = findViewById(R.id.nav_profile);
+                try
+                {
+                    getProfileImage();
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError)
+            {
+
+            }
+        };
+        mDatabase.addListenerForSingleValueEvent(userListener);
+    }
+    public void getProfileImage() throws IOException
+    {
+        Glide.with(this /* context */)
+                .using(new FirebaseImageLoader())
+                .load(mStorageRef)
+                .into(imageView);
     }
 }

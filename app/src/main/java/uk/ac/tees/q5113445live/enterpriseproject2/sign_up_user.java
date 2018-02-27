@@ -149,7 +149,7 @@ public class sign_up_user extends AppCompatActivity
     }
     private void changeHome()
     {
-        Intent home = new Intent(sign_up_user.this, HomeActivity.class);
+        Intent home = new Intent(sign_up_user.this, NavigationDrawer.class);
         startActivity(home);
     }
     private void createAccount(final User userIn, String password)

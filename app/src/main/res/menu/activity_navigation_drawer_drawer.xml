@@ -11,10 +11,20 @@
             android:id="@+id/nav_frag2"
             android:icon="@drawable/ic_menu_camera"
             android:title="Advertise" />
+
         <item
             android:id="@+id/nav_frag3"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Bids" />
+            android:title="My Account" />
+        <item
+            android:id="@+id/nav_advertised"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="View Adverts" />
+
+        <item
+            android:id="@+id/nav_signout"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Sign Out" />
 
     </group>
 
