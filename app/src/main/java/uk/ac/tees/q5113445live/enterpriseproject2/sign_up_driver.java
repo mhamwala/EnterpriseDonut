@@ -29,8 +29,6 @@ public class sign_up_driver extends AppCompatActivity
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -48,17 +46,17 @@ public class sign_up_driver extends AppCompatActivity
         final EditText locEdit = findViewById(R.id.enterLoc);
         final EditText numEdit = findViewById(R.id.enterNumber);
 
-        final Switch userSwitch = findViewById(R.id.userSwitch);
-        userSwitch.setOnClickListener(new Switch.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                boolean check = userSwitch.isChecked();
-                System.out.println("Value of switch" + check);
-                changeUserType(v);
-            }
-        });
+//        final Switch userSwitch = findViewById(R.id.userSwitch);
+//        userSwitch.setOnClickListener(new Switch.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                boolean check = userSwitch.isChecked();
+//                System.out.println("Value of switch" + check);
+//                changeUserType(v);
+//            }
+//        });
 
         Button signUp = findViewById(R.id.signUpButton);
         signUp.setOnClickListener(new Button.OnClickListener()
@@ -87,13 +85,13 @@ public class sign_up_driver extends AppCompatActivity
           }
         );
     }
-    private void changeUserType(View v)
-    {
-        Intent intent;
-        intent = new Intent(this, sign_up_user.class);
-        startActivity(intent);
-        finish();
-    }
+//    private void changeUserType(View v)
+//    {
+//        Intent intent;
+//        intent = new Intent(this, sign_up_user.class);
+//        startActivity(intent);
+//        finish();
+//    }
     private void newUser(User user, String id)
     {
         mDatabase.child("users").child(id).setValue(user);
