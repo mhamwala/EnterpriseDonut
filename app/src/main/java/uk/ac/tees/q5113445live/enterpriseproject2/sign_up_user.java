@@ -64,21 +64,21 @@ public class sign_up_user extends AppCompatActivity
         final EditText nameEdit = findViewById(R.id.enterName);
         final EditText locEdit = findViewById(R.id.enterLoc);
         final EditText numEdit = findViewById(R.id.enterNumber);
-        final Switch userSwitch = findViewById(R.id.userSwitch);
+        //final Switch userSwitch = findViewById(R.id.userSwitch);
         final Button addImage = findViewById(R.id.addImage);
         testImage = findViewById(R.id.testImage);
 
-        //userSwitch.setChecked(false);
-        userSwitch.setOnClickListener(new Switch.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                boolean check = userSwitch.isChecked();
-                System.out.println("Value of switch" + check);
-                changeUserType(v);
-            }
-        });
+//        //userSwitch.setChecked(false);
+//        userSwitch.setOnClickListener(new Switch.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View v)
+//            {
+//                boolean check = userSwitch.isChecked();
+//                System.out.println("Value of switch" + check);
+//                //changeUserType(v);
+//            }
+//        });
 
         addImage.setOnClickListener(new Switch.OnClickListener()
         {
@@ -233,13 +233,13 @@ public class sign_up_user extends AppCompatActivity
         );
 
     }
-    private void changeUserType(View v)
-    {
-        Intent intent;
-        intent = new Intent(this, sign_up_driver.class);
-        startActivity(intent);
-        finish();
-    }
+//    private void changeUserType(View v)
+//    {
+//        Intent intent;
+//        intent = new Intent(this, sign_up_driver.class);
+//        startActivity(intent);
+//        finish();
+//    }
     private void newUser(User user, String id)
     {
         mDatabase.child("users").child(id).setValue(user);
