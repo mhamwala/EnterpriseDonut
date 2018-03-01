@@ -174,4 +174,8 @@ public class DetailsFragment extends Fragment
         TextView userEmail = view.findViewById(R.id.showUserEmail);
         userEmail.setText(user.getEmail());
     }
+
+    public void updateButton() {
+
+    }
 }
