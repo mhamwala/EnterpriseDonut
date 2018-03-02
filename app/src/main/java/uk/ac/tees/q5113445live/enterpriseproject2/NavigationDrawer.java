@@ -34,7 +34,8 @@ public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
         AdvertiseFragment.OnFragmentInteractionListener,
-        DetailsFragment.OnFragmentInteractionListener
+        DetailsFragment.OnFragmentInteractionListener,
+        LocationFragment.OnFragmentInteractionListener
 {
 
     private DatabaseReference mDatabase;
@@ -135,6 +136,10 @@ public class NavigationDrawer extends AppCompatActivity
         else if (id == R.id.nav_advertised)
         {
             //fragment = new ItemFragment();
+        }
+        else if (id == R.id.nav_locationTest)
+        {
+            fragment = new LocationFragment();
         }
 
         //NOTE: Fragment changing code
