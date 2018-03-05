@@ -4,9 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Background"
+    android:background="@drawable/side_nav_bar"
     tools:context="uk.ac.tees.q5113445live.enterpriseproject2.sign_up_user">
-
 
     <GridLayout
         android:id="@+id/gridLayout3"
@@ -31,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+
         android:ems="10"
         android:hint="@string/full_name"
         android:inputType="textPersonName"
@@ -43,7 +43,7 @@
 
     <EditText
         android:id="@+id/enterEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -55,8 +55,8 @@
 
     <EditText
         android:id="@+id/enterPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="340dp"
+        android:layout_height="42dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/enter_pass"
@@ -87,9 +87,10 @@
         app:layout_constraintVertical_bias="0.927" />
 
 
+
     <EditText
         android:id="@+id/enterNumber"
-        android:layout_width="wrap_content"
+        android:layout_width="340dp"
         android:layout_height="42dp"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -101,7 +102,7 @@
 
     <EditText
         android:id="@+id/enterLoc"
-        android:layout_width="wrap_content"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -136,10 +137,10 @@
         android:background="@color/Background3"
         app:layout_constraintBottom_toTopOf="@+id/signUpButton"
         app:layout_constraintEnd_toStartOf="@+id/addImage"
-        app:layout_constraintHorizontal_bias="0.405"
+        app:layout_constraintHorizontal_bias="0.303"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterPass"
-        app:layout_constraintVertical_bias="0.85"
+        app:layout_constraintVertical_bias="0.971"
         app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background" />
 
 

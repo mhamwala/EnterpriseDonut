@@ -6,42 +6,50 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AdvertiseFragment.OnFragmentInteractionListener} interface
+ * {@link ViewAds.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AdvertiseFragment#newInstance} factory method to
+ * Use the {@link ViewAds#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AdvertiseFragment extends Fragment
+public class ViewAds extends Fragment
 {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
-    private FirebaseUser user;
-
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private DatabaseReference mDatabase;
+    private StorageReference mStorageRef;
 
-    private OnFragmentInteractionListener mListener;
+    private FirebaseUser user;
 
-    public AdvertiseFragment() {
+    private ViewAds.OnFragmentInteractionListener mListener;
+
+    public ViewAds()
+    {
         // Required empty public constructor
     }
 
@@ -51,11 +59,11 @@ public class AdvertiseFragment extends Fragment
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AdvertiseFragment.
+     * @return A new instance of fragment DetailsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AdvertiseFragment newInstance(String param1, String param2) {
-        AdvertiseFragment fragment = new AdvertiseFragment();
+    public static ViewAds newInstance(String param1, String param2) {
+        ViewAds fragment = new ViewAds();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,10 +76,14 @@ public class AdvertiseFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
 
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         user = FirebaseAuth.getInstance().getCurrentUser();
-        if (getArguments() != null) {
+        mDatabase = FirebaseDatabase.getInstance().getReference("delivery").child(user.getUid());
+
+
+        if (getArguments() != null)
+
+        {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
@@ -79,55 +91,63 @@ public class AdvertiseFragment extends Fragment
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_advertise, container, false);
-        if (mListener != null)
-        {
-            mListener.onFragmentInteraction("Advertise");
-        }
-        final EditText deliveryType = view.findViewById(R.id.deliveryType);
-        final EditText distance = view.findViewById(R.id.deliverTo);
-        final EditText size = view.findViewById(R.id.size);
-        final EditText weight = view.findViewById(R.id.weight);
-        final EditText pay = view.findViewById(R.id.pay);
-        final EditText collect = view.findViewById(R.id.collect);
-
-        Button advertiseItem = view.findViewById(R.id.button5);
-
-        advertiseItem.setOnClickListener(new Button.OnClickListener()
-        {
+                             Bundle savedInstanceState)
+    {
+        final View view = inflater.inflate(R.layout.fragment_view_ads, container, false);
+        mDatabase.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onClick(View v)
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
-                try
-                {
-                    Delivery delivery = new Delivery
-                            (
-                                    deliveryType.getText().toString(),
-                                    distance.getText().toString(),
-                                    size.getText().toString(),
-                                    weight.getText().toString(),
-                                    pay.getText().toString(),
-                                    collect.getText().toString()
-                            );
-                    String key = mDatabase.getDatabase().getReference("delivery").push().getKey();
-                    newDelivery(delivery,user.getUid(), key);
-                    // uploadCourierRequest(delivery);
-                }
-                catch (NumberFormatException e)
-                {
-                    System.out.println("INSIDE NUMBER FORMAT EXCEPTION");
-                }
+              Delivery delivery = dataSnapshot.getValue(Delivery.class);
+              DeliveryTypeText(delivery,view);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
             }
         });
+//        ValueEventListener userListener = new ValueEventListener()
+//        {
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot)
+//            {
+//                List<Delivery> deliveryList = new ArrayList<>();
+//                deliveryList.add(dataSnapshot.getValue(Delivery.class));
+//                DeliveryTypeText(deliveryList.get(0),view);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError)
+//            {
+//
+//            }
+//        };
+//        mDatabase.addListenerForSingleValueEvent(userListener);
         return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(String title)
     {
-        if (mListener != null) {
+        if (mListener != null)
+        {
             mListener.onFragmentInteraction(title);
         }
     }
@@ -135,8 +155,9 @@ public class AdvertiseFragment extends Fragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof ViewAds.OnFragmentInteractionListener)
+        {
+            mListener = (ViewAds.OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -159,12 +180,16 @@ public class AdvertiseFragment extends Fragment
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
-    public interface OnFragmentInteractionListener {
+    public interface OnFragmentInteractionListener
+    {
         // TODO: Update argument type and name
         void onFragmentInteraction(String title);
     }
-    private void newDelivery(Delivery delivery,String user, String id)
+
+    public void DeliveryTypeText(Delivery delivery, View view)
     {
-        mDatabase.child("delivery").child(user).child(id).setValue(delivery);
+        TextView DeliveryType = view.findViewById(R.id.showDeliveryType);
+        DeliveryType.setText(delivery.getDeliveryType());
     }
+
 }
