@@ -4,31 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Background"
+    android:background="@drawable/side_nav_bar"
     tools:context="uk.ac.tees.q5113445live.enterpriseproject2.sign_up_user">
 
 
-    <GridLayout
-        android:layout_width="277dp"
-        android:layout_height="288dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/Background1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.333">
-
-    </GridLayout>
-
     <EditText
         android:id="@+id/enterName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="340dp"
+        android:layout_height="42dp"
         android:layout_marginTop="40dp"
         android:ems="10"
         android:hint="@string/full_name"
@@ -40,7 +23,7 @@
 
     <EditText
         android:id="@+id/enterEmail"
-        android:layout_width="wrap_content"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -52,8 +35,8 @@
 
     <EditText
         android:id="@+id/enterPass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="340dp"
+        android:layout_height="42dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/enter_pass"
@@ -78,15 +61,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
 
-        app:layout_constraintHorizontal_bias="0.62"
+        app:layout_constraintHorizontal_bias="0.49"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterPass"
-        app:layout_constraintVertical_bias="0.795" />
+        app:layout_constraintVertical_bias="0.923" />
 
 
     <EditText
         android:id="@+id/enterNumber"
-        android:layout_width="wrap_content"
+        android:layout_width="340dp"
         android:layout_height="42dp"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -98,7 +81,7 @@
 
     <EditText
         android:id="@+id/enterLoc"
-        android:layout_width="wrap_content"
+        android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:ems="10"
@@ -155,10 +138,10 @@
         android:background="@color/Background3"
         app:layout_constraintBottom_toTopOf="@+id/signUpButton"
         app:layout_constraintEnd_toStartOf="@+id/addImage"
-        app:layout_constraintHorizontal_bias="0.405"
+        app:layout_constraintHorizontal_bias="0.303"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterPass"
-        app:layout_constraintVertical_bias="0.85"
+        app:layout_constraintVertical_bias="0.971"
         app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background" />
 
 

@@ -1,34 +1,55 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import uk.ac.tees.q5113445live.enterpriseproject2.dummy.DummyContent;
+
 /**
  * Created by arsen on 16/02/2018.
  */
 
 public class Delivery
 {
-    private String deliveryType;
-    private String collect;
-    private String deliver;
-    private String pay;
-    private String weight;
-    private String size;
+   String deliveryType;
+   String collect;String deliver;
+   String pay;
+  String weight;
+    String size;
+    public static final List<DummyContent.DummyItem> ITEMS = new ArrayList<DummyContent.DummyItem>();
 
-    //Need variables for delivered from, delivered to
+    /**
+     * A map of sample (dummy) items, by ID.
+     */
+    public static final Map<String, DummyContent.DummyItem> ITEM_MAP = new HashMap<String, DummyContent.DummyItem>();
     Delivery()
     {
-
+        deliveryType= "";
+        collect = "";
+        deliver ="";
+        pay = "";
+        weight = "";
+        size="";
     }
 
-    Delivery(String a, String b, String c, String d, String e, String f)
+    Delivery(String dt, String c, String d, String p, String w, String s)
     {
-        this.deliveryType = a;
-        this.collect = b;
-        this.deliver = f;
-        this.pay = c;
-        this.weight = d;
-        this.size = e;
+       deliveryType= dt;
+        collect = c;
+        deliver = d;
+        pay = p;
+        weight= w;
+        size = s;
+
 
     }
+    private static void addItem(DummyContent.DummyItem item) {
+        ITEMS.add(item);
+        ITEM_MAP.put(item.id, item);
+    }
+
     public String getDeliveryType() {
         return deliveryType;
     }
@@ -81,8 +102,8 @@ public class Delivery
     // Calculating the Base/Minimum pay for a request to be sent out
     public void basePay(String from, String to, String size)
     {
-       //Work out mileage from two places
-       // mileage * size /5 * 2
+        //Work out mileage from two places
+        // mileage * size /5 * 2
     }
     public void findDistance(String from, String to)
     {

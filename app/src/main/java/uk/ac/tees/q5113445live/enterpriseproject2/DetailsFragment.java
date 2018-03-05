@@ -6,8 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+
+import java.io.IOException;
 
 
 /**
@@ -40,7 +45,8 @@ public class DetailsFragment extends Fragment
     private DatabaseReference mDatabase;
     private StorageReference mStorageRef;
     private FirebaseUser user;
-
+    private ImageView imageView;
+    private View view;
 
     private OnFragmentInteractionListener mListener;
 
@@ -70,6 +76,13 @@ public class DetailsFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+
+        if (mListener != null)
+        {
+            mListener.onFragmentInteraction("My details");
+        }
+
+
         super.onCreate(savedInstanceState);
 
 
@@ -100,6 +113,24 @@ public class DetailsFragment extends Fragment
                 numText(user,view);
                 locationText(user,view);
                 emailText(user, view);
+
+
+
+                System.out.println(user);
+                TextView userText = view.findViewById(R.id.showUserName);
+                userText.setText(user.getName());
+                imageView = view.findViewById(R.id.imageView);
+                try
+                {
+                    getProfileImage();
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+
+
+
+
 
             }
 
@@ -174,4 +205,15 @@ public class DetailsFragment extends Fragment
         TextView userEmail = view.findViewById(R.id.showUserEmail);
         userEmail.setText(user.getEmail());
     }
+
+    public void getProfileImage() throws IOException
+    {
+        Glide.with(this /* context */)
+                .using(new FirebaseImageLoader())
+                .load(mStorageRef)
+                .into(imageView);
+    }
+
+
+
 }

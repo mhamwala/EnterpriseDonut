@@ -30,11 +30,17 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 
+import uk.ac.tees.q5113445live.enterpriseproject2.dummy.DummyContent;
+
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
         AdvertiseFragment.OnFragmentInteractionListener,
-        DetailsFragment.OnFragmentInteractionListener
+        DetailsFragment.OnFragmentInteractionListener,
+        ViewAds.OnFragmentInteractionListener,
+        TestFragment.OnListFragmentInteractionListener
+
+
 {
 
     private DatabaseReference mDatabase;
@@ -119,26 +125,31 @@ public class NavigationDrawer extends AppCompatActivity
         if (id == R.id.nav_frag1)
         {
             fragment = new HomeFragment();
-        } else if (id == R.id.nav_frag2)
+        }
+        else if (id == R.id.nav_frag2)
         {
             fragment = new AdvertiseFragment();
-        }else if (id == R.id.nav_frag3)
+        }
+        else if (id == R.id.nav_frag3)
         {
             fragment = new DetailsFragment();
         }
+        else if (id == R.id.nav_advertised)
+        {
+            fragment = new TestFragment();
+        }
+
         else if (id == R.id.nav_signout)
         {
             FirebaseAuth.getInstance().signOut();
             Intent home = new Intent(this, login_activity.class);
             startActivity(home);
         }
-        else if (id == R.id.nav_advertised)
-        {
-            //fragment = new ItemFragment();
-        }
+
 
         //NOTE: Fragment changing code
-        if (fragment != null) {
+        if (fragment != null)
+        {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.mainFrame, fragment);
             ft.commit();
@@ -196,5 +207,11 @@ public class NavigationDrawer extends AppCompatActivity
                 .using(new FirebaseImageLoader())
                 .load(mStorageRef)
                 .into(imageView);
+    }
+
+    @Override
+    public void onListFragmentInteraction(String title)
+    {
+        getActionBar().setTitle("CHEERS");
     }
 }
