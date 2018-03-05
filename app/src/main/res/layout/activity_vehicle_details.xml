@@ -4,25 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Background"
-    tools:context="uk.ac.tees.q5113445live.enterpriseproject2.VehicleDetailsActivity"
-    tools:layout_editor_absoluteY="25dp">
-
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Number"
-        app:layout_constraintHorizontal_bias="0.501"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        tools:layout_editor_absoluteY="1022dp" />
-
-    <TextView
-        android:id="@+id/ShowRegNumber"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="275dp"
-        tools:layout_editor_absoluteY="255dp" />
+    tools:context="uk.ac.tees.q5113445live.enterpriseproject2.VehicleDetailsActivity">
 
 </android.support.constraint.ConstraintLayout>
