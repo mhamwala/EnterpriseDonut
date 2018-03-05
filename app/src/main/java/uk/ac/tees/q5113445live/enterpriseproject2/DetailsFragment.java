@@ -206,6 +206,10 @@ public class DetailsFragment extends Fragment
         userEmail.setText(user.getEmail());
     }
 
+    public void updateButton() {
+
+    }
+
     public void getProfileImage() throws IOException
     {
         Glide.with(this /* context */)
@@ -213,7 +217,5 @@ public class DetailsFragment extends Fragment
                 .load(mStorageRef)
                 .into(imageView);
     }
-
-
 
 }
