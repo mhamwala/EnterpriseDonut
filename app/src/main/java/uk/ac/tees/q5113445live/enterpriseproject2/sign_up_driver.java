@@ -107,14 +107,13 @@ public class sign_up_driver extends AppCompatActivity
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task)
                     {
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful())
+                        {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
                             newUser(userIn, user.getUid());
-                            updateUI(user);
-
+                            changeHome();
                         }
                         else
                         {
@@ -136,7 +135,12 @@ public class sign_up_driver extends AppCompatActivity
     {
         if(currentUser != null)
         {
-
+            changeHome();
         }
+    }
+    private void changeHome()
+    {
+        Intent home = new Intent(sign_up_driver.this, NavigationDrawer.class);
+        startActivity(home);
     }
 }

@@ -30,6 +30,8 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 
+
+
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
@@ -79,7 +81,8 @@ public class NavigationDrawer extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START))
         {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else
+        {
             super.onBackPressed();
         }
     }
@@ -133,10 +136,6 @@ public class NavigationDrawer extends AppCompatActivity
             Intent home = new Intent(this, login_activity.class);
             startActivity(home);
         }
-        else if (id == R.id.nav_advertised)
-        {
-            //fragment = new ItemFragment();
-        }
         else if (id == R.id.nav_locationTest)
         {
             fragment = new LocationFragment();
@@ -170,9 +169,8 @@ public class NavigationDrawer extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-
+                //These text boxes need to be sorted within onCreateView
                 User user = dataSnapshot.getValue(User.class);
-                System.out.println(user);
                 TextView userText = findViewById(R.id.nav_name);
                 userText.setText(user.getName());
                 imageView = findViewById(R.id.nav_profile);
@@ -202,4 +200,5 @@ public class NavigationDrawer extends AppCompatActivity
                 .load(mStorageRef)
                 .into(imageView);
     }
+
 }
