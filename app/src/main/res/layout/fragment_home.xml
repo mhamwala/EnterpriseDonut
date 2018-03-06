@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/Background"
+    android:background="@drawable/side_nav_bar"
     tools:context="uk.ac.tees.q5113445live.enterpriseproject2.HomeActivity"
     tools:layout_editor_absoluteY="25dp">
 
@@ -29,31 +29,17 @@
         app:layout_constraintVertical_bias="0.0" />
 
 
-    <GridLayout
-        android:id="@+id/gridLayout"
-        android:layout_width="329dp"
-        android:layout_height="432dp"
-        android:layout_marginBottom="16dp"
-
-        android:background="@color/Background1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.516"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent">
-
-    </GridLayout>
-
     <TextView
         android:id="@+id/showUserName"
         android:layout_width="219dp"
         android:layout_height="29dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
-        android:textAlignment="center"
+        android:layout_marginTop="88dp"
 
+        android:textAlignment="center"
         android:textAllCaps="true"
-        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
-        app:layout_constraintHorizontal_bias="0.425"
+        app:layout_constraintBottom_toTopOf="@+id/textView3"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -62,7 +48,7 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="302dp"
-        android:layout_height="25dp"
+        android:layout_height="89dp"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
 
@@ -76,59 +62,35 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ratingBar2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.088" />
 
     <RatingBar
         android:id="@+id/ratingBar2"
         android:layout_width="240dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="236dp"
-        app:layout_constraintBottom_toBottomOf="@+id/gridLayout"
+        android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <Button
         android:id="@+id/userButton"
         android:layout_width="106dp"
         android:layout_height="44dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginTop="36dp"
-        android:background="@color/Background3"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="32dp"
 
+        android:layout_marginTop="136dp"
+        android:background="@color/Background3"
         android:text="User"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <Button
-        android:id="@+id/signOut"
-        android:layout_width="111dp"
-        android:layout_height="45dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="72dp"
-        android:background="@color/Background3"
-        android:text="@string/signOut"
-        app:layout_constraintEnd_toStartOf="@+id/settingsButton"
-        app:layout_constraintHorizontal_bias="0.259"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/driverButton" />
-
-    <Button
-        android:id="@+id/settingsButton"
-        android:layout_width="116dp"
-        android:layout_height="48dp"
-
-        android:layout_marginEnd="36dp"
-        android:layout_marginTop="72dp"
-        android:background="@color/Background3"
-        android:text="@string/settingsButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userButton"
-        tools:text="@string/settingsButton" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="315dp"
+        android:layout_width="340dp"
         android:layout_height="109dp"
 
         android:layout_marginBottom="8dp"
@@ -150,15 +112,18 @@
         android:id="@+id/driverButton"
         android:layout_width="99dp"
         android:layout_height="44dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
 
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="136dp"
         android:background="@color/Background3"
         android:text="Driver"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/userButton"
-        app:layout_constraintHorizontal_bias="0.281"
+        app:layout_constraintHorizontal_bias="0.267"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintVertical_bias="1.0"
         tools:text="@string/driverButton" />
 </android.support.constraint.ConstraintLayout>

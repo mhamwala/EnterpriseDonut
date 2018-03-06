@@ -30,14 +30,15 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 
-
-
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
         AdvertiseFragment.OnFragmentInteractionListener,
         DetailsFragment.OnFragmentInteractionListener,
+        ViewAds.OnFragmentInteractionListener,
+        TestFragment.OnListFragmentInteractionListener,
         LocationFragment.OnFragmentInteractionListener
+
 {
 
     private DatabaseReference mDatabase;
@@ -123,13 +124,20 @@ public class NavigationDrawer extends AppCompatActivity
         if (id == R.id.nav_frag1)
         {
             fragment = new HomeFragment();
-        } else if (id == R.id.nav_frag2)
+        }
+        else if (id == R.id.nav_frag2)
         {
             fragment = new AdvertiseFragment();
-        }else if (id == R.id.nav_frag3)
+        }
+        else if (id == R.id.nav_frag3)
         {
             fragment = new DetailsFragment();
         }
+        else if (id == R.id.nav_advertised)
+        {
+            fragment = new TestFragment();
+        }
+
         else if (id == R.id.nav_signout)
         {
             FirebaseAuth.getInstance().signOut();
@@ -140,9 +148,9 @@ public class NavigationDrawer extends AppCompatActivity
         {
             fragment = new LocationFragment();
         }
-
         //NOTE: Fragment changing code
-        if (fragment != null) {
+        if (fragment != null)
+        {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.mainFrame, fragment);
             ft.commit();
@@ -199,6 +207,12 @@ public class NavigationDrawer extends AppCompatActivity
                 .using(new FirebaseImageLoader())
                 .load(mStorageRef)
                 .into(imageView);
+    }
+
+    @Override
+    public void onListFragmentInteraction(String title)
+    {
+        getActionBar().setTitle("CHEERS");
     }
 
 }
