@@ -58,7 +58,8 @@ public class TestFragment extends Fragment {
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static TestFragment newInstance(int columnCount) {
+    public static TestFragment newInstance(int columnCount)
+    {
         TestFragment fragment = new TestFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
@@ -73,7 +74,7 @@ public class TestFragment extends Fragment {
         super.onCreate(savedInstanceState);
         user = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference("delivery").child(user.getUid());
-
+        refresh();
         if (getArguments() != null)
         {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -129,9 +130,12 @@ public class TestFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
-        } else {
+        }
+        else
+        {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
         }
@@ -168,11 +172,13 @@ public class TestFragment extends Fragment {
 
     private static void addItem(Delivery item)
     {
+        //Adds the items to a static list which is shown to the user
         ITEMS.add(item);
         ITEM_MAP.put(item.getDeliveryType(), item);
     }
     private void recyclerMethod(View view)
     {
+        //Recyclers which handles the showing of items to the user.
         if (view instanceof RecyclerView)
         {
             Context context = view.getContext();
@@ -187,5 +193,10 @@ public class TestFragment extends Fragment {
             }
             recyclerView.setAdapter(new MyItemRecyclerViewAdapter(ITEMS, mListener));
         }
+    }
+    private void refresh()
+    {
+        ITEMS.clear();
+        ITEM_MAP.clear();
     }
 }

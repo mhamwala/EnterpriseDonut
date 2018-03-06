@@ -162,14 +162,6 @@ public class NavigationDrawer extends AppCompatActivity
         return true;
     }
 
-
-    @Override
-    public void onFragmentInteraction(String title)
-    {
-        getSupportActionBar().setTitle(title);
-
-    }
-
     public void getDetails()
     {
         ValueEventListener userListener = new ValueEventListener()
@@ -189,8 +181,6 @@ public class NavigationDrawer extends AppCompatActivity
                 {
                     e.printStackTrace();
                 }
-
-
             }
 
             @Override
@@ -212,7 +202,12 @@ public class NavigationDrawer extends AppCompatActivity
     @Override
     public void onListFragmentInteraction(String title)
     {
-        getActionBar().setTitle("CHEERS");
+        getSupportActionBar().setTitle(title);
+    }
+    @Override
+    public void onFragmentInteraction(String title)
+    {
+        getSupportActionBar().setTitle(title);
     }
 
 }
