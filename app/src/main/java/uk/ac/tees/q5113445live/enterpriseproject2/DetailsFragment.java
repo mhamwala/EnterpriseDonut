@@ -17,11 +17,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 
 /**
@@ -128,11 +130,19 @@ public class DetailsFragment extends Fragment
                     e.printStackTrace();
                 }
 
+                TextView testingUpdate = view.findViewById(R.id.updateDetails);
+                testingUpdate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        updateButton();
+                    }
+                });
 
 
 
 
-            }
+                }
 
             @Override
             public void onCancelled(DatabaseError databaseError)
@@ -207,8 +217,28 @@ public class DetailsFragment extends Fragment
     }
 
     public void updateButton() {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        final DatabaseReference reference = firebaseDatabase.getReference();
+        Query query = reference.child("users").orderByChild("name").equalTo("musa");
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
+                String key = nodeDataSnapshot.getKey(); // this key is `K1NRz9l5PU_0CFDtgXz`
+                String path = "/" + dataSnapshot.getKey() + "/" + key;
+                HashMap<String, Object> result = new HashMap<>();
+                result.put("name", "asda");
+                reference.child(path).updateChildren(result);
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Logger.error(TAG, ">>> Error:" + "find onCancelled:" + databaseError);
+
+            }
+        });
     }
+
 
     public void getProfileImage() throws IOException
     {

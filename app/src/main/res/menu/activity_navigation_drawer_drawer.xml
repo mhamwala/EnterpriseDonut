@@ -22,6 +22,10 @@
             android:title="View Adverts" />
 
         <item
+            android:id="@+id/nav_locationTest"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Location Test" />
+        <item
             android:id="@+id/nav_signout"
             android:icon="@drawable/ic_menu_manage"
             android:title="Sign Out" />
