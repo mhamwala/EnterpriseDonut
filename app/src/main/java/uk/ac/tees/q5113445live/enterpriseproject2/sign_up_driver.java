@@ -46,17 +46,17 @@ public class sign_up_driver extends AppCompatActivity
         final EditText locEdit = findViewById(R.id.enterLoc);
         final EditText numEdit = findViewById(R.id.enterNumber);
 
-//        final Switch userSwitch = findViewById(R.id.userSwitch);
-//        userSwitch.setOnClickListener(new Switch.OnClickListener()
-//        {
-//            @Override
-//            public void onClick(View v)
-//            {
-//                boolean check = userSwitch.isChecked();
-//                System.out.println("Value of switch" + check);
-//                changeUserType(v);
-//            }
-//        });
+        final Switch userSwitch = findViewById(R.id.userSwitch);
+        userSwitch.setOnClickListener(new Switch.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                boolean check = userSwitch.isChecked();
+                System.out.println("Value of switch" + check);
+                changeUserType(v);
+            }
+        });
 
         Button signUp = findViewById(R.id.signUpButton);
         signUp.setOnClickListener(new Button.OnClickListener()
@@ -85,13 +85,13 @@ public class sign_up_driver extends AppCompatActivity
           }
         );
     }
-//    private void changeUserType(View v)
-//    {
-//        Intent intent;
-//        intent = new Intent(this, sign_up_user.class);
-//        startActivity(intent);
-//        finish();
-//    }
+    private void changeUserType(View v)
+    {
+        Intent intent;
+        intent = new Intent(this, sign_up_user.class);
+        startActivity(intent);
+        finish();
+    }
     private void newUser(User user, String id)
     {
         mDatabase.child("users").child(id).setValue(user);
@@ -107,14 +107,13 @@ public class sign_up_driver extends AppCompatActivity
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task)
                     {
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful())
+                        {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-
                             newUser(userIn, user.getUid());
-                            updateUI(user);
-
+                            changeHome();
                         }
                         else
                         {
@@ -136,7 +135,12 @@ public class sign_up_driver extends AppCompatActivity
     {
         if(currentUser != null)
         {
-
+            changeHome();
         }
+    }
+    private void changeHome()
+    {
+        Intent home = new Intent(sign_up_driver.this, NavigationDrawer.class);
+        startActivity(home);
     }
 }

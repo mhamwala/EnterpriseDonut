@@ -51,7 +51,6 @@
         android:id="@+id/signUpButton"
         android:layout_width="269dp"
         android:layout_height="50dp"
-
         android:layout_marginBottom="8dp"
 
 
@@ -123,6 +122,31 @@
         app:layout_constraintTop_toBottomOf="@+id/enterPass"
         app:layout_constraintVertical_bias="0.931"
         app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background" />
+
+    <Switch
+        android:id="@+id/userSwitch"
+        android:layout_width="223dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="28dp"
+        android:checked="false"
+        android:showText="true"
+        android:splitTrack="false"
+        android:switchMinWidth="@android:dimen/thumbnail_width"
+        android:switchPadding="@android:dimen/thumbnail_width"
+        android:switchTextAppearance="@style/TextAppearance.AppCompat.Body1"
+
+        android:textColorLink="@color/colorPrimary"
+        android:textOff="User"
+        android:textOn="Driver"
+        android:thumb="@drawable/common_google_signin_btn_text_dark_normal_background"
+        android:thumbTint="@color/colorPrimaryDark"
+        android:track="@drawable/common_google_signin_btn_icon_dark_normal_background"
+        android:trackTint="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:checked="false" />
 
 
 </android.support.constraint.ConstraintLayout>

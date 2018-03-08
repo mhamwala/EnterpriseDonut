@@ -30,16 +30,14 @@ import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
 
-import uk.ac.tees.q5113445live.enterpriseproject2.dummy.DummyContent;
-
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         HomeFragment.OnFragmentInteractionListener,
         AdvertiseFragment.OnFragmentInteractionListener,
         DetailsFragment.OnFragmentInteractionListener,
         ViewAds.OnFragmentInteractionListener,
-        TestFragment.OnListFragmentInteractionListener
-
+        TestFragment.OnListFragmentInteractionListener,
+        LocationFragment.OnFragmentInteractionListener
 
 {
 
@@ -84,7 +82,8 @@ public class NavigationDrawer extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START))
         {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        } else
+        {
             super.onBackPressed();
         }
     }
@@ -145,8 +144,10 @@ public class NavigationDrawer extends AppCompatActivity
             Intent home = new Intent(this, login_activity.class);
             startActivity(home);
         }
-
-
+        else if (id == R.id.nav_locationTest)
+        {
+            fragment = new LocationFragment();
+        }
         //NOTE: Fragment changing code
         if (fragment != null)
         {
@@ -176,9 +177,8 @@ public class NavigationDrawer extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-
+                //These text boxes need to be sorted within onCreateView
                 User user = dataSnapshot.getValue(User.class);
-                System.out.println(user);
                 TextView userText = findViewById(R.id.nav_name);
                 userText.setText(user.getName());
                 imageView = findViewById(R.id.nav_profile);
@@ -214,4 +214,5 @@ public class NavigationDrawer extends AppCompatActivity
     {
         getActionBar().setTitle("CHEERS");
     }
+
 }
