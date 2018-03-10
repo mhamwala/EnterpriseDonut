@@ -58,7 +58,8 @@ public class TestFragment extends Fragment {
 
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
-    public static TestFragment newInstance(int columnCount) {
+    public static TestFragment newInstance(int columnCount)
+    {
         TestFragment fragment = new TestFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
@@ -73,7 +74,7 @@ public class TestFragment extends Fragment {
         super.onCreate(savedInstanceState);
         user = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference("delivery").child(user.getUid());
-
+        refresh();
         if (getArguments() != null)
         {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
@@ -84,29 +85,34 @@ public class TestFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        final View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
-        mDatabase.addChildEventListener(new ChildEventListener() {
+        mDatabase.addChildEventListener(new ChildEventListener()
+        {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
+                //Add each delivery to a list.
                 Delivery delivery = dataSnapshot.getValue(Delivery.class);
                 addItem(delivery);
-                //Add each delivery to a list.
+                recyclerMethod(view);
             }
 
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
 
             }
 
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            public void onChildRemoved(DataSnapshot dataSnapshot)
+            {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s)
+            {
 
             }
 
@@ -116,21 +122,7 @@ public class TestFragment extends Fragment {
             }
         });
         // Set the adapter
-        if (view instanceof RecyclerView)
-        {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1)
-            {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            }
-            else
-            {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            //Replace DummyContent.ITEMS to list of deliveries
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(ITEMS, mListener));
-        }
+
         return view;
     }
 
@@ -138,19 +130,24 @@ public class TestFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
-        } else {
+        }
+        else
+        {
             throw new RuntimeException(context.toString()
                     + " must implement OnListFragmentInteractionListener");
         }
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach()
+    {
         super.onDetach();
         mListener = null;
     }
+
 
 
 
@@ -173,8 +170,33 @@ public class TestFragment extends Fragment {
 
 
 
-    private static void addItem(Delivery item) {
+    private static void addItem(Delivery item)
+    {
+        //Adds the items to a static list which is shown to the user
         ITEMS.add(item);
         ITEM_MAP.put(item.getDeliveryType(), item);
+    }
+    private void recyclerMethod(View view)
+    {
+        //Recyclers which handles the showing of items to the user.
+        if (view instanceof RecyclerView)
+        {
+            Context context = view.getContext();
+            RecyclerView recyclerView = (RecyclerView) view;
+            if (mColumnCount <= 1)
+            {
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            }
+            else
+            {
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
+            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(ITEMS, mListener));
+        }
+    }
+    private void refresh()
+    {
+        ITEMS.clear();
+        ITEM_MAP.clear();
     }
 }
