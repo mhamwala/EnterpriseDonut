@@ -12,16 +12,17 @@
         android:id="@+id/enterName"
         android:layout_width="343dp"
         android:layout_height="40dp"
-
         android:layout_marginTop="140dp"
         android:ems="10"
         android:hint="@string/full_name"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.241" />
 
     <EditText
         android:id="@+id/enterEmail"
@@ -40,9 +41,9 @@
 
     <EditText
         android:id="@+id/enterPass"
-        android:layout_width="340dp"
-        android:layout_height="42dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="338dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="@string/enter_pass"
         android:inputType="textPassword"
@@ -139,14 +140,14 @@
         android:id="@+id/userSwitch"
         android:layout_width="223dp"
         android:layout_height="28dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginBottom="8dp"
         android:checked="false"
         android:showText="true"
         android:splitTrack="false"
         android:switchMinWidth="@android:dimen/thumbnail_width"
         android:switchPadding="@android:dimen/thumbnail_width"
-        android:switchTextAppearance="@style/TextAppearance.AppCompat.Body1"
 
+        android:switchTextAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColorLink="@color/colorPrimary"
         android:textOff="User"
         android:textOn="Driver"
@@ -154,10 +155,12 @@
         android:thumbTint="@color/colorPrimaryDark"
         android:track="@drawable/common_google_signin_btn_icon_dark_normal_background"
         android:trackTint="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/enterName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:checked="false" />
 
 

@@ -222,17 +222,19 @@ public class DetailsFragment extends Fragment
         System.out.println("STRINGGGGGGG A :" + a);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
-        reference.child("users").equalTo(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+
+            reference.child("users").equalTo(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
                 DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
                 String key = nodeDataSnapshot.getKey(); // this key is `K1NRz9l5PU_0CFDtgXz`
                 String path = "/" + dataSnapshot.getKey() + "/" + key;
                 HashMap<String, Object> result = new HashMap<>();
                 result.put("name",a);
+
                 reference.child(path).updateChildren(result);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 //Logger.error(TAG, ">>> Error:" + "find onCancelled:" + databaseError);

@@ -2,6 +2,7 @@ package uk.ac.tees.q5113445live.enterpriseproject2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
@@ -45,6 +46,7 @@ public class NavigationDrawer extends AppCompatActivity
     private StorageReference mStorageRef;
     private FirebaseUser user;
     private ImageView imageView;
+    private boolean driver;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -60,9 +62,9 @@ public class NavigationDrawer extends AppCompatActivity
         toggle.syncState();
 
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.nav_frag1);
+        navigationView.setCheckedItem(R.id.nav_home);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
@@ -105,7 +107,8 @@ public class NavigationDrawer extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_settings)
+        {
             return true;
         }
 
@@ -120,22 +123,26 @@ public class NavigationDrawer extends AppCompatActivity
 
         //NOTE: creating fragment object
         Fragment fragment = null;
-
-        if (id == R.id.nav_frag1)
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (id == R.id.nav_home)
         {
             fragment = new HomeFragment();
         }
-        else if (id == R.id.nav_frag2)
+        else if (id == R.id.nav_advertise)
         {
             fragment = new AdvertiseFragment();
         }
-        else if (id == R.id.nav_frag3)
+        else if (id == R.id.nav_account)
         {
             fragment = new DetailsFragment();
         }
         else if (id == R.id.nav_advertised)
         {
-            fragment = new TestFragment();
+            fragment = advertiseJobs(false, fragment, ft);
+        }
+        else if (id == R.id.nav_jobs)
+        {
+            fragment = advertiseJobs(driver, fragment, ft);
         }
 
         else if (id == R.id.nav_signout)
@@ -144,14 +151,9 @@ public class NavigationDrawer extends AppCompatActivity
             Intent home = new Intent(this, login_activity.class);
             startActivity(home);
         }
-        else if (id == R.id.nav_locationTest)
-        {
-            fragment = new LocationFragment();
-        }
         //NOTE: Fragment changing code
         if (fragment != null)
         {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.mainFrame, fragment);
             ft.commit();
         }
@@ -160,14 +162,6 @@ public class NavigationDrawer extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout); //Ya you can also globalize this variable :P
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-
-    @Override
-    public void onFragmentInteraction(String title)
-    {
-        getSupportActionBar().setTitle(title);
-
     }
 
     public void getDetails()
@@ -179,8 +173,11 @@ public class NavigationDrawer extends AppCompatActivity
             {
                 //These text boxes need to be sorted within onCreateView
                 User user = dataSnapshot.getValue(User.class);
+                driver = user.isDriver();
                 TextView userText = findViewById(R.id.nav_name);
                 userText.setText(user.getName());
+                TextView walletText = findViewById(R.id.nav_wallet);
+                walletText.setText(walletText.getText() + Double.toString(user.getWallet()));
                 imageView = findViewById(R.id.nav_profile);
                 try
                 {
@@ -189,8 +186,6 @@ public class NavigationDrawer extends AppCompatActivity
                 {
                     e.printStackTrace();
                 }
-
-
             }
 
             @Override
@@ -208,11 +203,24 @@ public class NavigationDrawer extends AppCompatActivity
                 .load(mStorageRef)
                 .into(imageView);
     }
+    public Fragment advertiseJobs(boolean d, Fragment f, FragmentTransaction ft)
+    {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("driverCheck", d);
+        f = new TestFragment();
+        f.setArguments(bundle);
+        return f;
+    }
 
     @Override
     public void onListFragmentInteraction(String title)
     {
-        getActionBar().setTitle("CHEERS");
+        getSupportActionBar().setTitle(title);
+    }
+    @Override
+    public void onFragmentInteraction(String title)
+    {
+        getSupportActionBar().setTitle(title);
     }
 
 }
