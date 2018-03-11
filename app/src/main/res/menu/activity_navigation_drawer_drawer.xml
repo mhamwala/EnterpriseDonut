@@ -4,31 +4,31 @@
     <!-- Note:  android:checkableBehavior="single" -->
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_frag1"
+            android:id="@+id/nav_home"
             android:icon="@drawable/ic_menu"
             android:title="Home" />
         <item
-            android:id="@+id/nav_frag2"
+            android:id="@+id/nav_advertise"
             android:icon="@drawable/ic_menu_camera"
             android:title="Advertise" />
 
         <item
-            android:id="@+id/nav_frag3"
+            android:id="@+id/nav_account"
             android:icon="@drawable/ic_menu_manage"
             android:title="My Account" />
         <item
             android:id="@+id/nav_advertised"
             android:icon="@drawable/ic_menu_manage"
             android:title="View Adverts" />
-
         <item
-            android:id="@+id/nav_locationTest"
+            android:id="@+id/nav_jobs"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Location Test" />
+            android:title="View Jobs" />
         <item
             android:id="@+id/nav_signout"
             android:icon="@drawable/ic_menu_manage"
             android:title="Sign Out" />
+
 
     </group>
 

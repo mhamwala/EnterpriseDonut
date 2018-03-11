@@ -219,15 +219,16 @@ public class DetailsFragment extends Fragment
     public void updateButton() {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
-        Query query = reference.child("users").orderByChild("name").equalTo("musa");
+        Query query = reference.child("users").orderByChild("name").equalTo("asda123");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
                 DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
                 String key = nodeDataSnapshot.getKey(); // this key is `K1NRz9l5PU_0CFDtgXz`
                 String path = "/" + dataSnapshot.getKey() + "/" + key;
                 HashMap<String, Object> result = new HashMap<>();
-                result.put("name", "asda");
+                result.put("name", "Musa Hamwala II");
                 reference.child(path).updateChildren(result);
             }
 
