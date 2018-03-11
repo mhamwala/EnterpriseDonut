@@ -119,8 +119,8 @@ public class DetailsFragment extends Fragment
 
 
                 System.out.println(user);
-                TextView userText = view.findViewById(R.id.showUserName);
-                userText.setText(user.getName());
+                //TextView userText = view.findViewById(R.id.showUserName);
+                //userText.setText(user.getName());
                 imageView = view.findViewById(R.id.imageView);
                 try
                 {
@@ -217,17 +217,19 @@ public class DetailsFragment extends Fragment
     }
 
     public void updateButton() {
+        TextView userName = view.findViewById(R.id.showUserName);
+        final String a = (String)userName.getText();
+        System.out.println("STRINGGGGGGG A :" + a);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
-        Query query = reference.child("users").orderByChild("name").equalTo("musa");
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child("users").equalTo(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
                 String key = nodeDataSnapshot.getKey(); // this key is `K1NRz9l5PU_0CFDtgXz`
                 String path = "/" + dataSnapshot.getKey() + "/" + key;
                 HashMap<String, Object> result = new HashMap<>();
-                result.put("name", "asda");
+                result.put("name",a);
                 reference.child(path).updateChildren(result);
             }
 
