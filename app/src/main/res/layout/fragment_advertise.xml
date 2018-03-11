@@ -9,10 +9,10 @@
 
     <Button
         android:id="@+id/button5"
-        android:layout_width="342dp"
+        android:layout_width="340dp"
 
-        android:layout_height="43dp"
-        android:layout_marginBottom="16dp"
+        android:layout_height="31dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:background="@color/Background3"
         android:text="Request Services"
@@ -20,172 +20,155 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pay"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="100dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginLeft="16dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Delivery Type"
-        app:layout_constraintBottom_toTopOf="@+id/textView17"
         app:layout_constraintEnd_toStartOf="@+id/deliveryType"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.21" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/deliveryType"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="4dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/deliveryType"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/collect"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.224" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/collect"
         android:layout_width="200dp"
-        android:layout_height="42dp"
-        android:layout_marginBottom="40dp"
-        android:layout_marginRight="28dp"
-        android:layout_marginStart="32dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
         android:hint="@string/collect"
         android:inputType="textPostalAddress"
-        app:layout_constraintBottom_toTopOf="@+id/deliverTo"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView17" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deliveryType" />
 
     <EditText
         android:id="@+id/size"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="52dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
         android:hint="@string/size"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/weight"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView9" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deliverTo" />
 
     <EditText
         android:id="@+id/weight"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="28dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginStart="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
         android:hint="@string/weight"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/pay"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView10" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/size" />
 
     <EditText
         android:id="@+id/pay"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="72dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
         android:hint="@string/basePay"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView11" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weight" />
 
     <TextView
         android:id="@+id/textView8"
         android:layout_width="100dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="72dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
         android:text="Deliver To"
-        app:layout_constraintBottom_toTopOf="@+id/textView9"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toStartOf="@+id/deliverTo"
+        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <TextView
         android:id="@+id/textView17"
         android:layout_width="100dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="28dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="16dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
         android:text="Collect from"
-        app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toStartOf="@+id/collect"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="100dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="48dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="44dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
         android:text="Size"
-        app:layout_constraintBottom_toTopOf="@+id/textView10"
         app:layout_constraintEnd_toStartOf="@+id/size"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="100dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="24dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
         android:text="Weight"
-        app:layout_constraintBottom_toTopOf="@+id/textView11"
         app:layout_constraintEnd_toStartOf="@+id/weight"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView9" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="100dp"
-        android:layout_height="45dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="44dp"
         android:text="Base Pay"
-        app:layout_constraintBottom_toTopOf="@+id/button5"
         app:layout_constraintEnd_toStartOf="@+id/pay"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <EditText
         android:id="@+id/deliverTo"
         android:layout_width="200dp"
         android:layout_height="40dp"
-        android:layout_marginBottom="68dp"
-        android:layout_marginRight="28dp"
-        android:layout_marginStart="44dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="44dp"
         android:ems="10"
         android:hint="@string/deliverTo"
         android:inputType="textPostalAddress"
-        app:layout_constraintBottom_toTopOf="@+id/size"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView8" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/collect" />
 </android.support.constraint.ConstraintLayout>

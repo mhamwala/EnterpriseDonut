@@ -174,7 +174,19 @@ public class TestFragment extends Fragment {
     {
         //Adds the items to a static list which is shown to the user
         ITEMS.add(item);
+        ITEM_MAP.put(item.getCollect(),item);
+        ITEM_MAP.put(item.getDeliver(),item);
         ITEM_MAP.put(item.getDeliveryType(), item);
+        ITEM_MAP.put(item.getDistance(),item);
+        ITEM_MAP.put(item.getPay(),item);
+        ITEM_MAP.put(item.getSize(),item);
+        ITEM_MAP.put(item.getWeight(),item);
+
+
+
+
+
+
     }
     private void recyclerMethod(View view)
     {
