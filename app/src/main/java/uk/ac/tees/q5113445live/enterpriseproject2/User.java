@@ -11,9 +11,12 @@ import android.net.Uri;
 public class User
 {
     String name;
+    String cityName;
+    String postcode;
     String location;
     String email;
     String regNumber;
+    double wallet;
     boolean driver = false;
     String number;
 
@@ -26,6 +29,8 @@ public class User
         location ="";
         number = "";
         regNumber = "";
+        wallet = 0;
+
     }
     User(String n, String e, String l,  String num)
     {
@@ -35,6 +40,7 @@ public class User
         number = num;
         regNumber = "";
         driver = false;
+        wallet = 0;
     }
 
     User(String n, String e, String l, String num, String reg)
@@ -45,8 +51,15 @@ public class User
         number = num;
         regNumber = reg;
         driver = true;
-        //profile = p;
+        wallet = 0;
+    }
 
+    public double getWallet() {
+        return wallet;
+    }
+
+    public void setWallet(double wallet) {
+        this.wallet = wallet;
     }
 
     public String getNumber()
@@ -104,8 +117,6 @@ public class User
     public void setEmail(String email) {
         this.email = email;
     }
-
-
 
 
 }

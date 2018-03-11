@@ -116,7 +116,8 @@ public class login_activity extends AppCompatActivity
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
+                        if (task.isSuccessful())
+                        {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
                             Toast.makeText(login_activity.this, "Login Successful",
