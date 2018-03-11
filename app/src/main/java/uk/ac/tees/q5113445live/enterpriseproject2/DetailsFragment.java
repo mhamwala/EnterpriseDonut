@@ -222,7 +222,8 @@ public class DetailsFragment extends Fragment
         Query query = reference.child("users").orderByChild("name").equalTo("asda123");
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
                 DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
                 String key = nodeDataSnapshot.getKey(); // this key is `K1NRz9l5PU_0CFDtgXz`
                 String path = "/" + dataSnapshot.getKey() + "/" + key;

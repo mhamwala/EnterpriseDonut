@@ -1,8 +1,10 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,11 +88,11 @@ public class AdvertiseFragment extends Fragment
         {
             mListener.onFragmentInteraction("Advertise");
         }
+        final EditText name = view.findViewById(R.id.itemName);
         final EditText deliveryType = view.findViewById(R.id.deliveryType);
         final EditText distance = view.findViewById(R.id.deliverTo);
         final EditText size = view.findViewById(R.id.size);
         final EditText weight = view.findViewById(R.id.weight);
-        final EditText pay = view.findViewById(R.id.pay);
         final EditText collect = view.findViewById(R.id.collect);
 
         Button advertiseItem = view.findViewById(R.id.button5);
@@ -102,18 +104,21 @@ public class AdvertiseFragment extends Fragment
             {
                 try
                 {
-                    Delivery delivery = new Delivery
+                    Advert advert = new Advert
                             (
+                                    name.getText().toString(),
                                     deliveryType.getText().toString(),
                                     distance.getText().toString(),
-                                    size.getText().toString(),
+                                    collect.getText().toString(),
                                     weight.getText().toString(),
-                                    pay.getText().toString(),
-                                    collect.getText().toString()
+                                    size.getText().toString()
                             );
-                    String key = mDatabase.getDatabase().getReference("delivery").push().getKey();
-                    newDelivery(delivery,user.getUid(), key);
-                    // uploadCourierRequest(delivery);
+                    String key = mDatabase.getDatabase().getReference("advert").push().getKey();
+                    newDelivery(advert,user.getUid(), key);
+
+                    Intent home = new Intent(getActivity(),NavigationDrawer.class);
+                    startActivity(home);
+
                 }
                 catch (NumberFormatException e)
                 {
@@ -127,15 +132,18 @@ public class AdvertiseFragment extends Fragment
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(String title)
     {
-        if (mListener != null) {
+        if (mListener != null)
+        {
             mListener.onFragmentInteraction(title);
         }
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context)
+    {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
+        if (context instanceof OnFragmentInteractionListener)
+        {
             mListener = (OnFragmentInteractionListener) context;
         } else {
             throw new RuntimeException(context.toString()
@@ -144,7 +152,8 @@ public class AdvertiseFragment extends Fragment
     }
 
     @Override
-    public void onDetach() {
+    public void onDetach()
+    {
         super.onDetach();
         mListener = null;
     }
@@ -163,8 +172,8 @@ public class AdvertiseFragment extends Fragment
         // TODO: Update argument type and name
         void onFragmentInteraction(String title);
     }
-    private void newDelivery(Delivery delivery,String user, String id)
+    private void newDelivery(Advert advert, String user, String id)
     {
-        mDatabase.child("delivery").child(user).child(id).setValue(delivery);
+        mDatabase.child("advert").child(user).child(id).setValue(advert);
     }
 }

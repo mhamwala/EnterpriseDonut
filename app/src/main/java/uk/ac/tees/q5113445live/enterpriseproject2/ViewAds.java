@@ -15,12 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
@@ -98,8 +93,8 @@ public class ViewAds extends Fragment
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
-              Delivery delivery = dataSnapshot.getValue(Delivery.class);
-              DeliveryTypeText(delivery,view);
+              Advert advert = dataSnapshot.getValue(Advert.class);
+              DeliveryTypeText(advert,view);
             }
 
             @Override
@@ -127,8 +122,8 @@ public class ViewAds extends Fragment
 //            @Override
 //            public void onDataChange(DataSnapshot dataSnapshot)
 //            {
-//                List<Delivery> deliveryList = new ArrayList<>();
-//                deliveryList.add(dataSnapshot.getValue(Delivery.class));
+//                List<Advert> deliveryList = new ArrayList<>();
+//                deliveryList.add(dataSnapshot.getValue(Advert.class));
 //                DeliveryTypeText(deliveryList.get(0),view);
 //
 //            }
@@ -186,10 +181,10 @@ public class ViewAds extends Fragment
         void onFragmentInteraction(String title);
     }
 
-    public void DeliveryTypeText(Delivery delivery, View view)
+    public void DeliveryTypeText(Advert advert, View view)
     {
         TextView DeliveryType = view.findViewById(R.id.showDeliveryType);
-        DeliveryType.setText(delivery.getDeliveryType());
+        DeliveryType.setText(advert.getDeliveryType());
     }
 
 }

@@ -34,7 +34,7 @@
     <string name="requestCourier">User</string>
 
     //Request courier service page
-    <string name="deliveryType">delivery type</string>
+    <string name="deliveryType">advert type</string>
     <string name="deliverTo">delivering To</string>
     <string name="size">size</string>
     <string name="weight">weight</string>
@@ -46,6 +46,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+    <string name="wallet">Wallet</string>
     <string name="title_activity_navigation_drawer">NavigationDrawer</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -56,6 +57,6 @@
     <string name="updateDetails">Updating the user details</string>
 
 
-    <string name="deliveryTypes">get the delivery item type</string>
+    <string name="deliveryTypes">get the advert item type</string>
 
 </resources>

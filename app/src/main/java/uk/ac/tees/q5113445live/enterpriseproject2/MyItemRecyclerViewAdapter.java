@@ -6,10 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-
 import uk.ac.tees.q5113445live.enterpriseproject2.TestFragment.OnListFragmentInteractionListener;
 import uk.ac.tees.q5113445live.enterpriseproject2.dummy.DummyContent.DummyItem;
 
@@ -22,10 +18,10 @@ import java.util.List;
  */
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
 
-    private final List<Delivery> mValues;
+    private final List<Advert> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyItemRecyclerViewAdapter(List<Delivery> items, OnListFragmentInteractionListener listener)
+    public MyItemRecyclerViewAdapter(List<Advert> items, OnListFragmentInteractionListener listener)
     {
         mValues = items;
         mListener = listener;
@@ -39,23 +35,18 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, int position)
+    {
         holder.mItem = mValues.get(position);
-        holder.c.setText(mValues.get(position).getCollect());
-        holder.d.setText(mValues.get(position).getDeliver());
-        holder.dt.setText(mValues.get(position).getDeliveryType());
-        holder.dis.setText(mValues.get(position).getDistance());
-        holder.pa.setText(mValues.get(position).getPay());
-        holder.s.setText(mValues.get(position).getSize());
-        holder.w.setText(mValues.get(position).getWeight());
+        holder.n.setText(mValues.get(position).getName());
+        holder.c.setText(mValues.get(position).getFrom());
+        holder.d.setText(mValues.get(position).getTo());
+//        holder.dt.setText(mValues.get(position).getDeliveryType());
+//        holder.s.setText(mValues.get(position).getSize());
+//        holder.w.setText(mValues.get(position).getWeight());
 
-
-
-
-
-        //This needs changed so that the above happens for every child in the list.
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
+        holder.mView.setOnClickListener(new View.OnClickListener()
+        {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
@@ -72,33 +63,32 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         return mValues.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder
+    {
         public final View mView;
+        public final TextView n;
         public final TextView c;
         public final TextView d;
-        public final TextView dt;
-        public final TextView dis;
-        public final TextView pa;
-        public final TextView s;
-        public final TextView w;
-        public Delivery mItem;
+//        public final TextView dt;
+//        public final TextView s;
+//        public final TextView w;
+        public Advert mItem;
 
         public ViewHolder(View view)
         {
             super(view);
             mView = view;
+            n = view.findViewById(R.id.itemName);
             c = (TextView) view.findViewById(R.id.collect);
             d = (TextView) view.findViewById(R.id.deliver);
-            dt = (TextView) view.findViewById(R.id.DeliveryType);
-            dis = (TextView) view.findViewById(R.id.distance);
-            pa = (TextView) view.findViewById(R.id.pay);
-            s = (TextView) view.findViewById(R.id.size);
-            w= (TextView) view.findViewById(R.id.weight);
+//            dt = (TextView) view.findViewById(R.id.DeliveryType);
+//            s = (TextView) view.findViewById(R.id.size);
+//            w= (TextView) view.findViewById(R.id.weight);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + c.getText() + "'" + d.getText() +dt.getText()+d.getText()+pa.getText()+s.getText()+w.getText();
+            return super.toString() + " '" +n.getText() +c.getText() + "'" + d.getText();
         }
     }
 }
