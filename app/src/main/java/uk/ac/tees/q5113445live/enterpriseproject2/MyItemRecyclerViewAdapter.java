@@ -41,8 +41,17 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getDeliveryType());
-        holder.mContentView.setText(mValues.get(position).getDeliver());
+        holder.c.setText(mValues.get(position).getCollect());
+        holder.d.setText(mValues.get(position).getDeliver());
+        holder.dt.setText(mValues.get(position).getDeliveryType());
+        holder.dis.setText(mValues.get(position).getDistance());
+        holder.pa.setText(mValues.get(position).getPay());
+        holder.s.setText(mValues.get(position).getSize());
+        holder.w.setText(mValues.get(position).getWeight());
+
+
+
+
 
         //This needs changed so that the above happens for every child in the list.
 
@@ -65,21 +74,31 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
-        public final TextView mContentView;
+        public final TextView c;
+        public final TextView d;
+        public final TextView dt;
+        public final TextView dis;
+        public final TextView pa;
+        public final TextView s;
+        public final TextView w;
         public Delivery mItem;
 
         public ViewHolder(View view)
         {
             super(view);
             mView = view;
-            mIdView = (TextView) view.findViewById(R.id.id);
-            mContentView = (TextView) view.findViewById(R.id.content);
+            c = (TextView) view.findViewById(R.id.collect);
+            d = (TextView) view.findViewById(R.id.deliver);
+            dt = (TextView) view.findViewById(R.id.DeliveryType);
+            dis = (TextView) view.findViewById(R.id.distance);
+            pa = (TextView) view.findViewById(R.id.pay);
+            s = (TextView) view.findViewById(R.id.size);
+            w= (TextView) view.findViewById(R.id.weight);
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" + mContentView.getText() + "'";
+            return super.toString() + " '" + c.getText() + "'" + d.getText() +dt.getText()+d.getText()+pa.getText()+s.getText()+w.getText();
         }
     }
 }
