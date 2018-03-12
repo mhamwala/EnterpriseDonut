@@ -53,6 +53,7 @@ public class DetailsFragment extends Fragment
     private TextView userNumber;
     private TextView userLocation;
     private TextView userEmail;
+    private TextView userReg;
 
 
     private OnFragmentInteractionListener mListener;
@@ -121,6 +122,7 @@ public class DetailsFragment extends Fragment
                 numText(user,view);
                 locationText(user,view);
                 emailText(user, view);
+                regText(user, view);
 
                 System.out.println(user);
                 //TextView userText = view.findViewById(R.id.showUserName);
@@ -140,11 +142,23 @@ public class DetailsFragment extends Fragment
                     @Override
                     public void onClick(View v)
                     {
-
                         updateButton(v);
                     }
                 });
-                }
+
+
+                TextView testingUpdateDriver = view.findViewById(R.id.driverUpdate);
+                final TextView showReg = view.findViewById(R.id.showRegistration);
+                testingUpdateDriver.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+                          showReg.setVisibility(View.VISIBLE);
+                          updateDriverButton(view);
+                    }
+                });
+
+
+        }
 
             @Override
             public void onCancelled(DatabaseError databaseError)
@@ -217,22 +231,46 @@ public class DetailsFragment extends Fragment
         userEmail = view.findViewById(R.id.showUserEmail);
         userEmail.setText(user.getEmail());
     }
+    public void regText(User user, View view)
+    {
+        userReg = view.findViewById(R.id.showRegistration);
+        userReg.setText(user.getEmail());
+    }
 
     public void updateButton(final View view) {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
         reference.child("users").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
-                User user = dataSnapshot.getValue(User.class);
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //User user = dataSnapshot.getValue(User.class);
                 HashMap<String, Object> result = new HashMap<>();
-                result.put("name",userName.getText().toString());
-                result.put("driver", true);
+                result.put("name", userName.getText().toString());
                 result.put("location", userLocation.getText().toString());
                 result.put("email", userEmail.getText().toString());
                 result.put("number", userNumber.getText().toString());
+                reference.child("users").child(fUser.getUid()).updateChildren(result);
+                fUser.updateEmail(userEmail.getText().toString());
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                //Logger.error(TAG, ">>> Error:" + "find onCancelled:" + databaseError);
+
+            }
+        });
+    }
+
+    public void updateDriverButton(final View view) {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        final DatabaseReference reference = firebaseDatabase.getReference();
+        reference.child("users").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                HashMap<String, Object> result = new HashMap<>();
+                result.put("driver", true);
+                result.put("regNumber", userReg.getText().toString());
                 reference.child("users").child(fUser.getUid()).updateChildren(result);
                 fUser.updateEmail(userEmail.getText().toString());
             }

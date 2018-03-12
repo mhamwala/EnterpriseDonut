@@ -55,6 +55,8 @@
 
     //My account page
     <string name="updateDetails">Updating the user details</string>
+    <string name="showRegistration">users registration number</string>
+    <string name="driverUpdate">Driver</string>
 
 
     <string name="deliveryTypes">get the advert item type</string>
