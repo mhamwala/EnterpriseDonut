@@ -1,13 +1,13 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
-import android.app.Activity;
-
 /**
- * Created by arsen on 16/02/2018.
+ * Class describing an Advert. These are the objects that users will put on the app,
+ * to be collected and delivered. Drivers will bid on these objects also.
  */
 
 public class Advert
 {
+    //Initialise variables
     String name;
     String deliveryType;
     String from;
@@ -15,11 +15,7 @@ public class Advert
     String weight;
     String size;
 
-
-    /**
-     * A map of sample (dummy) items, by ID.
-     */
-
+    //Blank Advert
     Advert()
     {
         name = "";
@@ -30,6 +26,7 @@ public class Advert
         size="";
     }
 
+    //Constructor for full advert.
     Advert(String n, String dt, String c, String d, String w, String s)
     {
         name = n;
@@ -40,63 +37,35 @@ public class Advert
         size = s;
     }
 
+    //Required getters and setters
     public String getDeliveryType() {
         return deliveryType;
     }
-
     public void setDeliveryType(String deliveryType) {
         this.deliveryType = deliveryType;
     }
-
     public String getFrom() {return from;    }
-
     public void setFrom(String from) {this.from = from; }
-
     public String getTo() {return to;}
-
     public void setTo(String to) {this.to = to;}
-
     public String getWeight() {
         return weight;
     }
-
     public void setWeight(String weight) {
         this.weight = weight;
     }
-
     public String getSize() {
         return size;
     }
-
     public void setSize(String size) {
         this.size = size;
     }
-
     public String getName()
     {
         return name;
     }
-
     public void setName(String name)
     {
         this.name = name;
     }
-
-
-    // Calculating the Base/Minimum pay for a request to be sent out
-    public void basePay(String from, String to, String size)
-    {
-        //Work out mileage from two places
-        // mileage * size /5 * 2
-    }
-    public void findDistance(String from, String to, Activity a)
-    {
-
-    }
-
-
-
-
-
-
 }

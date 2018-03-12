@@ -26,12 +26,8 @@ import java.util.HashMap;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link DetailsFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link DetailsFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * The following fragment shows the user details, it's also possible to update details stored in
+ * the database from this fragment.
  */
 public class DetailsFragment extends Fragment
 {
@@ -43,18 +39,23 @@ public class DetailsFragment extends Fragment
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private DatabaseReference mDatabase;
-    private StorageReference mStorageRef;
-    private FirebaseUser fUser;
+
     private ImageView imageView;
     private View view;
+    //region Firebase variables
+    private FirebaseUser fUser;
+    private DatabaseReference mDatabase;
+    private StorageReference mStorageRef;
     private DataSnapshot userData;
+    //endregion
+
+    //region TextViews
     private TextView userName;
     private TextView userNumber;
     private TextView userLocation;
     private TextView userEmail;
     private TextView userReg;
-
+    //endregion
 
     private OnFragmentInteractionListener mListener;
 
@@ -64,8 +65,7 @@ public class DetailsFragment extends Fragment
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
+     * Creates a new instance of DetailsFragment
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
@@ -80,7 +80,7 @@ public class DetailsFragment extends Fragment
         fragment.setArguments(args);
         return fragment;
     }
-
+    //region Methods called upon creation of the fragment
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -92,8 +92,7 @@ public class DetailsFragment extends Fragment
 
 
         super.onCreate(savedInstanceState);
-
-
+        //Initialise Firebase Variables
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference("users").child(fUser.getUid());
         mStorageRef = FirebaseStorage.getInstance().getReference("images").child(fUser.getUid());
@@ -116,7 +115,10 @@ public class DetailsFragment extends Fragment
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
+                //Initialise snapshot
                 userData = dataSnapshot;
+
+                //Initialisess user to stored data and populates TextViews in layout.
                 User user = userData.getValue(User.class);
                 nameText(user,view);
                 numText(user,view);
@@ -124,7 +126,6 @@ public class DetailsFragment extends Fragment
                 emailText(user, view);
                 regText(user, view);
 
-                System.out.println(user);
                 //TextView userText = view.findViewById(R.id.showUserName);
                 //userText.setText(fUser.getName());
                 imageView = view.findViewById(R.id.imageView);
@@ -135,7 +136,9 @@ public class DetailsFragment extends Fragment
                 {
                     e.printStackTrace();
                 }
-
+                //region Update Buttons
+                //Temporary button for updating user
+                //TODO: Find correct place for update button.
                 TextView testingUpdate = view.findViewById(R.id.updateDetails);
                 testingUpdate.setOnClickListener(new View.OnClickListener()
                 {
@@ -147,6 +150,8 @@ public class DetailsFragment extends Fragment
                 });
 
 
+                //Temporary code for updating driver
+                // TODO: Find correct location for views and button
                 TextView testingUpdateDriver = view.findViewById(R.id.driverUpdate);
                 final TextView showReg = view.findViewById(R.id.showRegistration);
                 final TextView showRegText = view.findViewById(R.id.registrationNum);
@@ -158,6 +163,7 @@ public class DetailsFragment extends Fragment
                           updateDriverButton(view);
                     }
                 });
+                //endregion
 
 
         }
@@ -171,6 +177,7 @@ public class DetailsFragment extends Fragment
         mDatabase.addListenerForSingleValueEvent(userListener);
         return view;
     }
+    //endregionMeth
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(String title)
@@ -181,6 +188,7 @@ public class DetailsFragment extends Fragment
         }
     }
 
+    //region Attach and Detach
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -197,6 +205,7 @@ public class DetailsFragment extends Fragment
         super.onDetach();
         mListener = null;
     }
+    //endregion
 
     /**
      * This interface must be implemented by activities that contain this
@@ -213,11 +222,15 @@ public class DetailsFragment extends Fragment
         void onFragmentInteraction(String title);
     }
 
+
+    //region The following methods set the TextViews to the data stored on the current user relevant to a particular TextView.
+    //TODO: Find some way to refactor following code.
     public void nameText(User user, View view)
     {
         userName = view.findViewById(R.id.showUserName);
         userName.setText(user.getName());
     }
+
     public void numText(User user, View view)
     {
         userNumber = view.findViewById(R.id.showUserNumber);
@@ -238,7 +251,14 @@ public class DetailsFragment extends Fragment
         userReg = view.findViewById(R.id.showRegistration);
         userReg.setText(user.getRegNumber());
     }
+    //endregion
 
+    //region Update Button methods
+    /**
+     * The updateButton method is called when the update button is pressed. It gathers all data
+     * in the TextViews and changes this data within the database.
+     * @param view
+     */
     public void updateButton(final View view) {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
@@ -264,25 +284,36 @@ public class DetailsFragment extends Fragment
         });
     }
 
-    public void updateDriverButton(final View view) {
+    /**
+     * Same as updateButton, but will only update details for users registered as drivers.
+     * TODO: Refactor so only one button/method is required.
+     * @param view
+     */
+    public void updateDriverButton(final View view)
+    {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
-        reference.child("users").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child("users").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener()
+        {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
+            public void onDataChange(DataSnapshot dataSnapshot) {
                 HashMap<String, Object> result = new HashMap<>();
                 result.put("driver", true);
                 reference.child("users").child(fUser.getUid()).updateChildren(result);
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 //Logger.error(TAG, ">>> Error:" + "find onCancelled:" + databaseError);
-
             }
         });
     }
+    //endregion
 
+    /**
+     * Returns the profile image in storage linked to a UiD
+     * @throws IOException
+     */
     public void getProfileImage() throws IOException
     {
         Glide.with(this /* context */)
@@ -292,3 +323,4 @@ public class DetailsFragment extends Fragment
     }
 
 }
+

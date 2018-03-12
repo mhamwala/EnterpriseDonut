@@ -27,12 +27,8 @@ import java.io.IOException;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * Fragment to show the home screen. This is the landing page of the app once a user has been logged
+ * in.
  */
 public class HomeFragment extends Fragment
 {
@@ -45,16 +41,17 @@ public class HomeFragment extends Fragment
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
-
+    //region Firebase variables
     private DatabaseReference mDatabase;
     private StorageReference mStorageRef;
     private FirebaseUser user;
+    //endregion
+
     private ImageView imageView;
     private View view;
-
     Button tempButton;
 
+    private OnFragmentInteractionListener mListener;
     public HomeFragment()
     {
         // Required empty public constructor
@@ -79,7 +76,7 @@ public class HomeFragment extends Fragment
         return fragment;
     }
 
-    //This method is for initialising variables
+    //region Methods called upon fragment creation
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -151,6 +148,7 @@ public class HomeFragment extends Fragment
         */
         return view;
     }
+    //endregion
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri)
@@ -161,6 +159,7 @@ public class HomeFragment extends Fragment
         }
     }
 
+    //region Attach and Detach
     @Override
     public void onAttach(Context context)
     {
@@ -182,6 +181,7 @@ public class HomeFragment extends Fragment
         super.onDetach();
         mListener = null;
     }
+    //endregion
 
     /**
      * This interface must be implemented by activities that contain this
@@ -198,6 +198,15 @@ public class HomeFragment extends Fragment
         // TODO: Update argument type and name
         void onFragmentInteraction(String title);
     }
+
+    public void getProfileImage() throws IOException
+    {
+        Glide.with(this /* context */)
+                .using(new FirebaseImageLoader())
+                .load(mStorageRef)
+                .into(imageView);
+    }
+    //region Legacy methods for changing activities.
     /*public void userButton(View view)
     {
         tempButton = view.findViewById(R.id.userButton);
@@ -255,11 +264,5 @@ public class HomeFragment extends Fragment
 
     }
     */
-    public void getProfileImage() throws IOException
-    {
-        Glide.with(this /* context */)
-                .using(new FirebaseImageLoader())
-                .load(mStorageRef)
-                .into(imageView);
-    }
+    //endregion
 }
