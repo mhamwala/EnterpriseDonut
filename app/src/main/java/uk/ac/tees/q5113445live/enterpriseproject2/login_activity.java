@@ -120,7 +120,7 @@ public class login_activity extends AppCompatActivity
                         {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success");
-                            Toast.makeText(login_activity.this, "Login Successful",
+                            Toast.makeText(login_activity.this, "LOGGING ON...",
                                     Toast.LENGTH_SHORT).show();
                             FirebaseUser user = mAuth.getCurrentUser();
                             // once log in is successful sends user to landing page. nathan
@@ -130,7 +130,7 @@ public class login_activity extends AppCompatActivity
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
-                            Toast.makeText(login_activity.this, "Authentication failed.",
+                            Toast.makeText(login_activity.this, "Incorrect email or password.\nPlease try again!",
                                     Toast.LENGTH_SHORT).show();
                             updateUI(null);
                         }
