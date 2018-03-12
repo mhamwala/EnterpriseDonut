@@ -149,10 +149,12 @@ public class DetailsFragment extends Fragment
 
                 TextView testingUpdateDriver = view.findViewById(R.id.driverUpdate);
                 final TextView showReg = view.findViewById(R.id.showRegistration);
+                final TextView showRegText = view.findViewById(R.id.registrationNum);
                 testingUpdateDriver.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View view) {
                           showReg.setVisibility(View.VISIBLE);
+                          showRegText.setVisibility(View.VISIBLE);
                           updateDriverButton(view);
                     }
                 });
@@ -234,7 +236,7 @@ public class DetailsFragment extends Fragment
     public void regText(User user, View view)
     {
         userReg = view.findViewById(R.id.showRegistration);
-        userReg.setText(user.getEmail());
+        userReg.setText(user.getRegNumber());
     }
 
     public void updateButton(final View view) {
@@ -249,6 +251,7 @@ public class DetailsFragment extends Fragment
                 result.put("location", userLocation.getText().toString());
                 result.put("email", userEmail.getText().toString());
                 result.put("number", userNumber.getText().toString());
+                result.put("regNumber", userReg.getText().toString());
                 reference.child("users").child(fUser.getUid()).updateChildren(result);
                 fUser.updateEmail(userEmail.getText().toString());
             }
@@ -270,9 +273,7 @@ public class DetailsFragment extends Fragment
             {
                 HashMap<String, Object> result = new HashMap<>();
                 result.put("driver", true);
-                result.put("regNumber", userReg.getText().toString());
                 reference.child("users").child(fUser.getUid()).updateChildren(result);
-                fUser.updateEmail(userEmail.getText().toString());
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
