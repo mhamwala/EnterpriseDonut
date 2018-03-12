@@ -17,7 +17,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -46,9 +45,11 @@ public class DetailsFragment extends Fragment
     private String mParam2;
     private DatabaseReference mDatabase;
     private StorageReference mStorageRef;
-    private FirebaseUser user;
+    private FirebaseUser fUser;
     private ImageView imageView;
     private View view;
+    private DataSnapshot userData;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -88,9 +89,9 @@ public class DetailsFragment extends Fragment
         super.onCreate(savedInstanceState);
 
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
-        mStorageRef = FirebaseStorage.getInstance().getReference("images").child(user.getUid());
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
+        mDatabase = FirebaseDatabase.getInstance().getReference("users").child(fUser.getUid());
+        mStorageRef = FirebaseStorage.getInstance().getReference("images").child(fUser.getUid());
 
         if (getArguments() != null)
 
@@ -110,17 +111,16 @@ public class DetailsFragment extends Fragment
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-                User user = dataSnapshot.getValue(User.class);
+                userData = dataSnapshot;
+                User user = userData.getValue(User.class);
                 nameText(user,view);
                 numText(user,view);
                 locationText(user,view);
                 emailText(user, view);
 
-
-
                 System.out.println(user);
                 //TextView userText = view.findViewById(R.id.showUserName);
-                //userText.setText(user.getName());
+                //userText.setText(fUser.getName());
                 imageView = view.findViewById(R.id.imageView);
                 try
                 {
@@ -131,17 +131,15 @@ public class DetailsFragment extends Fragment
                 }
 
                 TextView testingUpdate = view.findViewById(R.id.updateDetails);
-                testingUpdate.setOnClickListener(new View.OnClickListener() {
+                testingUpdate.setOnClickListener(new View.OnClickListener()
+                {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View v)
+                    {
 
-                        updateButton();
+                        updateButton(v);
                     }
                 });
-
-
-
-
                 }
 
             @Override
@@ -216,24 +214,26 @@ public class DetailsFragment extends Fragment
         userEmail.setText(user.getEmail());
     }
 
-    public void updateButton() {
-        TextView userName = view.findViewById(R.id.showUserName);
-        final String a = (String)userName.getText();
-        System.out.println("STRINGGGGGGG A :" + a);
+    public void updateButton(final View view) {
+
+
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
-
-            reference.child("users").equalTo(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        reference.child("users").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-                DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
-                String key = nodeDataSnapshot.getKey(); // this key is `K1NRz9l5PU_0CFDtgXz`
-                String path = "/" + dataSnapshot.getKey() + "/" + key;
+//                User user = userData.getValue(User.class);
+//                TextView userName = view.findViewById(R.id.showUserName);
+//                userName.setText(user.getName());
+//                DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
+                User user = dataSnapshot.getValue(User.class);
                 HashMap<String, Object> result = new HashMap<>();
-                result.put("name",a);
+                result.put("name","bob");
+                result.put("driver", true);
+                result.put("location", "TS1 2ES");
 
-                reference.child(path).updateChildren(result);
+                reference.child("users").child(fUser.getUid()).updateChildren(result);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -242,7 +242,6 @@ public class DetailsFragment extends Fragment
             }
         });
     }
-
 
     public void getProfileImage() throws IOException
     {
