@@ -19,7 +19,6 @@
         <activity android:name=".sign_up_user" />
         <activity android:name=".sign_up_driver" />
         <activity android:name=".SettingsActivity" />
-        <activity android:name=".DriverActivity" />
         <activity
             android:name=".NavigationDrawer"
             android:label="@string/title_activity_navigation_drawer"
