@@ -148,11 +148,11 @@ public class DetailsFragment extends Fragment
 
 
                 TextView testingUpdateDriver = view.findViewById(R.id.driverUpdate);
+                final TextView showReg = view.findViewById(R.id.showRegistration);
                 testingUpdateDriver.setOnClickListener(new View.OnClickListener(){
-
                     @Override
                     public void onClick(View view) {
-                          //hide(view);
+                          showReg.setVisibility(View.VISIBLE);
                           updateDriverButton(view);
                     }
                 });
@@ -168,11 +168,6 @@ public class DetailsFragment extends Fragment
         };
         mDatabase.addListenerForSingleValueEvent(userListener);
         return view;
-    }
-
-    public void regText(View view) {
-        TextView txtView = view.findViewById(R.id.showRegistration);
-        txtView.setVisibility(View.VISIBLE);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
