@@ -49,6 +49,10 @@ public class DetailsFragment extends Fragment
     private ImageView imageView;
     private View view;
     private DataSnapshot userData;
+    private TextView userName;
+    private TextView userNumber;
+    private TextView userLocation;
+    private TextView userEmail;
 
 
     private OnFragmentInteractionListener mListener;
@@ -195,45 +199,42 @@ public class DetailsFragment extends Fragment
 
     public void nameText(User user, View view)
     {
-        TextView userName = view.findViewById(R.id.showUserName);
+        userName = view.findViewById(R.id.showUserName);
         userName.setText(user.getName());
     }
     public void numText(User user, View view)
     {
-        TextView userNumber = view.findViewById(R.id.showUserNumber);
+        userNumber = view.findViewById(R.id.showUserNumber);
         userNumber.setText(user.getNumber());
     }
     public void locationText(User user, View view)
     {
-        TextView userLocation = view.findViewById(R.id.showUserLocation);
+        userLocation = view.findViewById(R.id.showUserLocation);
         userLocation.setText(user.getLocation());
     }
     public void emailText(User user, View view)
     {
-        TextView userEmail = view.findViewById(R.id.showUserEmail);
+        userEmail = view.findViewById(R.id.showUserEmail);
         userEmail.setText(user.getEmail());
     }
 
     public void updateButton(final View view) {
-
-
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
         reference.child("users").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
-//                User user = userData.getValue(User.class);
-//                TextView userName = view.findViewById(R.id.showUserName);
-//                userName.setText(user.getName());
-//                DataSnapshot nodeDataSnapshot = dataSnapshot.getChildren().iterator().next();
                 User user = dataSnapshot.getValue(User.class);
                 HashMap<String, Object> result = new HashMap<>();
-                result.put("name","bob");
+                result.put("name",userName.getText().toString());
                 result.put("driver", true);
-                result.put("location", "TS1 2ES");
+                result.put("location", userLocation.getText().toString());
+                result.put("email", userEmail.getText().toString());
+                result.put("number", userNumber.getText().toString());
 
                 reference.child("users").child(fUser.getUid()).updateChildren(result);
+                fUser.updateEmail(userEmail.getText().toString());
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
