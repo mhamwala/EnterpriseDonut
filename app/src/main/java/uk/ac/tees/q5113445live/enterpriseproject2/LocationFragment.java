@@ -17,12 +17,8 @@ import java.util.Locale;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link LocationFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link LocationFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * The following fragment finds extended location information from a Users postcode.
+ * Currently unused, but may be of future use.
  */
 public class LocationFragment extends Fragment
 {
@@ -34,8 +30,8 @@ public class LocationFragment extends Fragment
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private String houseNumber = "46";
-    private String postCode = "TS1 3PB";
+
+
     private String cityName = "";
     private String countryName = "";
 
@@ -65,6 +61,7 @@ public class LocationFragment extends Fragment
         return fragment;
     }
 
+    //region Methods called upon fragment creation
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -83,7 +80,7 @@ public class LocationFragment extends Fragment
     {
         final View view = inflater.inflate(R.layout.fragment_location, container, false);
         TextView houseNum = view.findViewById(R.id.showHouseNum);
-        houseNum.setText(houseNumber);
+
 
         TextView city = view.findViewById(R.id.showCity);
         city.setText(cityName);
@@ -94,6 +91,7 @@ public class LocationFragment extends Fragment
 
         return view;
     }
+    //endregion
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(String title) {
@@ -103,6 +101,7 @@ public class LocationFragment extends Fragment
             mListener.onFragmentInteraction(title);
         }
     }
+
 
     @Override
     public void onAttach(Context context)

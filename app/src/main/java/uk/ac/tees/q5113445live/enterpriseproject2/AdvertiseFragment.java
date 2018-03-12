@@ -18,12 +18,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 /**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link AdvertiseFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link AdvertiseFragment#newInstance} factory method to
- * create an instance of this fragment.
+ * The following fragment allows for the listing of adverts by users. The fragment will place these
+ * adverts onto the Firebase real-time database which is connected.
  */
 public class AdvertiseFragment extends Fragment
 {
@@ -32,6 +28,7 @@ public class AdvertiseFragment extends Fragment
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+    //Initialise Firebase variables
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private FirebaseUser user;
@@ -48,8 +45,7 @@ public class AdvertiseFragment extends Fragment
     }
 
     /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
+     * Creates a new instance of the advertise fragment.
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
@@ -65,11 +61,11 @@ public class AdvertiseFragment extends Fragment
         return fragment;
     }
 
+    //Overridden method called upon fragment creation. Initialises required variables.
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -79,6 +75,7 @@ public class AdvertiseFragment extends Fragment
         }
     }
 
+    //Overridden method called upon fragment creation. Initialises required views.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -88,15 +85,16 @@ public class AdvertiseFragment extends Fragment
         {
             mListener.onFragmentInteraction("Advertise");
         }
+        //Initialises EditText to their corresponding layout item.
         final EditText name = view.findViewById(R.id.itemName);
         final EditText deliveryType = view.findViewById(R.id.deliveryType);
         final EditText distance = view.findViewById(R.id.deliverTo);
         final EditText size = view.findViewById(R.id.size);
         final EditText weight = view.findViewById(R.id.weight);
         final EditText collect = view.findViewById(R.id.collect);
-
         Button advertiseItem = view.findViewById(R.id.button5);
 
+        //Listener for Advertise Item
         advertiseItem.setOnClickListener(new Button.OnClickListener()
         {
             @Override
@@ -104,6 +102,7 @@ public class AdvertiseFragment extends Fragment
             {
                 try
                 {
+                    //Creates new advert by gather text from user.
                     Advert advert = new Advert
                             (
                                     name.getText().toString(),
@@ -113,9 +112,11 @@ public class AdvertiseFragment extends Fragment
                                     weight.getText().toString(),
                                     size.getText().toString()
                             );
+                    //Create the entry in the database.
                     String key = mDatabase.getDatabase().getReference("advert").push().getKey();
                     newDelivery(advert,user.getUid(), key);
 
+                    //Reverts back to home activity.
                     Intent home = new Intent(getActivity(),NavigationDrawer.class);
                     startActivity(home);
 
@@ -172,6 +173,14 @@ public class AdvertiseFragment extends Fragment
         // TODO: Update argument type and name
         void onFragmentInteraction(String title);
     }
+
+    /**
+     * Add an advert to the database following the below structure.
+     * Advert>UserID>ItemID
+     * @param advert advert to add
+     * @param user user adding advert
+     * @param id unique id of advert
+     */
     private void newDelivery(Advert advert, String user, String id)
     {
         mDatabase.child("advert").child(user).child(id).setValue(advert);
