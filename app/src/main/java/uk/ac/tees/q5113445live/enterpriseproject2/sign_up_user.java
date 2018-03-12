@@ -64,21 +64,8 @@ public class sign_up_user extends AppCompatActivity
         final EditText nameEdit = findViewById(R.id.enterName);
         final EditText locEdit = findViewById(R.id.enterLoc);
         final EditText numEdit = findViewById(R.id.enterNumber);
-        final Switch userSwitch = findViewById(R.id.userSwitch);
         final Button addImage = findViewById(R.id.addImage);
         testImage = findViewById(R.id.testImage);
-
-        userSwitch.setChecked(false);
-        userSwitch.setOnClickListener(new Switch.OnClickListener()
-        {
-            @Override
-            public void onClick(View v)
-            {
-                boolean check = userSwitch.isChecked();
-                System.out.println("Value of switch" + check);
-                changeUserType(v);
-            }
-        });
 
         addImage.setOnClickListener(new Switch.OnClickListener()
         {
@@ -190,7 +177,7 @@ public class sign_up_user extends AppCompatActivity
         if(selectedImage != null)
         {
             final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("Uploading...");
+            progressDialog.setTitle("Creating Account...");
             progressDialog.show();
 
             StorageReference ref = mStorageRef.child("images/"+ mAuth.getCurrentUser().getUid());
@@ -218,7 +205,7 @@ public class sign_up_user extends AppCompatActivity
                         {
                             double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
                                     .getTotalByteCount());
-                            progressDialog.setMessage("Uploaded "+(int)progress+"%");
+                            progressDialog.setMessage("Account Created "+(int)progress+"%");
                         }
                     });
         }
