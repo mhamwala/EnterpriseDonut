@@ -131,8 +131,7 @@
 
     <EditText
 
-        android:id="@+id/showUserEmail"
-        android:layout_width="254dp"
+
 
         android:id="@+id/showRegistration"
         android:layout_width="259dp"
@@ -201,15 +200,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toEndOf="@+id/updateDetails" />
 
-    <Button
-        android:id="@+id/updateDetails"
-        android:layout_width="81dp"
-        android:layout_height="35dp"
-        android:layout_marginTop="412dp"
-        android:text="Update Details"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
