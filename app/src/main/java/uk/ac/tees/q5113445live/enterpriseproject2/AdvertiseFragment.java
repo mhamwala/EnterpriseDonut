@@ -52,7 +52,8 @@ public class AdvertiseFragment extends Fragment
      * @return A new instance of fragment AdvertiseFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AdvertiseFragment newInstance(String param1, String param2) {
+    public static AdvertiseFragment newInstance(String param1, String param2)
+    {
         AdvertiseFragment fragment = new AdvertiseFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
