@@ -9,14 +9,12 @@ public class Bid
     String driverName;
     String price;
 
-    //Blank bid
     Bid()
     {
         driverName = "";
         price ="";
     }
 
-    //Constructor for full bid.
     Bid(String dN, String p)
     {
         driverName = dN;

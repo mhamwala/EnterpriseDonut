@@ -62,8 +62,4 @@
 
     <string name="deliveryTypes">get the advert item type</string>
 
-    //Items page
-    <string name="currentBid">Get current bid</string>
-    <string name="updateBid">Update current bid</string>
-
 </resources>
