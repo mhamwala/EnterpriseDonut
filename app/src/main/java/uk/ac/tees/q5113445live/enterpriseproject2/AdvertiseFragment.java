@@ -141,7 +141,7 @@ public class AdvertiseFragment extends Fragment
                     //Create the entry in the database.
                     String key = mDatabase.getDatabase().getReference("advert").push().getKey();
                     newDelivery(advert,user.getUid(), key);
-                    uploadPic();
+                    uploadPic(key);
                     //Reverts back to home activity.
                     Intent home = new Intent(getActivity(),NavigationDrawer.class);
                     startActivity(home);
@@ -255,12 +255,12 @@ public class AdvertiseFragment extends Fragment
         );
     }
 
-    public void uploadPic()
+    public void uploadPic(String key)
     {
         //final ProgressDialog progressDialog = new ProgressDialog(this);
         //progressDialog.setTitle("Adding Image...");
         //progressDialog.show();
-        StorageReference ref = mStorageRef.child("AdvertImage/"+ mAuth.getCurrentUser().getUid());
+        StorageReference ref = mStorageRef.child("AdvertImage/"+ key);
 
         ref.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
