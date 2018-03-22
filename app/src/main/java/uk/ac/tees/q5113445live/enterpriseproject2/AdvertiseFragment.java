@@ -1,10 +1,12 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -12,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -23,6 +27,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import static uk.ac.tees.q5113445live.enterpriseproject2.sign_up_user.GET_FROM_GALLERY;
 
@@ -45,6 +52,7 @@ public class AdvertiseFragment extends Fragment
     private StorageReference mStorageRef;
     private Uri selectedImage;
     private Button addImage;
+    private ImageView imageView = null;
 
 
     // TODO: Rename and change types of parameters
@@ -108,7 +116,8 @@ public class AdvertiseFragment extends Fragment
         final EditText size = view.findViewById(R.id.size);
         final EditText weight = view.findViewById(R.id.weight);
         final EditText collect = view.findViewById(R.id.collect);
-        final Button addImage = view.findViewById(R.id.addImage);
+        final Button addImage = view.findViewById(R.id.imageButton);
+        imageView = view.findViewById(R.id.imageView);
         Button advertiseItem = view.findViewById(R.id.button5);
 
         //Listener for Advertise Item
@@ -132,7 +141,7 @@ public class AdvertiseFragment extends Fragment
                     //Create the entry in the database.
                     String key = mDatabase.getDatabase().getReference("advert").push().getKey();
                     newDelivery(advert,user.getUid(), key);
-
+                    uploadPic();
                     //Reverts back to home activity.
                     Intent home = new Intent(getActivity(),NavigationDrawer.class);
                     startActivity(home);
@@ -154,11 +163,32 @@ public class AdvertiseFragment extends Fragment
             public void onClick(View v)
             {
                 addPicture();
-                uploadPic();
             }
         });
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //Detects request codes
+        if (requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+            selectedImage = data.getData();
+
+            try {
+                imageView.setImageBitmap
+                        (MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),
+                                selectedImage));
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
