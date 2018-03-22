@@ -1,7 +1,9 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -10,11 +12,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import static uk.ac.tees.q5113445live.enterpriseproject2.sign_up_user.GET_FROM_GALLERY;
 
 
 /**
@@ -32,6 +42,9 @@ public class AdvertiseFragment extends Fragment
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private FirebaseUser user;
+    private StorageReference mStorageRef;
+    private Uri selectedImage;
+    private Button addImage;
 
 
     // TODO: Rename and change types of parameters
@@ -68,12 +81,14 @@ public class AdvertiseFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     //Overridden method called upon fragment creation. Initialises required views.
@@ -93,6 +108,7 @@ public class AdvertiseFragment extends Fragment
         final EditText size = view.findViewById(R.id.size);
         final EditText weight = view.findViewById(R.id.weight);
         final EditText collect = view.findViewById(R.id.collect);
+        final Button addImage = view.findViewById(R.id.addImage);
         Button advertiseItem = view.findViewById(R.id.button5);
 
         //Listener for Advertise Item
@@ -121,6 +137,8 @@ public class AdvertiseFragment extends Fragment
                     Intent home = new Intent(getActivity(),NavigationDrawer.class);
                     startActivity(home);
 
+
+
                 }
                 catch (NumberFormatException e)
                 {
@@ -128,6 +146,18 @@ public class AdvertiseFragment extends Fragment
                 }
             }
         });
+
+        //addImage = view.findViewById(R.id.imageButton);
+        addImage.setOnClickListener(new Switch.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                addPicture();
+                uploadPic();
+            }
+        });
+
         return view;
     }
 
@@ -186,4 +216,31 @@ public class AdvertiseFragment extends Fragment
     {
         mDatabase.child("advert").child(user).child(id).setValue(advert);
     }
+
+    public void addPicture()
+    {
+        startActivityForResult(new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI),
+                GET_FROM_GALLERY
+        );
+    }
+
+    public void uploadPic()
+    {
+        //final ProgressDialog progressDialog = new ProgressDialog(this);
+        //progressDialog.setTitle("Adding Image...");
+        //progressDialog.show();
+        StorageReference ref = mStorageRef.child("AdvertImage/"+ mAuth.getCurrentUser().getUid());
+
+        ref.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                //progressDialog.dismiss();
+                System.out.println("Completed");
+                //Toast.makeText(this, "Uploaded", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
 }

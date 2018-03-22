@@ -51,9 +51,7 @@ public class TestFragment extends Fragment {
     private ArrayList<String> bid;
 
     public static final List<Advert> ITEMS = new ArrayList<Advert>();
-    public static final List<Bid> BIDS = new ArrayList<Bid>();
     public static final Map<String, Advert> ITEM_MAP = new HashMap<String, Advert>();
-    public static final Map<String, Bid> BID_MAP = new HashMap<String, Bid>();
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -82,7 +80,6 @@ public class TestFragment extends Fragment {
         user = FirebaseAuth.getInstance().getCurrentUser();
         userDatabase = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
         mDatabase = FirebaseDatabase.getInstance().getReference("advert");
-        bidDatabase = FirebaseDatabase.getInstance().getReference("advert").child(user.getUid()).child("Bids");
         location = new ArrayList<>();
 
         //checkDriver();
@@ -147,14 +144,6 @@ public class TestFragment extends Fragment {
         ITEM_MAP.put(item.getWeight(),item);
     }
 
-    private static void addBid(Bid bid)
-    {
-        //Adds the items to a static list which is shown to the user
-        BIDS.add(bid);
-        BID_MAP.put(bid.getDriverName(),bid);
-        BID_MAP.put(bid.getPrice(),bid);
-    }
-
     private void recyclerMethod(View view)
     {
         //Recyclers which handles the showing of items to the user.
@@ -170,13 +159,12 @@ public class TestFragment extends Fragment {
             {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(ITEMS,BIDS, mListener));
+            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(ITEMS, mListener));
         }
     }
     private void refresh()
     {
         ITEMS.clear();
-        BIDS.clear();
         ITEM_MAP.clear();
     }
     public void checkDriver(final View view)
@@ -215,15 +203,10 @@ public class TestFragment extends Fragment {
                                 public void onCancelled(DatabaseError databaseError) {}
                             });
                             Advert advert = child.getValue(Advert.class);
-                            Bid bids = child.getValue(Bid.class);
                             location = getLocation(advert.from,advert.to);
-                            bid = getBid(bids.driverName, bids.price);
                             advert.setFrom(location.get(0));
                             advert.setTo(location.get(1));
-                            bids.setDriverName(bid.get(0));
-                            bids.setPrice(bid.get(1));
                             addItem(advert);
-                            addBid(bids);
                             recyclerMethod(view);
                         }
 
@@ -237,9 +220,7 @@ public class TestFragment extends Fragment {
                         if(user.getUid().equals(dataSnapshot.getKey()))
                         {
                             Advert advert = child.getValue(Advert.class);
-                            Bid bids = child.getValue(Bid.class);
                             addItem(advert);
-                            addBid(bids);
                             recyclerMethod(view);
                         }
                     }
@@ -305,33 +286,4 @@ public class TestFragment extends Fragment {
         return location;
     }
 
-    public ArrayList<String> getBid(String name, String price)
-    {
-        ArrayList<String> bids = new ArrayList<>();
-
-        name = "Musa";
-        price = "10";
-
-//        DatabaseReference ref = bidDatabase;
-//
-//        ref.addValueEventListener(new ValueEventListener() {
-//                                      @Override
-//                                      public void onDataChange(DataSnapshot dataSnapshot) {
-//                                          for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-//                                              Log.e(TAG, "======="+postSnapshot.child("email").getValue());
-//                                              Log.e(TAG, "======="+postSnapshot.child("name").getValue());
-//                                          }
-//                                      }
-//
-//                                      @Override
-//                                      public void onCancelled(DatabaseError databaseError) {
-//                                          System.out.println("The read failed: " + databaseError.getCode());
-//                                      }
-//                                  });
-
-        bid.add(name);
-        bid.add(price);
-
-        return bids;
-    }
 }

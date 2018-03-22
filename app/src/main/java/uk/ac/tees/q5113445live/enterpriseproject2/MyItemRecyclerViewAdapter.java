@@ -19,13 +19,11 @@ import java.util.List;
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<Advert> mValues;
-    private final List<Bid> bids;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyItemRecyclerViewAdapter(List<Advert> items, List<Bid> bid, OnListFragmentInteractionListener listener)
+    public MyItemRecyclerViewAdapter(List<Advert> items, OnListFragmentInteractionListener listener)
     {
         mValues = items;
-        bids = bid;
         mListener = listener;
     }
 
@@ -45,9 +43,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         holder.n.setText(mValues.get(position).getName());
         holder.c.setText(mValues.get(position).getFrom());
         holder.d.setText(mValues.get(position).getTo());
-        //TESTTING
-        holder.mBid = bids.get(position);
-        holder.a.setText(bids.get(position).getDriverName()); //CRASHES AFTER THIS!!!!!
 
 //        holder.dt.setText(mValues.get(position).getDeliveryType());
 //        holder.s.setText(mValues.get(position).getSize());
@@ -77,12 +72,10 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         public final TextView n;
         public final TextView c;
         public final TextView d;
-        public final TextView a;
 //        public final TextView dt;
 //        public final TextView s;
 //        public final TextView w;
         public Advert mItem;
-        public Bid mBid;
 
         public ViewHolder(View view)
         {
@@ -92,7 +85,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             n = view.findViewById(R.id.itemName);
             c = (TextView) view.findViewById(R.id.collect);
             d = (TextView) view.findViewById(R.id.deliver);
-            a = (TextView) view.findViewById(R.id.driverUpdate);
+
 //            dt = (TextView) view.findViewById(R.id.DeliveryType);
 //            s = (TextView) view.findViewById(R.id.size);
 //            w= (TextView) view.findViewById(R.id.weight);
