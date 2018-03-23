@@ -38,10 +38,12 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position)
     {
+        //Bid bid = new Bid()
         holder.mItem = mValues.get(position);
         holder.n.setText(mValues.get(position).getName());
         holder.c.setText(mValues.get(position).getFrom());
         holder.d.setText(mValues.get(position).getTo());
+
 //        holder.dt.setText(mValues.get(position).getDeliveryType());
 //        holder.s.setText(mValues.get(position).getSize());
 //        holder.w.setText(mValues.get(position).getWeight());
@@ -79,9 +81,11 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         {
             super(view);
             mView = view;
+            //mBid = view;
             n = view.findViewById(R.id.itemName);
             c = (TextView) view.findViewById(R.id.collect);
             d = (TextView) view.findViewById(R.id.deliver);
+
 //            dt = (TextView) view.findViewById(R.id.DeliveryType);
 //            s = (TextView) view.findViewById(R.id.size);
 //            w= (TextView) view.findViewById(R.id.weight);
