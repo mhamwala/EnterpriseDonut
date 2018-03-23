@@ -131,7 +131,7 @@ public class AdvertiseFragment extends Fragment
         imageView = view.findViewById(R.id.imageView);
         Button advertiseItem = view.findViewById(R.id.button5);
 
-        Button addImage = view.findViewById(R.id.addImage);
+
         testImage = view.findViewById(R.id.testImage);
         addImage.setOnClickListener(new Switch.OnClickListener()
         {
@@ -295,13 +295,7 @@ public class AdvertiseFragment extends Fragment
 
     }
 
-    public void addPicture()
-    {
-        startActivityForResult(new Intent(Intent.ACTION_PICK,
-                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI),
-                GET_FROM_GALLERY
-        );
-    }
+
 
     public void uploadPic(String key)
     {

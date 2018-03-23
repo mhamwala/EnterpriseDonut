@@ -18,6 +18,17 @@
             android:layout_width="match_parent"
             android:layout_height="124dp">
 
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="14dp" />
+
+
             <TextView
                 android:id="@+id/itemName"
                 android:layout_width="match_parent"
@@ -32,9 +43,9 @@
                 android:id="@+id/collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/itemName"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_alignTop="@+id/imageView"
+                android:layout_marginTop="12dp"
+                android:layout_toStartOf="@+id/updateBid"
                 android:gravity="center_vertical"
                 android:text="From: "
                 android:textSize="10dp" />
@@ -43,9 +54,10 @@
                 android:id="@+id/deliver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/collect"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_alignBaseline="@+id/textView4"
+                android:layout_alignBottom="@+id/textView4"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="13dp"
                 android:gravity="center_vertical"
                 android:text="To: "
                 android:textSize="10dp" />
@@ -66,9 +78,7 @@
                 android:id="@+id/textBid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignStart="@+id/deliver"
-                android:layout_alignTop="@+id/currentBid"
+                android:layout_alignBottom="@+id/currentBid"
                 android:layout_toStartOf="@+id/currentBid"
                 android:text="Current Bid:"
                 android:textAlignment="center" />
@@ -83,6 +93,25 @@
                 android:layout_toEndOf="@+id/currentBid"
                 android:text="Bid"
                 android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/collect"
+                android:layout_marginEnd="20dp"
+                android:layout_toStartOf="@+id/collect"
+                android:text="From:" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/collect"
+                android:layout_alignBottom="@+id/collect"
+                android:layout_marginEnd="17dp"
+                android:layout_toStartOf="@+id/deliver"
+                android:text="To:" />
 
 
         </RelativeLayout>
