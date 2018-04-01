@@ -18,6 +18,17 @@
             android:layout_width="match_parent"
             android:layout_height="124dp">
 
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="14dp" />
+
+
             <TextView
                 android:id="@+id/itemName"
                 android:layout_width="match_parent"
@@ -32,9 +43,9 @@
                 android:id="@+id/collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/itemName"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_alignTop="@+id/imageView"
+                android:layout_marginTop="12dp"
+                android:layout_toStartOf="@+id/updateBid"
                 android:gravity="center_vertical"
                 android:text="From: "
                 android:textSize="10dp" />
@@ -43,9 +54,10 @@
                 android:id="@+id/deliver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/collect"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_alignBaseline="@+id/textView4"
+                android:layout_alignBottom="@+id/textView4"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="13dp"
                 android:gravity="center_vertical"
                 android:text="To: "
                 android:textSize="10dp" />
@@ -61,7 +73,7 @@
                 android:inputType="textPersonName"
                 android:textAlignment="center"
                 android:textSize="10sp" />
-            
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
