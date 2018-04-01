@@ -14,6 +14,7 @@ public class Advert
     String to;
     String weight;
     String size;
+    String bid;
 
     //Blank Advert
     Advert()
@@ -24,10 +25,11 @@ public class Advert
         to ="";
         weight = "";
         size="";
+        bid="";
     }
 
     //Constructor for full advert.
-    Advert(String n, String dt, String c, String d, String w, String s)
+    Advert(String n, String dt, String c, String d, String w, String s, String b)
     {
         name = n;
         deliveryType= dt;
@@ -35,6 +37,7 @@ public class Advert
         to = d;
         weight= w;
         size = s;
+        bid = b;
     }
 
     //Required getters and setters
@@ -67,5 +70,13 @@ public class Advert
     public void setName(String name)
     {
         this.name = name;
+    }
+    public String getBid()
+    {
+        return bid;
+    }
+    public void setBid(String bid)
+    {
+        this.bid = bid;
     }
 }
