@@ -43,7 +43,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         holder.n.setText(mValues.get(position).getName());
         holder.c.setText(mValues.get(position).getFrom());
         holder.d.setText(mValues.get(position).getTo());
-
+        holder.s.setText(mValues.get(position).getBid());
 //        holder.dt.setText(mValues.get(position).getDeliveryType());
 //        holder.s.setText(mValues.get(position).getSize());
 //        holder.w.setText(mValues.get(position).getWeight());
@@ -73,7 +73,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         public final TextView c;
         public final TextView d;
 //        public final TextView dt;
-//        public final TextView s;
+        public final TextView s;
 //        public final TextView w;
         public Advert mItem;
 
@@ -85,6 +85,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             n = view.findViewById(R.id.itemName);
             c = (TextView) view.findViewById(R.id.collect);
             d = (TextView) view.findViewById(R.id.deliver);
+            s = (TextView) view.findViewById(R.id.bid);
 
 //            dt = (TextView) view.findViewById(R.id.DeliveryType);
 //            s = (TextView) view.findViewById(R.id.size);
@@ -93,7 +94,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
         @Override
         public String toString() {
-            return super.toString() + " '" +n.getText() +c.getText() + "'" + d.getText();
+            return super.toString() + " '" +n.getText() +c.getText() + "'" + d.getText() + s.getText();
         }
     }
 }
