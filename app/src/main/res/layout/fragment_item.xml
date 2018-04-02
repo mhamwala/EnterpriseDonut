@@ -58,10 +58,27 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="11dp"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textPersonName|numberDecimal"
                 android:textAlignment="center"
                 android:textSize="10sp" />
-            
+
+            <Button
+                android:id="@+id/updateBid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/deliver"
+                android:layout_marginEnd="18dp"
+                android:text="Place Bid" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/bid"
+                android:layout_alignStart="@+id/deliver"
+                android:text="Current Bid:" />
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
