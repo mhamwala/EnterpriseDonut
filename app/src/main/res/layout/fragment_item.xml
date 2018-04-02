@@ -18,6 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="124dp">
 
+
             <TextView
                 android:id="@+id/itemName"
                 android:layout_width="match_parent"
@@ -32,9 +33,9 @@
                 android:id="@+id/collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/itemName"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignTop="@+id/updateBid"
+                android:layout_marginStart="24dp"
                 android:gravity="center_vertical"
                 android:text="From: "
                 android:textSize="10dp" />
@@ -43,9 +44,9 @@
                 android:id="@+id/deliver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/collect"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp"
+                android:layout_alignStart="@+id/collect"
+                android:layout_below="@+id/itemName"
+                android:layout_marginTop="13dp"
                 android:gravity="center_vertical"
                 android:text="To: "
                 android:textSize="10dp" />
@@ -66,9 +67,9 @@
                 android:id="@+id/updateBid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/bid"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@+id/deliver"
-                android:layout_marginEnd="18dp"
+                android:layout_marginEnd="15dp"
                 android:text="Place Bid" />
 
             <TextView
@@ -76,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/bid"
-                android:layout_alignStart="@+id/deliver"
+                android:layout_alignStart="@+id/collect"
                 android:text="Current Bid:" />
 
         </RelativeLayout>
