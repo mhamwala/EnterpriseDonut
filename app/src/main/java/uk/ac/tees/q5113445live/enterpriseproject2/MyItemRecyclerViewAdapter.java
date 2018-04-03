@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,7 +34,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     private DataSnapshot userData;
     private FirebaseUser fUser;
     private DatabaseReference mDatabase;
-    public String w;
+    private String w;
+    private TextView updateBid;
 
     public MyItemRecyclerViewAdapter(List<Advert> items, OnListFragmentInteractionListener listener)
     {
@@ -56,7 +58,10 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 {
+                    //Creates separate section for bids
+                    //dataSnapshot.getKey();
                     for (DataSnapshot q : dataSnapshot.getChildren()) {
+
                         w = q.getKey();
 
                         userData = dataSnapshot;
@@ -75,7 +80,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             }
             });
 
-            final TextView updateBid = view.findViewById(R.id.updateBid);
+            updateBid = view.findViewById(R.id.updateBid);
             updateBid.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
