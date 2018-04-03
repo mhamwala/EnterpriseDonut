@@ -97,12 +97,6 @@ public class AdvertiseFragment extends Fragment
 
     }
 
-
-
-
-
-
-
     //Overridden method called upon fragment creation. Initialises required views.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -224,10 +218,6 @@ public class AdvertiseFragment extends Fragment
             mListener.onFragmentInteraction(title);
         }
     }
-
-
-
-
 
     private void addPicture()
     {
