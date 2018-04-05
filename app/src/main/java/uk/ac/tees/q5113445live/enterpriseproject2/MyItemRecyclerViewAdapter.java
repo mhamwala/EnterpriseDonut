@@ -58,19 +58,23 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 {
+                    //Initialises user to stored data and populates TextViews in layout.Advert advert = userData.getValue(Advert.class);
                     //Creates separate section for bids
+//                    w = dataSnapshot.getKey();
+//                    Advert advert = dataSnapshot.getValue(Advert.class);
+//                    userData = dataSnapshot;
+//                    bidText(advert,view);
+
                     //dataSnapshot.getKey();
                     for (DataSnapshot q : dataSnapshot.getChildren()) {
-
-                        w = q.getKey();
-
-                        userData = dataSnapshot;
-
-                        //Initialises user to stored data and populates TextViews in layout.Advert advert = userData.getValue(Advert.class);
                         Advert advert = dataSnapshot.getValue(Advert.class);
+                        w = q.getKey();
+                        userData = dataSnapshot;
                         bidText(advert,view);
+
                     }
                 }
+
 
             }
 
@@ -153,6 +157,9 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
     public void updateBid(final View view)
     {
+        //Trying to return name after bid is placed!
+        //final String n = fUser.getDisplayName().toString();
+
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
         reference.child("advert").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -162,7 +169,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 HashMap<String, Object> result = new HashMap<>();
                 result.put("bid", userBid.getText().toString());
                 reference.child("advert").child(fUser.getUid()).child(w).updateChildren(result);
-                fUser.updateEmail(userBid.getText().toString());
             }
 
             @Override
