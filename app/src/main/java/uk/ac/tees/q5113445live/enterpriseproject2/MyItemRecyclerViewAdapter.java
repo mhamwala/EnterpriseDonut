@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import uk.ac.tees.q5113445live.enterpriseproject2.TestFragment.OnListFragmentInteractionListener;
 import uk.ac.tees.q5113445live.enterpriseproject2.dummy.DummyContent.DummyItem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -36,6 +37,9 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     private DatabaseReference mDatabase;
     private String w;
     private TextView updateBid;
+    private String n;
+    private ArrayList x;
+    private int pos;
 
     public MyItemRecyclerViewAdapter(List<Advert> items, OnListFragmentInteractionListener listener)
     {
@@ -49,7 +53,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item, parent, false);
 
-
+        x = new ArrayList();
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference("advert").child(fUser.getUid());
 
@@ -62,14 +66,19 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                     //Creates separate section for bids
 //                    w = dataSnapshot.getKey();
 //                    Advert advert = dataSnapshot.getValue(Advert.class);
+//
 //                    userData = dataSnapshot;
 //                    bidText(advert,view);
 
                     //dataSnapshot.getKey();
                     for (DataSnapshot q : dataSnapshot.getChildren()) {
                         Advert advert = dataSnapshot.getValue(Advert.class);
-                        w = q.getKey();
-                        userData = dataSnapshot;
+                        if(!x.contains(q.getKey()))
+                        {
+                            x.add(q.getKey());
+                        }
+
+                        //userData = dataSnapshot;
                         bidText(advert,view);
 
                     }
@@ -95,7 +104,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position)
+    public void onBindViewHolder(final ViewHolder holder, final int position)
     {
         holder.mItem = mValues.get(position);
         holder.n.setText(mValues.get(position).getName());
@@ -111,6 +120,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem.getDeliveryType());
+                    pos = position;
                 }
             }
         });
@@ -158,7 +168,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     public void updateBid(final View view)
     {
         //Trying to return name after bid is placed!
-        //final String n = fUser.getDisplayName().toString();
+        n = fUser.getDisplayName().toString();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
@@ -168,7 +178,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 //User user = dataSnapshot.getValue(User.class);
                 HashMap<String, Object> result = new HashMap<>();
                 result.put("bid", userBid.getText().toString());
-                reference.child("advert").child(fUser.getUid()).child(w).updateChildren(result);
+                reference.child("advert").child(fUser.getUid()).child(String.valueOf(x.get(pos))).child("bid").setValue(result);
             }
 
             @Override
