@@ -1,20 +1,31 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Switch;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 
 /**
@@ -32,7 +43,13 @@ public class AdvertiseFragment extends Fragment
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     private FirebaseUser user;
-
+    private StorageReference mStorageRef;
+    private Uri selectedImage;
+    private Button addImage;
+    private ImageView imageView = null;
+    public static final int GET_FROM_GALLERY = 3;
+    private  Bitmap bitmap = null;
+    private ImageView testImage = null;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -66,14 +83,18 @@ public class AdvertiseFragment extends Fragment
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
+
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mStorageRef = FirebaseStorage.getInstance().getReference();
         user = FirebaseAuth.getInstance().getCurrentUser();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
 
     //Overridden method called upon fragment creation. Initialises required views.
@@ -93,10 +114,29 @@ public class AdvertiseFragment extends Fragment
         final EditText size = view.findViewById(R.id.size);
         final EditText weight = view.findViewById(R.id.weight);
         final EditText collect = view.findViewById(R.id.collect);
+        final Button addImage = view.findViewById(R.id.imageButton);
+        final EditText bid = view.findViewById(R.id.bid);
+        imageView = view.findViewById(R.id.imageView);
+
         Button advertiseItem = view.findViewById(R.id.button5);
 
-        //Listener for Advertise Item
+
+        testImage = view.findViewById(R.id.testImage);
+        addImage.setOnClickListener(new Switch.OnClickListener()
+        {
+
+            @Override
+            public void onClick(View v)
+            {
+                addPicture();
+
+
+
+            }
+        });
         advertiseItem.setOnClickListener(new Button.OnClickListener()
+
+
         {
             @Override
             public void onClick(View v)
@@ -111,15 +151,21 @@ public class AdvertiseFragment extends Fragment
                                     distance.getText().toString(),
                                     collect.getText().toString(),
                                     weight.getText().toString(),
-                                    size.getText().toString()
+                                    size.getText().toString(),
+                                    bid.getText().toString()
+
+
+
                             );
                     //Create the entry in the database.
                     String key = mDatabase.getDatabase().getReference("advert").push().getKey();
                     newDelivery(advert,user.getUid(), key);
-
+                    uploadPic(key);
                     //Reverts back to home activity.
                     Intent home = new Intent(getActivity(),NavigationDrawer.class);
                     startActivity(home);
+
+
 
                 }
                 catch (NumberFormatException e)
@@ -128,7 +174,40 @@ public class AdvertiseFragment extends Fragment
                 }
             }
         });
+
+        //addImage = view.findViewById(R.id.imageButton);
+        addImage.setOnClickListener(new Switch.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                addPicture();
+            }
+        });
+
         return view;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //Detects request codes
+        if (requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+            selectedImage = data.getData();
+
+            try {
+                imageView.setImageBitmap
+                        (MediaStore.Images.Media.getBitmap(getContext().getContentResolver(),
+                                selectedImage));
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -138,6 +217,15 @@ public class AdvertiseFragment extends Fragment
         {
             mListener.onFragmentInteraction(title);
         }
+    }
+
+    private void addPicture()
+    {
+        startActivityForResult(new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI),
+                GET_FROM_GALLERY
+        );
+
     }
 
     @Override
@@ -152,6 +240,9 @@ public class AdvertiseFragment extends Fragment
                     + " must implement OnFragmentInteractionListener");
         }
     }
+
+
+
 
     @Override
     public void onDetach()
@@ -184,6 +275,28 @@ public class AdvertiseFragment extends Fragment
      */
     private void newDelivery(Advert advert, String user, String id)
     {
+
+
         mDatabase.child("advert").child(user).child(id).setValue(advert);
+
     }
+
+    public void uploadPic(String key)
+    {
+        //final ProgressDialog progressDialog = new ProgressDialog(this);
+        //progressDialog.setTitle("Adding Image...");
+        //progressDialog.show();
+        StorageReference ref = mStorageRef.child("AdvertImage/"+ key);
+
+        ref.putFile(selectedImage).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                //progressDialog.dismiss();
+                System.out.println("Completed");
+                //Toast.makeText(this, "Uploaded", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
 }

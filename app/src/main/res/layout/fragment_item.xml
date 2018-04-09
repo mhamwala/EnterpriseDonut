@@ -3,92 +3,146 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
 
-    android:orientation="horizontal">
+    >
 
     <!-- A CardView that contains a TextView -->
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        card_view:cardCornerRadius="4dp"
-        android:layout_margin="5dp">
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        card_view:cardCornerRadius="4dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="124dp">
+
 
             <TextView
                 android:id="@+id/itemName"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:background="@drawable/side_nav_bar"
-                android:text="Item: "
                 android:gravity="center_vertical"
+                android:text="Item: "
+                android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="14dp"/>
+                android:textSize="14dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="From: "
+                android:layout_alignBaseline="@+id/textView13"
+                android:layout_alignBottom="@+id/textView13"
+                android:layout_alignEnd="@+id/bid"
+                android:layout_alignStart="@+id/bid"
                 android:gravity="center_vertical"
-                android:textSize="10dp"
-                android:layout_below="@id/itemName"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"/>
+                android:text="From: "
+                android:textAlignment="center"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/deliver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="To: "
+                android:layout_alignEnd="@+id/bid"
+                android:layout_alignStart="@+id/collect"
+                android:layout_below="@+id/itemName"
                 android:gravity="center_vertical"
-                android:textSize="10dp"
-                android:layout_below="@id/collect"
-                android:layout_marginTop="10dp"
-                android:layout_marginLeft="5dp"/>
+                android:text="To: "
+                android:textAlignment="center"
+                android:textSize="14sp" />
 
+            <EditText
+                android:id="@+id/bid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="11dp"
+                android:ems="10"
+                android:hint="@string/bid"
+                android:inputType="textPersonName|numberDecimal"
+                android:textAlignment="center"
+                android:textSize="10sp" />
+
+            <Button
+                android:id="@+id/updateBid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/collect"
+                android:layout_marginEnd="17dp"
+                android:text="Place Bid"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/bid"
+                android:layout_alignBottom="@+id/bid"
+                android:layout_toStartOf="@+id/bid"
+                android:text="Current Bid  £:"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textView4"
+                android:layout_below="@+id/itemName"
+                android:text="To:"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/textView4"
+                android:layout_centerVertical="true"
+                android:text="From:"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
 
+    <!--<TextView-->
+    <!--android:id="@+id/DeliveryType"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="@dimen/text_margin"-->
 
-
-
+    <!--android:textAppearance="?attr/textAppearanceListItem" />-->
 
     <!--<TextView-->
-        <!--android:id="@+id/DeliveryType"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="@dimen/text_margin"-->
+    <!--android:id="@+id/distance"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="@dimen/text_margin"-->
 
-        <!--android:textAppearance="?attr/textAppearanceListItem" />-->
-
-    <!--<TextView-->
-        <!--android:id="@+id/distance"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="@dimen/text_margin"-->
-
-        <!--android:textAppearance="?attr/textAppearanceListItem" />-->
+    <!--android:textAppearance="?attr/textAppearanceListItem" />-->
 
     <!--<TextView-->
-        <!--android:id="@+id/size"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="@dimen/text_margin"-->
+    <!--android:id="@+id/size"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="@dimen/text_margin"-->
 
-        <!--android:textAppearance="?attr/textAppearanceListItem" />-->
+    <!--android:textAppearance="?attr/textAppearanceListItem" />-->
 
     <!--<TextView-->
-        <!--android:id="@+id/weight"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_margin="@dimen/text_margin"-->
+    <!--android:id="@+id/weight"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_margin="@dimen/text_margin"-->
 
-        android:textAppearance="?attr/textAppearanceListItem" />
+    android:textAppearance="?attr/textAppearanceListItem" />
 </LinearLayout>

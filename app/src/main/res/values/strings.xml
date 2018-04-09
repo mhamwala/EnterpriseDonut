@@ -40,6 +40,7 @@
     <string name="weight">weight</string>
     <string name="basePay">pay</string>
     <string name="collect">collect</string>
+    <string name="bid">bid</string>
     <string name="title_activity_main2">Main2Activity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -48,6 +49,10 @@
     <string name="action_settings">Settings</string>
     <string name="wallet">Wallet</string>
     <string name="title_activity_navigation_drawer">NavigationDrawer</string>
+
+    <string name="imageView">Viewing the image</string>
+    <string name="imageButton">Button for image</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -61,5 +66,8 @@
 
 
     <string name="deliveryTypes">get the advert item type</string>
+
+    //Items page
+    <string name="updateBid">Update current bid</string>
 
 </resources>

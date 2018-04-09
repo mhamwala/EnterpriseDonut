@@ -3,6 +3,7 @@ package uk.ac.tees.q5113445live.enterpriseproject2;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -41,13 +42,15 @@ public class TestFragment extends Fragment {
     private static final String DRIVER_BOOLEAN = "driverCheck";
     // TODO: Customize parameters
     private int mColumnCount = 1;
-    private OnListFragmentInteractionListener mListener;
+
     private DatabaseReference mDatabase;
     private DatabaseReference userDatabase;
     private FirebaseUser user;
+    private DatabaseReference bidDatabase;
     private boolean driverCheck;
     private ArrayList<String> location;
-
+    private ArrayList<String> bid;
+    private OnListFragmentInteractionListener mListener;
     public static final List<Advert> ITEMS = new ArrayList<Advert>();
     public static final Map<String, Advert> ITEM_MAP = new HashMap<String, Advert>();
     /**
@@ -93,7 +96,14 @@ public class TestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
+
+
     {
+        if (mListener != null)
+        {
+            mListener.onListFragmentInteraction("View Adverts");
+        }
+
         final View view = inflater.inflate(R.layout.fragment_item_list, container, false);
         checkDriver(view);
         return view;
@@ -141,6 +151,7 @@ public class TestFragment extends Fragment {
         ITEM_MAP.put(item.getSize(),item);
         ITEM_MAP.put(item.getWeight(),item);
     }
+
     private void recyclerMethod(View view)
     {
         //Recyclers which handles the showing of items to the user.
@@ -185,7 +196,20 @@ public class TestFragment extends Fragment {
                         }
                         else
                         {
+                            bidDatabase.addChildEventListener(new ChildEventListener() {
+                                @Override
+                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
 
+                                }
+                                @Override
+                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+                                @Override
+                                public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                                @Override
+                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {}
+                            });
                             Advert advert = child.getValue(Advert.class);
                             location = getLocation(advert.from,advert.to);
                             advert.setFrom(location.get(0));
@@ -219,6 +243,23 @@ public class TestFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         });
+    }
+
+
+
+    public void onButtonPressed(Uri uri)
+    {
+        if (mListener != null)
+        {
+            mListener.onListFragmentInteraction("View Adverts");
+        }
+    }
+
+
+    public interface OnFragmentInteractionListener
+    {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(String title);
     }
 //    public void getDriver()
 //    {
@@ -269,4 +310,5 @@ public class TestFragment extends Fragment {
 
         return location;
     }
+
 }
