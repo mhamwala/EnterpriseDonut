@@ -56,28 +56,28 @@
                 android:textAlignment="center"
                 android:textSize="14sp" />
 
-            <EditText
-                android:id="@+id/bid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="11dp"
-                android:ems="10"
-                android:hint="@string/bid"
-                android:inputType="textPersonName|numberDecimal"
-                android:textAlignment="center"
-                android:textSize="10sp" />
+            <!--<EditText-->
+                <!--android:id="@+id/bid"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentBottom="true"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginBottom="11dp"-->
+                <!--android:ems="10"-->
+                <!--android:hint="@string/bid"-->
+                <!--android:inputType="textPersonName|numberDecimal"-->
+                <!--android:textAlignment="center"-->
+                <!--android:textSize="10sp" />-->
 
-            <Button
-                android:id="@+id/updateBid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_below="@+id/collect"
-                android:layout_marginEnd="17dp"
-                android:text="Place Bid"
-                android:textSize="10sp" />
+            <!--<Button-->
+                <!--android:id="@+id/updateBid"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_alignParentEnd="true"-->
+                <!--android:layout_below="@+id/collect"-->
+                <!--android:layout_marginEnd="17dp"-->
+                <!--android:text="Place Bid"-->
+                <!--android:textSize="10sp" />-->
 
             <TextView
                 android:id="@+id/textView4"
