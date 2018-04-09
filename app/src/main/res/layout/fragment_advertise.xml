@@ -200,7 +200,6 @@
             android:layout_alignParentTop="true"
             android:gravity="center"
             android:text="Size:"
-            android:textAlignment="viewStart"
             android:textAllCaps="true"
             android:textStyle="bold" />
 

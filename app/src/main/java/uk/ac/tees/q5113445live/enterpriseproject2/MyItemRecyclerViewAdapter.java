@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import uk.ac.tees.q5113445live.enterpriseproject2.TestFragment.OnListFragmentInteractionListener;
 import uk.ac.tees.q5113445live.enterpriseproject2.dummy.DummyContent.DummyItem;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -35,7 +36,10 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     private FirebaseUser fUser;
     private DatabaseReference mDatabase;
     private String w;
-    private TextView updateBid;
+    private Button updateBid;
+    private String n;
+    private ArrayList x;
+    private int pos;
 
     public MyItemRecyclerViewAdapter(List<Advert> items, OnListFragmentInteractionListener listener)
     {
@@ -48,9 +52,12 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     {
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item, parent, false);
+        final View parentView =LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.fragment_item_list, parent, false);
 
-
+        x = new ArrayList();
         fUser = FirebaseAuth.getInstance().getCurrentUser();
+
         mDatabase = FirebaseDatabase.getInstance().getReference("advert").child(fUser.getUid());
 
         // Attach a listener to read the data at our posts reference
@@ -62,15 +69,20 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                     //Creates separate section for bids
 //                    w = dataSnapshot.getKey();
 //                    Advert advert = dataSnapshot.getValue(Advert.class);
+//
 //                    userData = dataSnapshot;
 //                    bidText(advert,view);
 
                     //dataSnapshot.getKey();
                     for (DataSnapshot q : dataSnapshot.getChildren()) {
                         Advert advert = dataSnapshot.getValue(Advert.class);
-                        w = q.getKey();
-                        userData = dataSnapshot;
-                        bidText(advert,view);
+                        if(!x.contains(q.getKey()))
+                        {
+                            x.add(q.getKey());
+                        }
+
+                        //userData = dataSnapshot;
+                       // bidText(advert,view);
 
                     }
                 }
@@ -84,24 +96,24 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             }
             });
 
-            updateBid = view.findViewById(R.id.updateBid);
-            updateBid.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                updateBid(view);
-            }
-        });
+//            updateBid = view.findViewById(R.id.updateBid);
+//            updateBid.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View view) {
+//                updateBid(view);
+//            }
+//        });
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position)
+    public void onBindViewHolder(final ViewHolder holder, final int position)
     {
         holder.mItem = mValues.get(position);
         holder.n.setText(mValues.get(position).getName());
         holder.c.setText(mValues.get(position).getFrom());
         holder.d.setText(mValues.get(position).getTo());
-        holder.s.setText(mValues.get(position).getBid());
+        //holder.s.setText(mValues.get(position).getBid());
 
         holder.mView.setOnClickListener(new View.OnClickListener()
         {
@@ -111,6 +123,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem.getDeliveryType());
+                    pos = position;
                 }
             }
         });
@@ -127,7 +140,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         public final TextView n;
         public final TextView c;
         public final TextView d;
-        public final TextView s;
+        //public final TextView s;
 
         public Advert mItem;
 
@@ -139,26 +152,26 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             n = view.findViewById(R.id.itemName);
             c = (TextView) view.findViewById(R.id.collect);
             d = (TextView) view.findViewById(R.id.deliver);
-            s = (TextView) view.findViewById(R.id.bid);
+            //s = (TextView) view.findViewById(R.id.bid);
 
         }
 
         @Override
         public String toString() {
-            return super.toString() + " '" +n.getText() +c.getText() + "'" + d.getText() + s.getText();
+            return super.toString() + " '" +n.getText() +c.getText() + "'" + d.getText();
         }
     }
 
     public void bidText(Advert advert, View view)
     {
-        userBid = view.findViewById(R.id.bid);
-        userBid.setText(advert.getBid());
+        //userBid = view.findViewById(R.id.bid);
+        //userBid.setText(advert.getBid());
     }
 
     public void updateBid(final View view)
     {
         //Trying to return name after bid is placed!
-        //final String n = fUser.getDisplayName().toString();
+        n = fUser.getUid();
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
@@ -166,9 +179,10 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //User user = dataSnapshot.getValue(User.class);
-                HashMap<String, Object> result = new HashMap<>();
-                result.put("bid", userBid.getText().toString());
-                reference.child("advert").child(fUser.getUid()).child(w).updateChildren(result);
+                HashMap<Object, Object> result = new HashMap<>();
+                TextView bidUser = view.findViewById(R.id.bid);
+                result.put(n, bidUser.getText().toString());
+                reference.child("advert").child(fUser.getUid()).child(String.valueOf(x.get(pos))).child("bid").setValue(result);
             }
 
             @Override
