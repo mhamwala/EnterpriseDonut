@@ -1,5 +1,6 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
+        pos = -1;
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item, parent, false);
         final View parentView =LayoutInflater.from(parent.getContext())
@@ -115,6 +117,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         holder.d.setText(mValues.get(position).getTo());
         //holder.s.setText(mValues.get(position).getBid());
 
+
         holder.mView.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -124,9 +127,21 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                     // fragment is attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem.getDeliveryType());
                     pos = position;
+                    notifyDataSetChanged();
                 }
+
             }
         });
+        if(pos == position)
+        {
+
+            holder.mView.setBackgroundColor(Color.GREEN);
+        }
+        else
+        {
+            holder.mView.setBackgroundColor(Color.WHITE);
+        }
+
     }
 
     @Override
@@ -180,7 +195,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //User user = dataSnapshot.getValue(User.class);
                 HashMap<Object, Object> result = new HashMap<>();
-                TextView bidUser = view.findViewById(R.id.bid);
+                TextView bidUser = view.findViewById(R.id.enterBid);
                 result.put(n, bidUser.getText().toString());
                 reference.child("advert").child(fUser.getUid()).child(String.valueOf(x.get(pos))).child("bid").setValue(result);
             }
