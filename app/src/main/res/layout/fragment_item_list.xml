@@ -39,7 +39,7 @@
 
 
         <EditText
-            android:id="@+id/bid"
+            android:id="@+id/enterBid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -54,7 +54,7 @@
             android:id="@+id/updateBid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/bid"
+            android:layout_alignBottom="@+id/enterBid"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="11dp"
             android:hint="@string/updateBid" />
