@@ -215,24 +215,10 @@ public class TestFragment extends Fragment {
                         }
                         else
                         {
-                            bidDatabase.addChildEventListener(new ChildEventListener() {
-                                @Override
-                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                                }
-                                @Override
-                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-                                @Override
-                                public void onChildRemoved(DataSnapshot dataSnapshot) {}
-                                @Override
-                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {}
-                            });
                             Advert advert = child.getValue(Advert.class);
-                            location = getLocation(advert.from,advert.to);
-                            advert.setFrom(location.get(0));
-                            advert.setTo(location.get(1));
+//                            location = getLocation(advert.from,advert.to);
+//                            advert.setFrom(location.get(0));
+//                            advert.setTo(location.get(1));
                             addItem(advert);
                             recyclerMethod(view);
                         }

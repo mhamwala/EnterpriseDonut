@@ -36,11 +36,13 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     private DataSnapshot userData;
     private FirebaseUser fUser;
     private DatabaseReference mDatabase;
+    private DatabaseReference uid;
     private String w;
     private Button updateBid;
     private String n;
     private ArrayList x;
     private int pos;
+    private ArrayList value;
 
     public MyItemRecyclerViewAdapter(List<Advert> items, OnListFragmentInteractionListener listener)
     {
@@ -72,7 +74,18 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 //                    w = dataSnapshot.getKey();
 //                    Advert advert = dataSnapshot.getValue(Advert.class);
 //
-//                    userData = dataSnapshot;
+//                     Getting current user Id
+//                    uid = FirebaseDatabase.getInstance().getReference("advert").child(fUser.getUid());
+////                     Filter User
+//                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+//                        if (!dataSnapshot1.getKey().equals(uid)) {
+//                            w = dataSnapshot1.getKey();
+////                            userData.child(dataSnapshot1.getValue(Advert.class));
+////                            w.add(value);
+////                            w.add(dataSnapshot1.getKey());
+//                        }
+//                    }
+                      //userData = dataSnapshot;
 //                    bidText(advert,view);
 
                     //dataSnapshot.getKey();
@@ -82,6 +95,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                         {
                             x.add(q.getKey());
                         }
+
 
                         //userData = dataSnapshot;
                        // bidText(advert,view);
