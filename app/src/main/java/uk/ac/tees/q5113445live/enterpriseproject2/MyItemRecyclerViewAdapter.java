@@ -75,16 +75,14 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 //                    Advert advert = dataSnapshot.getValue(Advert.class);
 //
 //                     Getting current user Id
-//                    uid = FirebaseDatabase.getInstance().getReference("advert").child(fUser.getUid());
-////                     Filter User
-//                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-//                        if (!dataSnapshot1.getKey().equals(uid)) {
-//                            w = dataSnapshot1.getKey();
-////                            userData.child(dataSnapshot1.getValue(Advert.class));
-////                            w.add(value);
-////                            w.add(dataSnapshot1.getKey());
-//                        }
-//                    }
+                    uid = FirebaseDatabase.getInstance().getReference("advert");
+//                     Filter User
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        if (!dataSnapshot1.getKey().equals(uid)) {
+                            w = dataSnapshot1.getKey();
+//                            userData.child(dataSnapshot1.getValue(Advert.class));
+                        }
+                    }
                       //userData = dataSnapshot;
 //                    bidText(advert,view);
 
@@ -211,7 +209,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 HashMap<Object, Object> result = new HashMap<>();
                 TextView bidUser = view.findViewById(R.id.enterBid);
                 result.put(n, bidUser.getText().toString());
-                reference.child("advert").child(fUser.getUid()).child(String.valueOf(x.get(pos))).child("bid").setValue(result);
+                reference.child("advert").child(w.toString()).child(String.valueOf(x.get(pos))).child("bid").setValue(result);
             }
 
             @Override
