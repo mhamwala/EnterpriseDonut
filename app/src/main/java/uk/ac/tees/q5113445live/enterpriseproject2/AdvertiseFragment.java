@@ -1,16 +1,13 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,21 +15,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
-import com.google.android.gms.tasks.OnFailureListener;
+
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import static uk.ac.tees.q5113445live.enterpriseproject2.sign_up_user.GET_FROM_GALLERY;
+import java.util.HashMap;
 
 
 /**
@@ -104,12 +98,6 @@ public class AdvertiseFragment extends Fragment
 
     }
 
-
-
-
-
-
-
     //Overridden method called upon fragment creation. Initialises required views.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -128,7 +116,9 @@ public class AdvertiseFragment extends Fragment
         final EditText weight = view.findViewById(R.id.weight);
         final EditText collect = view.findViewById(R.id.collect);
         final Button addImage = view.findViewById(R.id.imageButton);
+        final EditText bid = view.findViewById(R.id.enterBid);
         imageView = view.findViewById(R.id.imageView);
+
         Button advertiseItem = view.findViewById(R.id.button5);
 
 
@@ -155,6 +145,7 @@ public class AdvertiseFragment extends Fragment
                 try
                 {
                     //Creates new advert by gather text from user.
+                    HashMap<String, String> x;
                     Advert advert = new Advert
                             (
                                     name.getText().toString(),
@@ -163,9 +154,6 @@ public class AdvertiseFragment extends Fragment
                                     collect.getText().toString(),
                                     weight.getText().toString(),
                                     size.getText().toString()
-
-
-
                             );
                     //Create the entry in the database.
                     String key = mDatabase.getDatabase().getReference("advert").push().getKey();
@@ -229,10 +217,6 @@ public class AdvertiseFragment extends Fragment
         }
     }
 
-
-
-
-
     private void addPicture()
     {
         startActivityForResult(new Intent(Intent.ACTION_PICK,
@@ -294,8 +278,6 @@ public class AdvertiseFragment extends Fragment
         mDatabase.child("advert").child(user).child(id).setValue(advert);
 
     }
-
-
 
     public void uploadPic(String key)
     {

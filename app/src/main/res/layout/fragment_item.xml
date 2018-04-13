@@ -9,7 +9,7 @@
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="124dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
         card_view:cardCornerRadius="4dp">
@@ -18,101 +18,80 @@
             android:layout_width="match_parent"
             android:layout_height="124dp">
 
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="14dp" />
-
-
             <TextView
                 android:id="@+id/itemName"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:background="@drawable/side_nav_bar"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:text="Item: "
+                android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="14dp" />
+                android:textSize="14dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/collect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/imageView"
-                android:layout_marginTop="12dp"
-                android:layout_toStartOf="@+id/updateBid"
-                android:gravity="center_vertical"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
                 android:text="From: "
-                android:textSize="10dp" />
+                android:textAlignment="center"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/deliver"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView4"
-                android:layout_alignBottom="@+id/textView4"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="13dp"
-                android:gravity="center_vertical"
-                android:text="To: "
-                android:textSize="10dp" />
-
-            <EditText
-                android:id="@+id/currentBid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
+                android:layout_above="@+id/collect"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="11dp"
-                android:ems="10"
-                android:inputType="textPersonName"
+                android:gravity="center"
+                android:text="To: "
                 android:textAlignment="center"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/textBid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/currentBid"
-                android:layout_toStartOf="@+id/currentBid"
-                android:text="Current Bid:"
-                android:textAlignment="center" />
-
-            <Button
-                android:id="@+id/updateBid"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/currentBid"
-                android:layout_alignBottom="@+id/currentBid"
-                android:layout_alignParentEnd="true"
-                android:layout_toEndOf="@+id/currentBid"
-                android:text="Bid"
-                android:textSize="10sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/collect"
-                android:layout_marginEnd="20dp"
-                android:layout_toStartOf="@+id/collect"
-                android:text="From:" />
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="37dp"
+                android:text="Current Bid  £:"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView5"
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/collect"
-                android:layout_alignBottom="@+id/collect"
-                android:layout_marginEnd="17dp"
-                android:layout_toStartOf="@+id/deliver"
-                android:text="To:" />
+                android:layout_above="@+id/textView13"
+                android:layout_alignParentStart="true"
+                android:text="To:"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/textView13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/textView4"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:text="From:"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/getBid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/collect"
+                android:layout_marginTop="15dp"
+                android:layout_toEndOf="@+id/collect"
+                android:hint="@string/bid" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

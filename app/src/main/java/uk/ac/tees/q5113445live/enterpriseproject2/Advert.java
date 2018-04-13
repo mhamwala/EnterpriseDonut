@@ -1,5 +1,7 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import java.util.HashMap;
+
 /**
  * Class describing an Advert. These are the objects that users will put on the app,
  * to be collected and delivered. Drivers will bid on these objects also.
@@ -14,6 +16,7 @@ public class Advert
     String to;
     String weight;
     String size;
+    HashMap<String, String> bid;
 
     //Blank Advert
     Advert()
@@ -27,6 +30,16 @@ public class Advert
     }
 
     //Constructor for full advert.
+    Advert(String n, String dt, String c, String d, String w, String s, HashMap b)
+    {
+        name = n;
+        deliveryType= dt;
+        from = c;
+        to = d;
+        weight= w;
+        size = s;
+        bid = b;
+    }
     Advert(String n, String dt, String c, String d, String w, String s)
     {
         name = n;
@@ -68,4 +81,10 @@ public class Advert
     {
         this.name = name;
     }
+
+    public void setBid(HashMap<String, String> bid)
+    {
+        this.bid = bid;
+    }
+
 }

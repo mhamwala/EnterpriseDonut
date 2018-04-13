@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -53,6 +54,9 @@ public class TestFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
     public static final List<Advert> ITEMS = new ArrayList<Advert>();
     public static final Map<String, Advert> ITEM_MAP = new HashMap<String, Advert>();
+    private Button updateBid;
+    private RecyclerView recyclerView;
+    private MyItemRecyclerViewAdapter recycleAdapter;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -83,6 +87,7 @@ public class TestFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference("advert");
         location = new ArrayList<>();
 
+
         //checkDriver();
 
         refresh();
@@ -104,7 +109,19 @@ public class TestFragment extends Fragment {
             mListener.onListFragmentInteraction("View Adverts");
         }
 
+       
+
         final View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+
+        updateBid = view.findViewById(R.id.updateBid);
+        updateBid.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view2)
+            {
+                recycleAdapter.updateBid(view);
+            }
+        });
+
         checkDriver(view);
         return view;
     }
@@ -155,10 +172,10 @@ public class TestFragment extends Fragment {
     private void recyclerMethod(View view)
     {
         //Recyclers which handles the showing of items to the user.
-        if (view instanceof RecyclerView)
+        if (view.findViewById(R.id.list) instanceof RecyclerView)
         {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view.findViewById(R.id.list);
             if (mColumnCount <= 1)
             {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -167,7 +184,9 @@ public class TestFragment extends Fragment {
             {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(ITEMS, mListener));
+            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS, mListener);
+            recyclerView.setAdapter(recycleAdapter);
+
         }
     }
     private void refresh()
