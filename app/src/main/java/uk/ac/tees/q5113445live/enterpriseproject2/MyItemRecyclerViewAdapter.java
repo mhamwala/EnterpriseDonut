@@ -211,12 +211,13 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     {
         //Trying to return name after bid is placed!
         userKey = fUser.getUid();
-
+        String id = reference.child(advertMap.get(String.valueOf(advertKey.get(pos)))).
+                child(String.valueOf(advertKey.get(pos))).child("bid").push().getKey();
         HashMap<Object, Object> result = new HashMap<>();
         TextView bidUser = view.findViewById(R.id.enterBid);
         result.put(userKey, bidUser.getText().toString());
         reference.child(advertMap.get(String.valueOf(advertKey.get(pos)))).
-                    child(String.valueOf(advertKey.get(pos))).child("bid").setValue(result);
+                    child(String.valueOf(advertKey.get(pos))).child("bid").child(id).setValue(result);
         System.out.println("HELLO");
 //        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 //        final DatabaseReference reference = firebaseDatabase.getReference();
