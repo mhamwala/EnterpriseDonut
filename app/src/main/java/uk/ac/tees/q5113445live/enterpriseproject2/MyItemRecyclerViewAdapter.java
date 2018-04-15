@@ -71,66 +71,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference("advert");
 
-        // Attach a listener to read the data at our posts reference
-//        mDatabase.addValueEventListener(new ValueEventListener()
-//        {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot)
-//            {
-//                {
-//                    //Initialises user to stored data and populates TextViews in layout.Advert advert = userData.getValue(Advert.class);
-//                    //Creates separate section for bids
-////                    userBidOn = dataSnapshot.getKey();
-////                    Advert advert = dataSnapshot.getValue(Advert.class);
-////
-////                     Getting current user Id
-//                    uid = FirebaseDatabase.getInstance().getReference("advert");
-////                     Filter User
-//                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren())
-//                    {
-//                        if (!userSnapshot.getKey().equals(fUser.getUid()))
-//                        {
-//                            userBidOn = userSnapshot.getKey();
-//                            for (DataSnapshot advertSnapshot: userSnapshot.getChildren())
-//                            {
-//                                advertMap.put( advertSnapshot.getKey().toString(),userBidOn);
-//                                System.out.println("HELLO");
-//                            }
-//                        }
-//                    }
-//                      //userData = dataSnapshot;
-////                    bidText(advert,view);
-//
-//                    //dataSnapshot.getKey();
-//                    for (DataSnapshot q : dataSnapshot.getChildren())
-//                    {
-//                        Advert advert = dataSnapshot.getValue(Advert.class);
-//                        if(!advertKey.contains(q.getKey()))
-//                        {
-//                            advertKey.add(q.getKey());
-//                        }
-//                        //userData = dataSnapshot;
-//                       // bidText(advert,view);
-//                    }
-//                }
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError)
-//            {
-//
-//            }
-//            });
 
-//            updateBid = view.findViewById(R.id.updateBid);
-//            updateBid.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                updateBid(view);
-//            }
-//        });
         return new ViewHolder(view);
     }
 

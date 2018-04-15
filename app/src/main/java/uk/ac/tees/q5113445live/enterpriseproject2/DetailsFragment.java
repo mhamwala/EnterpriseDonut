@@ -3,11 +3,13 @@ package uk.ac.tees.q5113445live.enterpriseproject2;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -24,7 +26,6 @@ import com.google.firebase.storage.StorageReference;
 import java.io.IOException;
 import java.util.HashMap;
 
-
 /**
  * The following fragment shows the user details, it's also possible to update details stored in
  * the database from this fragment.
@@ -35,6 +36,7 @@ public class DetailsFragment extends Fragment
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = "Updating Details";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -139,20 +141,22 @@ public class DetailsFragment extends Fragment
                 //region Update Buttons
                 //Temporary button for updating user
                 //TODO: Find correct place for update button.
-                TextView testingUpdate = view.findViewById(R.id.updateDetails);
+                final TextView testingUpdate = view.findViewById(R.id.updateDetails);
                 testingUpdate.setOnClickListener(new View.OnClickListener()
                 {
                     @Override
                     public void onClick(View v)
                     {
                         updateButton(v);
+                        Toast.makeText(testingUpdate.getContext(), "Details Updated!", Toast.LENGTH_SHORT).show();
+
                     }
                 });
 
 
                 //Temporary code for updating driver
                 // TODO: Find correct location for views and button
-                TextView testingUpdateDriver = view.findViewById(R.id.driverUpdate);
+                final TextView testingUpdateDriver = view.findViewById(R.id.driverUpdate);
                 final TextView showReg = view.findViewById(R.id.showRegistration);
                 final TextView showRegText = view.findViewById(R.id.registrationNum);
                 testingUpdateDriver.setOnClickListener(new View.OnClickListener(){
@@ -274,6 +278,7 @@ public class DetailsFragment extends Fragment
                 result.put("regNumber", userReg.getText().toString());
                 reference.child("users").child(fUser.getUid()).updateChildren(result);
                 fUser.updateEmail(userEmail.getText().toString());
+                Log.w(TAG, "UpdateDetails:Success");
             }
 
             @Override
