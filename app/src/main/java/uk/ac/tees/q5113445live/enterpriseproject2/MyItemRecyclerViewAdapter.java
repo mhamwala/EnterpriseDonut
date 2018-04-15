@@ -2,11 +2,13 @@ package uk.ac.tees.q5113445live.enterpriseproject2;
 
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +34,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
     private final List<Advert> mValues;
     private final OnListFragmentInteractionListener mListener;
+    private static final String TAG = "Bidding Activity";
     private TextView userBid;
     private DataSnapshot userData;
 
@@ -218,7 +221,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         result.put(userKey, bidUser.getText().toString());
         reference.child(advertMap.get(String.valueOf(advertKey.get(pos)))).
                     child(String.valueOf(advertKey.get(pos))).child("bid").child(id).setValue(result);
-        System.out.println("HELLO");
+        Log.d(TAG, "Bid Added:success");
 //        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
 //        final DatabaseReference reference = firebaseDatabase.getReference();
 //        reference.child("advert").addListenerForSingleValueEvent(new ValueEventListener()
