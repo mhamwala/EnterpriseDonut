@@ -49,6 +49,8 @@ public class DetailsFragment extends Fragment
     private DatabaseReference mDatabase;
     private StorageReference mStorageRef;
     private DataSnapshot userData;
+    private FirebaseAuth mAuth;
+
     //endregion
 
     //region TextViews
@@ -98,7 +100,7 @@ public class DetailsFragment extends Fragment
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference("users").child(fUser.getUid());
         mStorageRef = FirebaseStorage.getInstance().getReference("images").child(fUser.getUid());
-
+        mAuth = FirebaseAuth.getInstance();
         if (getArguments() != null)
 
         {
@@ -263,21 +265,27 @@ public class DetailsFragment extends Fragment
      * in the TextViews and changes this data within the database.
      * @param view
      */
-    public void updateButton(final View view) {
+    public void updateButton(final View view)
+    {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
         reference.child("users").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
                 //User user = dataSnapshot.getValue(User.class);
                 HashMap<String, Object> result = new HashMap<>();
                 result.put("name", userName.getText().toString());
                 result.put("location", userLocation.getText().toString());
+
                 result.put("email", userEmail.getText().toString());
                 result.put("number", userNumber.getText().toString());
                 result.put("regNumber", userReg.getText().toString());
                 reference.child("users").child(fUser.getUid()).updateChildren(result);
+                System.out.println(fUser.getEmail());
                 fUser.updateEmail(userEmail.getText().toString());
+                System.out.println(fUser.getEmail());
+                System.out.println("HELLO");
                 Log.w(TAG, "UpdateDetails:Success");
             }
 
