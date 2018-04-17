@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -17,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import uk.ac.tees.q5113445live.enterpriseproject2.JobFragment.OnListFragmentInteractionListener;
+
 import uk.ac.tees.q5113445live.enterpriseproject2.dummy.DummyContent.DummyItem;
 
 import java.util.ArrayList;
@@ -24,9 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
+ *
  */
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
 
@@ -35,7 +34,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     private static final String TAG = "Bidding Activity";
     private TextView userBid;
     private DataSnapshot userData;
-
     private DatabaseReference mDatabase;
     private DatabaseReference uid;
     private Button updateBid;
@@ -47,12 +45,18 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     private int pos;
     private ArrayList value;
 
+
     public MyItemRecyclerViewAdapter(List<Advert> items, OnListFragmentInteractionListener listener)
     {
         mValues = items;
         mListener = listener;
     }
 
+    public interface OnListFragmentInteractionListener
+    {
+        // TODO: Update argument type and name
+        void onListFragmentInteraction(String title);
+    }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
@@ -62,10 +66,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 .inflate(R.layout.fragment_item, parent, false);
         final View parentView =LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item_list, parent, false);
-
-        //advertKey = new ArrayList();
         advertMap = new HashMap<>();
-
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference("advert");
 
@@ -175,4 +176,5 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     {
 
     }
+
 }
