@@ -2,7 +2,6 @@ package uk.ac.tees.q5113445live.enterpriseproject2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.design.widget.NavigationView;
@@ -13,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -37,7 +35,7 @@ public class NavigationDrawer extends AppCompatActivity
         AdvertiseFragment.OnFragmentInteractionListener,
         DetailsFragment.OnFragmentInteractionListener,
         ViewAds.OnFragmentInteractionListener,
-        TestFragment.OnListFragmentInteractionListener,
+        JobFragment.OnListFragmentInteractionListener,
         LocationFragment.OnFragmentInteractionListener
 
 {
@@ -207,7 +205,7 @@ public class NavigationDrawer extends AppCompatActivity
     {
         Bundle bundle = new Bundle();
         bundle.putBoolean("driverCheck", d);
-        f = new TestFragment();
+        f = new JobFragment();
         f.setArguments(bundle);
         return f;
     }
