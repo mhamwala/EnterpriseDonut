@@ -9,16 +9,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import uk.ac.tees.q5113445live.enterpriseproject2.TestFragment.OnListFragmentInteractionListener;
+import uk.ac.tees.q5113445live.enterpriseproject2.JobFragment.OnListFragmentInteractionListener;
+
 import uk.ac.tees.q5113445live.enterpriseproject2.dummy.DummyContent.DummyItem;
 
 import java.util.ArrayList;
@@ -26,9 +24,8 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
+ *
  */
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
 
@@ -37,7 +34,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     private static final String TAG = "Bidding Activity";
     private TextView userBid;
     private DataSnapshot userData;
-
     private DatabaseReference mDatabase;
     private DatabaseReference uid;
     private Button updateBid;
@@ -49,12 +45,18 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     private int pos;
     private ArrayList value;
 
+
     public MyItemRecyclerViewAdapter(List<Advert> items, OnListFragmentInteractionListener listener)
     {
         mValues = items;
         mListener = listener;
     }
 
+    public interface OnListFragmentInteractionListener
+    {
+        // TODO: Update argument type and name
+        void onListFragmentInteraction(String title);
+    }
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
@@ -64,73 +66,11 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 .inflate(R.layout.fragment_item, parent, false);
         final View parentView =LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item_list, parent, false);
-
-        //advertKey = new ArrayList();
         advertMap = new HashMap<>();
-
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference("advert");
 
-        // Attach a listener to read the data at our posts reference
-//        mDatabase.addValueEventListener(new ValueEventListener()
-//        {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot)
-//            {
-//                {
-//                    //Initialises user to stored data and populates TextViews in layout.Advert advert = userData.getValue(Advert.class);
-//                    //Creates separate section for bids
-////                    userBidOn = dataSnapshot.getKey();
-////                    Advert advert = dataSnapshot.getValue(Advert.class);
-////
-////                     Getting current user Id
-//                    uid = FirebaseDatabase.getInstance().getReference("advert");
-////                     Filter User
-//                    for (DataSnapshot userSnapshot : dataSnapshot.getChildren())
-//                    {
-//                        if (!userSnapshot.getKey().equals(fUser.getUid()))
-//                        {
-//                            userBidOn = userSnapshot.getKey();
-//                            for (DataSnapshot advertSnapshot: userSnapshot.getChildren())
-//                            {
-//                                advertMap.put( advertSnapshot.getKey().toString(),userBidOn);
-//                                System.out.println("HELLO");
-//                            }
-//                        }
-//                    }
-//                      //userData = dataSnapshot;
-////                    bidText(advert,view);
-//
-//                    //dataSnapshot.getKey();
-//                    for (DataSnapshot q : dataSnapshot.getChildren())
-//                    {
-//                        Advert advert = dataSnapshot.getValue(Advert.class);
-//                        if(!advertKey.contains(q.getKey()))
-//                        {
-//                            advertKey.add(q.getKey());
-//                        }
-//                        //userData = dataSnapshot;
-//                       // bidText(advert,view);
-//                    }
-//                }
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError)
-//            {
-//
-//            }
-//            });
 
-//            updateBid = view.findViewById(R.id.updateBid);
-//            updateBid.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View view) {
-//                updateBid(view);
-//            }
-//        });
         return new ViewHolder(view);
     }
 
@@ -213,38 +153,28 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     public void updateBid(final View view, final ArrayList<String> advertKey, DatabaseReference reference, final HashMap<String, String> advertMap)
     {
         //Trying to return name after bid is placed!
-        userKey = fUser.getUid();
-        String id = reference.child(advertMap.get(String.valueOf(advertKey.get(pos)))).
-                child(String.valueOf(advertKey.get(pos))).child("bid").push().getKey();
-        HashMap<Object, Object> result = new HashMap<>();
-        TextView bidUser = view.findViewById(R.id.enterBid);
-        result.put(userKey, bidUser.getText().toString());
-        reference.child(advertMap.get(String.valueOf(advertKey.get(pos)))).
+        if(pos == -1)
+        {
+            Toast.makeText(view.getContext(), "Please select job", Toast.LENGTH_SHORT).show();
+
+        }
+        else
+            {
+            userKey = fUser.getUid();
+            String id = reference.child(advertMap.get(String.valueOf(advertKey.get(pos)))).
+                    child(String.valueOf(advertKey.get(pos))).child("bid").push().getKey();
+            HashMap<Object, Object> result = new HashMap<>();
+            TextView bidUser = view.findViewById(R.id.enterBid);
+            result.put(userKey, bidUser.getText().toString());
+            reference.child(advertMap.get(String.valueOf(advertKey.get(pos)))).
                     child(String.valueOf(advertKey.get(pos))).child("bid").child(id).setValue(result);
-        Log.d(TAG, "Bid Added:success");
-//        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-//        final DatabaseReference reference = firebaseDatabase.getReference();
-//        reference.child("advert").addListenerForSingleValueEvent(new ValueEventListener()
-//        {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot)
-//            {
-//                //User user = dataSnapshot.getValue(User.class);
-//                HashMap<Object, Object> result = new HashMap<>();
-//                TextView bidUser = view.findViewById(R.id.enterBid);
-//                result.put(userKey, bidUser.getText().toString());
-//                reference.child("advert").child(advertMap.get(String.valueOf(advertKey.get(pos)))).child(String.valueOf(advertKey.get(pos))).child("bid").setValue(result);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                //Logger.error(TAG, ">>> Error:" + "find onCancelled:" + databaseError);
-//
-//            }
-//        });
+            Log.d(TAG, "Bid Added:success");
+            Toast.makeText(view.getContext(), "Bid Added!", Toast.LENGTH_SHORT).show();
+        }
     }
     public void findUser()
     {
 
     }
+
 }
