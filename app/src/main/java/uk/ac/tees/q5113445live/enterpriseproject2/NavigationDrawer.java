@@ -34,7 +34,7 @@ public class NavigationDrawer extends AppCompatActivity
         HomeFragment.OnFragmentInteractionListener,
         AdvertiseFragment.OnFragmentInteractionListener,
         DetailsFragment.OnFragmentInteractionListener,
-        ViewAds.OnFragmentInteractionListener,
+        MyItemRecyclerViewAdapter.OnListFragmentInteractionListener,
         JobFragment.OnListFragmentInteractionListener,
         LocationFragment.OnFragmentInteractionListener
 
@@ -136,7 +136,7 @@ public class NavigationDrawer extends AppCompatActivity
         }
         else if (id == R.id.nav_advertised)
         {
-            fragment = advertiseJobs(false, fragment, ft);
+            fragment = new ViewAdvertFragment();
         }
         else if (id == R.id.nav_jobs)
         {

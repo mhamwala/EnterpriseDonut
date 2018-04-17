@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,17 +29,16 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+
 /**
  * A fragment representing a list of Items.
  * <p/>
  * Activities containing this fragment MUST implement the {@link MyItemRecyclerViewAdapter.OnListFragmentInteractionListener}
  * interface.
  */
-public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.OnListFragmentInteractionListener
-{
-    // TODO: Customize parameter argument names
+public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAdapter.OnListFragmentInteractionListener{
     private static final String ARG_COLUMN_COUNT = "column-count";
-    private static final String DRIVER_BOOLEAN = "driverCheck";
+    //private static final String DRIVER_BOOLEAN = "driverCheck";
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private DatabaseReference mDatabase;
@@ -60,30 +58,30 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
     private Button updateBid;
     private RecyclerView recyclerView;
     private MyItemRecyclerViewAdapter recycleAdapter;
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public JobFragment()
+    public ViewAdvertFragment()
     {
 
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
-    public static JobFragment newInstance(int columnCount, boolean d)
-    {
-        JobFragment fragment = new JobFragment();
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param columnCount
+     * @return A new instance of fragment ViewAdvertFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static ViewAdvertFragment newInstance(int columnCount) {
+        ViewAdvertFragment fragment = new ViewAdvertFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_COLUMN_COUNT, columnCount);
+//        args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         user = FirebaseAuth.getInstance().getCurrentUser();
         userDatabase = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
@@ -96,7 +94,7 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
         if (getArguments() != null)
         {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
-            driverCheck = getArguments().getBoolean(DRIVER_BOOLEAN);
+            //driverCheck = getArguments().getBoolean(DRIVER_BOOLEAN);
         }
     }
 
@@ -111,20 +109,9 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
         final View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
         checkDriver(view);
-        updateBid = view.findViewById(R.id.updateBid);
-        updateBid.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view2)
-            {
-                recycleAdapter.updateBid(view, advertKey,mDatabase, advertMap);
-
-
-            }
-        });
+        // Inflate the layout for this fragment
         return view;
     }
-
 
     @Override
     public void onAttach(Context context)
@@ -148,13 +135,16 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
         mListener = null;
     }
 
-    public interface OnListFragmentInteractionListener
-    {
-        //TODO: make it so that the card expands when clicking on it
-        void onListFragmentInteraction(String title);
-    }
-
-
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
 
     private static void addItem(Advert item)
     {
@@ -201,82 +191,35 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
                 //Add each advert to a list.
-                if(driverCheck)
+                for(DataSnapshot child : dataSnapshot.getChildren())
                 {
-                    for(DataSnapshot child : dataSnapshot.getChildren())
+                    if(user.getUid().equals(dataSnapshot.getKey()))
                     {
-                        if(user.getUid().equals(dataSnapshot.getKey()))
+                        Advert advert = child.getValue(Advert.class);
+                        if(!advertKey.contains(child.getKey()))
                         {
+                            advertKey.add(child.getKey());
                         }
-                        else
+                        if (!child.getKey().equals(user.getUid()))
                         {
-                            Advert advert = child.getValue(Advert.class);
-                            if(!advertKey.contains(child.getKey()))
-                            {
-                                advertKey.add(child.getKey());
-                            }
-                            if (!child.getKey().equals(user.getUid()))
-                            {
-                                userBidOn = dataSnapshot.getKey();
-                                advertMap.put( child.getKey().toString(),userBidOn);
-                            }
+                            userBidOn = dataSnapshot.getKey();
+                            advertMap.put( child.getKey().toString(),userBidOn);
+                        }
 
 //                            location = getLocation(advert.from,advert.to);
 //                            advert.setFrom(location.get(0));
 //                            advert.setTo(location.get(1));
-                            addItem(advert);
-                            recyclerMethod(view);
-                        }
-
+                        addItem(advert);
+                        recyclerMethod(view);
                     }
-                }
-                else
-                {
-                    for(DataSnapshot child : dataSnapshot.getChildren())
+                    else
                     {
-                        System.out.println(user.getUid());
-                        if(user.getUid().equals(dataSnapshot.getKey()))
-                        {
-                            Advert advert = child.getValue(Advert.class);
-                            addItem(advert);
-                            recyclerMethod(view);
-                        }
+
                     }
                 }
-
-//                for (DataSnapshot child : dataSnapshot.getChildren())
-//                {
-//                    if(!advertKey.contains(child.getKey()))
-//                    {
-//                        advertKey.add(child.getKey());
-//                    }
-//                    if (!child.getKey().equals(user.getUid()))
-//                    {
-//                        userBidOn = dataSnapshot.getKey();
-//                        advertMap.put( child.getKey().toString(),userBidOn);
-//                    }
-//                    //userData = dataSnapshot;
-//                    // bidText(advert,view);
-//                }
-
             }
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s)
-            {
-                //Initialises user to stored data and populates TextViews in layout.Advert advert = userData.getValue(Advert.class);
-                //Creates separate section for bids
-//                for (DataSnapshot userSnapshot : dataSnapshot.getChildren())
-//                {
-//                    if (!userSnapshot.getKey().equals(fUser.getUid()))
-//                    {
-//                        userBidOn = userSnapshot.getKey();
-//                        for (DataSnapshot advertSnapshot: userSnapshot.getChildren())
-//                        {
-//                            advertMap.put( advertSnapshot.getKey().toString(),userBidOn);
-//                        }
-//                    }
-//                }
-            }
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {}
             @Override
@@ -287,7 +230,6 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
     }
 
 
-
     public void onButtonPressed(Uri uri)
     {
         if (mListener != null)
@@ -296,31 +238,6 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
         }
     }
 
-
-    public interface OnFragmentInteractionListener
-    {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(String title);
-    }
-//    public void getDriver()
-//    {
-//        ValueEventListener userListener = new ValueEventListener()
-//        {
-//
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot)
-//            {
-//                User user = dataSnapshot.getValue(User.class);
-//                driver = user.isDriver();
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        };
-//        userDatabase.addValueEventListener(userListener);
-//    }
     public ArrayList<String> getLocation(String from, String to)
     {
         ArrayList<String> location = new ArrayList<>();
@@ -351,10 +268,10 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
 
         return location;
     }
+
     @Override
     public void onListFragmentInteraction(String title)
     {
 
     }
-
 }
