@@ -69,5 +69,7 @@
 
     //Items page
     <string name="updateBid">Update current bid</string>
+    <string name="enterBid">Entering a bid</string>
+    <string name="getBid">Getting the bid</string>
 
 </resources>

@@ -12,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -50,9 +52,16 @@ public class TestFragment extends Fragment {
     private boolean driverCheck;
     private ArrayList<String> location;
     private ArrayList<String> bid;
+    private FirebaseUser fUser;
+    private HashMap<String, String> advertMap;
+    private String userBidOn;
+    private ArrayList advertKey;
     private OnListFragmentInteractionListener mListener;
     public static final List<Advert> ITEMS = new ArrayList<Advert>();
     public static final Map<String, Advert> ITEM_MAP = new HashMap<String, Advert>();
+    private Button updateBid;
+    private RecyclerView recyclerView;
+    private MyItemRecyclerViewAdapter recycleAdapter;
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -82,8 +91,8 @@ public class TestFragment extends Fragment {
         userDatabase = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
         mDatabase = FirebaseDatabase.getInstance().getReference("advert");
         location = new ArrayList<>();
-
-        //checkDriver();
+        advertMap = new HashMap<>();
+        advertKey = new ArrayList();
 
         refresh();
         if (getArguments() != null)
@@ -96,16 +105,25 @@ public class TestFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
-
-
     {
         if (mListener != null)
         {
             mListener.onListFragmentInteraction("View Adverts");
         }
-
         final View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+
         checkDriver(view);
+        updateBid = view.findViewById(R.id.updateBid);
+        updateBid.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view2)
+            {
+                recycleAdapter.updateBid(view, advertKey,mDatabase, advertMap);
+                Toast.makeText(updateBid.getContext(), "Bid Added!", Toast.LENGTH_SHORT).show();
+
+            }
+        });
         return view;
     }
 
@@ -155,10 +173,10 @@ public class TestFragment extends Fragment {
     private void recyclerMethod(View view)
     {
         //Recyclers which handles the showing of items to the user.
-        if (view instanceof RecyclerView)
+        if (view.findViewById(R.id.list) instanceof RecyclerView)
         {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view.findViewById(R.id.list);
             if (mColumnCount <= 1)
             {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -167,7 +185,9 @@ public class TestFragment extends Fragment {
             {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyItemRecyclerViewAdapter(ITEMS, mListener));
+            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS, mListener);
+            recyclerView.setAdapter(recycleAdapter);
+
         }
     }
     private void refresh()
@@ -177,43 +197,25 @@ public class TestFragment extends Fragment {
     }
     public void checkDriver(final View view)
     {
-
         mDatabase.addChildEventListener(new ChildEventListener()
         {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
-
                 //Add each advert to a list.
                 if(driverCheck)
                 {
-
                     for(DataSnapshot child : dataSnapshot.getChildren())
                     {
                         if(user.getUid().equals(dataSnapshot.getKey()))
                         {
-
                         }
                         else
                         {
-                            bidDatabase.addChildEventListener(new ChildEventListener() {
-                                @Override
-                                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-
-                                }
-                                @Override
-                                public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
-                                @Override
-                                public void onChildRemoved(DataSnapshot dataSnapshot) {}
-                                @Override
-                                public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {}
-                            });
                             Advert advert = child.getValue(Advert.class);
-                            location = getLocation(advert.from,advert.to);
-                            advert.setFrom(location.get(0));
-                            advert.setTo(location.get(1));
+//                            location = getLocation(advert.from,advert.to);
+//                            advert.setFrom(location.get(0));
+//                            advert.setTo(location.get(1));
                             addItem(advert);
                             recyclerMethod(view);
                         }
@@ -233,9 +235,42 @@ public class TestFragment extends Fragment {
                         }
                     }
                 }
+                for (DataSnapshot q : dataSnapshot.getChildren())
+                {
+                    if(!advertKey.contains(q.getKey()))
+                    {
+                        advertKey.add(q.getKey());
+                    }
+                    if (!q.getKey().equals(user.getUid()))
+                    {
+                        userBidOn = dataSnapshot.getKey();
+//                        for (DataSnapshot advertSnapshot: q.getChildren())
+//                        {
+                            advertMap.put( q.getKey().toString(),userBidOn);
+//                        }
+                    }
+                    //userData = dataSnapshot;
+                    // bidText(advert,view);
+                }
+
             }
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            public void onChildChanged(DataSnapshot dataSnapshot, String s)
+            {
+                //Initialises user to stored data and populates TextViews in layout.Advert advert = userData.getValue(Advert.class);
+                //Creates separate section for bids
+//                for (DataSnapshot userSnapshot : dataSnapshot.getChildren())
+//                {
+//                    if (!userSnapshot.getKey().equals(fUser.getUid()))
+//                    {
+//                        userBidOn = userSnapshot.getKey();
+//                        for (DataSnapshot advertSnapshot: userSnapshot.getChildren())
+//                        {
+//                            advertMap.put( advertSnapshot.getKey().toString(),userBidOn);
+//                        }
+//                    }
+//                }
+            }
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {}
             @Override
