@@ -88,9 +88,9 @@
                 android:id="@+id/getBid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/collect"
-                android:layout_marginTop="15dp"
-                android:layout_toEndOf="@+id/collect"
+                android:layout_alignEnd="@+id/textView"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="13dp"
                 android:hint="@string/bid" />
 
         </RelativeLayout>

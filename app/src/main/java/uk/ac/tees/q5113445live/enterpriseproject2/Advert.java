@@ -16,7 +16,7 @@ public class Advert
     String to;
     String weight;
     String size;
-    HashMap<String, String> bid;
+    HashMap<String, HashMap<String, String>> bid;
 
     //Blank Advert
     Advert()
@@ -82,9 +82,12 @@ public class Advert
         this.name = name;
     }
 
-    public void setBid(HashMap<String, String> bid)
+    public HashMap<String, HashMap<String, String>> getBid() {
+        return bid;
+    }
+
+    public void setBid(HashMap<String, HashMap<String, String>> bid)
     {
         this.bid = bid;
     }
-
 }
