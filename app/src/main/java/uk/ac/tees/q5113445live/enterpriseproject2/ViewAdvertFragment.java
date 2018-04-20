@@ -54,6 +54,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     private ArrayList advertKey;
     private MyItemRecyclerViewAdapter.OnListFragmentInteractionListener mListener;
     public static final List<Advert> ITEMS = new ArrayList<Advert>();
+    public static final List<String> ADVERTID = new ArrayList<>();
     public static final Map<String, Advert> ITEM_MAP = new HashMap<String, Advert>();
     private Button updateBid;
     private RecyclerView recyclerView;
@@ -146,10 +147,11 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
      * >Communicating with Other Fragments</a> for more information.
      */
 
-    private static void addItem(Advert item)
+    private static void addItem(Advert item, String id)
     {
         //Adds the items to a static list which is shown to the user
         ITEMS.add(item);
+        ADVERTID.add(id);
         ITEM_MAP.put(item.getName(),item);
         ITEM_MAP.put(item.getFrom(),item);
         ITEM_MAP.put(item.getTo(),item);
@@ -173,7 +175,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
             {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS, mListener);
+            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, mListener);
             recyclerView.setAdapter(recycleAdapter);
 
         }
@@ -181,6 +183,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     private void refresh()
     {
         ITEMS.clear();
+        ADVERTID.clear();
         ITEM_MAP.clear();
     }
     public void checkDriver(final View view)
@@ -209,7 +212,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
 //                            location = getLocation(advert.from,advert.to);
 //                            advert.setFrom(location.get(0));
 //                            advert.setTo(location.get(1));
-                        addItem(advert);
+                        addItem(advert,child.getKey().toString());
                         recyclerMethod(view);
                     }
                     else

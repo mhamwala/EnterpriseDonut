@@ -12,17 +12,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import uk.ac.tees.q5113445live.enterpriseproject2.JobFragment.OnListFragmentInteractionListener;
 
 import uk.ac.tees.q5113445live.enterpriseproject2.dummy.DummyContent.DummyItem;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +37,7 @@ import java.util.List;
 public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
 
     private final List<Advert> mValues;
+    private final List<String> mAds;
     private final OnListFragmentInteractionListener mListener;
     private static final String TAG = "Bidding Activity";
     private TextView userBid;
@@ -53,9 +57,11 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     private View view;
 
 
-    public MyItemRecyclerViewAdapter(List<Advert> items, OnListFragmentInteractionListener listener)
+
+    public MyItemRecyclerViewAdapter(List<Advert> items,List<String> advertId, OnListFragmentInteractionListener listener)
     {
         mValues = items;
+        mAds = advertId;
         mListener = listener;
     }
 
@@ -75,7 +81,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 .inflate(R.layout.fragment_item_list, parent, false);
         advertMap = new HashMap<>();
         fUser = FirebaseAuth.getInstance().getCurrentUser();
-        mDatabase = FirebaseDatabase.getInstance().getReference("advert");
+        //mDatabase = FirebaseDatabase.getInstance().getReference("advert");
 
 
         return new ViewHolder(view);
@@ -88,9 +94,15 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         holder.n.setText(mValues.get(position).getName());
         holder.c.setText(mValues.get(position).getFrom());
         holder.d.setText(mValues.get(position).getTo());
+        mStorageRef = FirebaseStorage.getInstance().getReference("AdvertImage").child(mAds.get(position));
         //holder.s.setText(mValues.get(position).getBid());
-
-
+        try
+        {
+            getProfileImage(holder.mView,holder.i,mStorageRef);
+        } catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         holder.mView.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -101,6 +113,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                     mListener.onListFragmentInteraction(holder.mItem.getDeliveryType());
                     pos = position;
                     notifyDataSetChanged();
+//                    imageView = view.findViewById(R.id.imageView3);
                 }
 
             }
@@ -128,9 +141,12 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         public final TextView n;
         public final TextView c;
         public final TextView d;
+        public final ImageView i;
+      //  public final TextView s;
         //public final TextView s;
 
         public Advert mItem;
+
 
         public ViewHolder(View view)
         {
@@ -140,7 +156,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             n = view.findViewById(R.id.itemName);
             c = (TextView) view.findViewById(R.id.collect);
             d = (TextView) view.findViewById(R.id.deliver);
-            //s = (TextView) view.findViewById(R.id.bid);
+            i = (ImageView) view.findViewById(R.id.imageView3);
+            //s = (TextView) view.findViewById(R.id.updateBid);
 
         }
 
@@ -151,11 +168,11 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         }
     }
 
-    public void bidText(Advert advert, View view)
-    {
-        //userBid = view.findViewById(R.id.bid);
-        //userBid.setText(advert.getBid());
-    }
+   // public void bidText(Advert advert, View view)
+  //  {
+  //      userBid = view.findViewById(R.id.getBid);
+   //     userBid.setText(advert.getBid());
+ //   }
 
     public void updateBid(final View view, final ArrayList<String> advertKey, DatabaseReference reference, final HashMap<String, String> advertMap)
     {
@@ -183,5 +200,18 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     {
 
     }
+
+    public void getProfileImage(View view,ImageView i,StorageReference ref) throws IOException
+    {
+
+        Glide.with(view.getContext())
+                .using(new FirebaseImageLoader())
+                .load(ref)
+                .into(i);
+
+    }
+
+
+
 
 }
