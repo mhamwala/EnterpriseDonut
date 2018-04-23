@@ -44,11 +44,15 @@ public class HomeFragment extends Fragment
     //region Firebase variables
     private DatabaseReference mDatabase;
     private StorageReference mStorageRef;
+
     private FirebaseUser user;
     //endregion
 
     private ImageView imageView;
     private View view;
+
+
+
     Button tempButton;
 
     private OnFragmentInteractionListener mListener;
@@ -201,11 +205,69 @@ public class HomeFragment extends Fragment
 
     public void getProfileImage() throws IOException
     {
-        Glide.with(this /* context */)
+        Glide.with(this)
                 .using(new FirebaseImageLoader())
                 .load(mStorageRef)
                 .into(imageView);
+
     }
     //region Legacy methods for changing activities.
+    /*public void userButton(View view)
+    {
+        tempButton = view.findViewById(R.id.userButton);
+        tempButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(getActivity(), UserActivity.class);
+                startActivity(home);
+            }
+        });
+    }
+
+
+    public void signOutButton(View view)
+    {
+        tempButton = view.findViewById(R.id.signOut);
+
+        tempButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                FirebaseAuth.getInstance().signOut();
+                Intent home = new Intent(getActivity(), login_activity.class);
+                startActivity(home);
+            }
+        });
+
+    }
+
+    public void settingsButton(View view)
+    {
+        tempButton = view.findViewById(R.id.settingsButton);
+        tempButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent home = new Intent(getActivity(), SettingsActivity.class);
+                startActivity(home);
+            }
+        });
+
+    }
+
+    public void driverButton(View view)
+    {
+        tempButton = view.findViewById(R.id.driverButton);
+        tempButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view)
+            {
+                Intent home = new Intent(getActivity(), DriverActivity.class);
+                startActivity(home);
+            }
+        });
+
+    }
+    */
     //endregion
 }

@@ -58,7 +58,7 @@
         android:layout_height="50dp"
         android:layout_marginBottom="8dp"
 
-
+        android:textColor="@color/colorPrimary"
         android:background="@color/Background3"
         android:text="@string/sign_up"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -102,17 +102,18 @@
 
     <Button
         android:id="@+id/addImage"
-        android:layout_width="99dp"
-        android:layout_height="49dp"
+        android:layout_width="135dp"
+        android:layout_height="54dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="52dp"
+        android:layout_marginEnd="44dp"
         android:layout_marginTop="8dp"
         android:background="@color/Background3"
         android:text="Add Image"
+        android:textColor="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/signUpButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterPass"
-        app:layout_constraintVertical_bias="0.547" />
+        app:layout_constraintVertical_bias="0.593" />
 
     <ImageButton
         android:id="@+id/testImage"
@@ -125,10 +126,10 @@
         android:background="@color/Background3"
         app:layout_constraintBottom_toTopOf="@+id/signUpButton"
         app:layout_constraintEnd_toStartOf="@+id/addImage"
-        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterPass"
-        app:layout_constraintVertical_bias="0.557"
+        app:layout_constraintVertical_bias="0.563"
         app:srcCompat="@drawable/common_google_signin_btn_icon_light_normal_background" />
 
     <TextView
@@ -139,6 +140,7 @@
         android:layout_marginTop="16dp"
         android:text="User Sign Up"
         android:textAlignment="center"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/enterName"
         app:layout_constraintLeft_toLeftOf="parent"
