@@ -61,9 +61,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     private int newBid;
     private String remainingWallet;
     public ArrayList<String> listBid;
-    private User pUser;
-    private DatabaseReference userDatabase;
-
 
 
     public MyItemRecyclerViewAdapter(List<Advert> items,List<String> advertId, OnListFragmentInteractionListener listener)
@@ -88,29 +85,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         final View parentView =LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item_list, parent, false);
         advertMap = new HashMap<>();
-        fUser = FirebaseAuth.getInstance().getCurrentUser();
-        userDatabase = FirebaseDatabase.getInstance().getReference("users").child(fUser.getUid());
         //mDatabase = FirebaseDatabase.getInstance().getReference("advert");
-
-
-        userDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                final DataSnapshot snapshot = dataSnapshot;
-                pUser = snapshot.getValue(User.class);
-
-                new User
-                        (
-                                pUser.getWallet().toString()
-                        );
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
 
         return new ViewHolder(view);
     }
@@ -211,12 +186,13 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                     child(String.valueOf(advertKey.get(pos))).child("bid").push().getKey();
             HashMap<Object, Object> result = new HashMap<>();
             TextView bidUser = view.findViewById(R.id.enterBid);
-            //Puts the wallet in database
+            //Getting the users wallet and getting the new bid
+                //Subtracting the usersWallet from the new bid
                 userWallet = Integer.valueOf(user.getWallet().toString());
                 newBid = Integer.valueOf(bidUser.getText().toString());
                 int d = userWallet - newBid;
                 remainingWallet = String.valueOf(d);
-                System.out.println(remainingWallet);
+                //Only lists the bid if user has enough in his wallet
             if(newBid > userWallet)
             {
                 Toast.makeText(view.getContext(), "You have insufficient funds in your wallet!", Toast.LENGTH_SHORT).show();
@@ -242,6 +218,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
 
+        //Only changes the wallet if the User has enough in his wallet
+        // TODO: 24/04/2018 "Is this check redundant??"
         if(newBid > userWallet)
         {
             Toast.makeText(view.getContext(), "You have insufficient funds in your wallet!", Toast.LENGTH_SHORT).show();
@@ -261,7 +239,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 @Override
                 public void onCancelled(DatabaseError databaseError) {
                     //Logger.error(TAG, ">>> Error:" + "find onCancelled:" + databaseError);
-
                 }
             });
         }
@@ -276,8 +253,5 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 .into(i);
 
     }
-
-
-
-
+    
 }
