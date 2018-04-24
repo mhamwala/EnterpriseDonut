@@ -86,6 +86,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 .inflate(R.layout.fragment_item_list, parent, false);
         advertMap = new HashMap<>();
         //mDatabase = FirebaseDatabase.getInstance().getReference("advert");
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
 
         return new ViewHolder(view);
     }
@@ -161,6 +162,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             d = (TextView) view.findViewById(R.id.deliver);
             i = (ImageView) view.findViewById(R.id.imageView3);
             //s = (TextView) view.findViewById(R.id.updateBid);
+
 
         }
 
