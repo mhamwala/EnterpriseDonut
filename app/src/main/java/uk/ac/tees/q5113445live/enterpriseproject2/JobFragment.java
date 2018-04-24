@@ -5,7 +5,6 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,9 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -135,7 +131,7 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
         final View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
         checkDriver(view);
-        updateBid = view.findViewById(R.id.updateBid);
+        updateBid = view.findViewById(R.id.removeAdvert);
         updateBid.setOnClickListener(new View.OnClickListener()
         {
             @Override
