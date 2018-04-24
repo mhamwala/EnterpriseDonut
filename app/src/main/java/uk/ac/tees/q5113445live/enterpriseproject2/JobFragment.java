@@ -5,6 +5,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -22,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -59,6 +63,8 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
     public static final List<String> ADVERTID = new ArrayList<>();
     public static final Map<String, Advert> ITEM_MAP = new HashMap<String, Advert>();
     private Button updateBid;
+    private User pUser;
+    private DataSnapshot snapshot;
     private RecyclerView recyclerView;
     private MyItemRecyclerViewAdapter recycleAdapter;
     /**
@@ -84,7 +90,6 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-
         super.onCreate(savedInstanceState);
         user = FirebaseAuth.getInstance().getCurrentUser();
         userDatabase = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
@@ -92,13 +97,31 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
         location = new ArrayList<>();
         advertMap = new HashMap<>();
         advertKey = new ArrayList();
-
         refresh();
         if (getArguments() != null)
         {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             driverCheck = getArguments().getBoolean(DRIVER_BOOLEAN);
         }
+
+        userDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final DataSnapshot snapshot = dataSnapshot;
+                pUser = snapshot.getValue(User.class);
+
+                //final TextView walletText = getView().findViewById(R.id.nav_wallet);
+                new User
+                        (
+                                pUser.getWallet().toString()
+                        );
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -118,7 +141,7 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
             @Override
             public void onClick(View view2)
             {
-                recycleAdapter.updateBid(view, advertKey,mDatabase, advertMap);
+                recycleAdapter.updateBid(view, advertKey,mDatabase, advertMap, pUser);
 
 
             }
@@ -208,6 +231,7 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
                 {
                     for(DataSnapshot child : dataSnapshot.getChildren())
                     {
+
                         if(user.getUid().equals(dataSnapshot.getKey()))
                         {
                         }
