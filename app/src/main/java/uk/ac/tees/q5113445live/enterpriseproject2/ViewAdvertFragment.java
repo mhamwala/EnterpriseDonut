@@ -107,7 +107,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         {
             mListener.onListFragmentInteraction("View Adverts");
         }
-        final View view = inflater.inflate(R.layout.fragment_item_list, container, false);
+        final View view = inflater.inflate(R.layout.fragment_user_adverts, container, false);
 
         checkDriver(view);
         // Inflate the layout for this fragment
@@ -201,10 +201,12 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
                         Advert advert = child.getValue(Advert.class);
                         if(!advertKey.contains(child.getKey()))
                         {
+                            //Singular adverts
                             advertKey.add(child.getKey());
                         }
                         if (!child.getKey().equals(user.getUid()))
                         {
+                            //UserBidOn = users adverts
                             userBidOn = dataSnapshot.getKey();
                             advertMap.put( child.getKey().toString(),userBidOn);
                         }
@@ -270,6 +272,11 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         location.add(cityTo);
 
         return location;
+    }
+
+    public void removeAdvert()
+    {
+
     }
 
     @Override

@@ -40,7 +40,7 @@
     <string name="weight">weight</string>
     <string name="basePay">pay</string>
     <string name="collect">collect</string>
-    <string name="bid">BID</string>
+    <string name="bid">Bid</string>
     <string name="title_activity_main2">Main2Activity</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -68,8 +68,9 @@
     <string name="deliveryTypes">get the advert item type</string>
 
     //Items page
-    <string name="updateBid">Update current bid</string>
-    <string name="enterBid">Entering a bid</string>
-    <string name="getBid">Getting the bid</string>
+    <string name="updateBid">Update Current Bid</string>
+    <string name="enterBid">Entering A Bid</string>
+    <string name="getBid">Getting The Bid</string>
+    <string name="removeAdvert">Remove Advert</string>
 
 </resources>
