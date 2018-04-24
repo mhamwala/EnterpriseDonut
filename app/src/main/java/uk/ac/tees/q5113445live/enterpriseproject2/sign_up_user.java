@@ -17,6 +17,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -65,6 +66,7 @@ public class sign_up_user extends AppCompatActivity
         final EditText locEdit = findViewById(R.id.enterLoc);
         final EditText numEdit = findViewById(R.id.enterNumber);
         final Button addImage = findViewById(R.id.addImage);
+        final TextView walEdit = findViewById(R.id.nav_wallet);
         testImage = findViewById(R.id.testImage);
 
         addImage.setOnClickListener(new Switch.OnClickListener()
@@ -93,7 +95,8 @@ public class sign_up_user extends AppCompatActivity
                                nameEdit.getText().toString(),
                                emailEdit.getText().toString(),
                                locEdit.getText().toString(),
-                               numEdit.getText().toString()
+                               numEdit.getText().toString(),
+                                   walEdit.getText().toString()
                            );
                            String password = passEdit.getText().toString();
                            createAccount(user, password);
