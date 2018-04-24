@@ -57,8 +57,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     private StorageReference mStorageRef;
     private ImageView imageView;
     private View view;
-    private int userWallet;
-    private int newBid;
+    private double userWallet;
+    private double newBid;
     private String remainingWallet;
     public ArrayList<String> listBid;
 
@@ -190,9 +190,9 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             TextView bidUser = view.findViewById(R.id.enterBid);
             //Getting the users wallet and getting the new bid
                 //Subtracting the usersWallet from the new bid
-                userWallet = Integer.valueOf(user.getWallet().toString());
-                newBid = Integer.valueOf(bidUser.getText().toString());
-                int d = userWallet - newBid;
+                userWallet = Double.valueOf(user.getWallet().toString());
+                newBid = Double.valueOf(bidUser.getText().toString());
+                double d = userWallet - newBid;
                 remainingWallet = String.valueOf(d);
                 //Only lists the bid if user has enough in his wallet
             if(newBid > userWallet)
