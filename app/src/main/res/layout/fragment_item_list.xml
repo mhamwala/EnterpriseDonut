@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginEnd="11dp"
-            android:layout_toStartOf="@+id/updateBid"
+            android:layout_toStartOf="@+id/removeAdvert"
             android:ems="10"
             android:hint="@string/bid"
             android:inputType="textPersonName"
@@ -55,7 +55,7 @@
             android:textColor="@android:color/black" />
 
         <Button
-            android:id="@+id/updateBid"
+            android:id="@+id/removeAdvert"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/enterBid"
