@@ -61,6 +61,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     private int newBid;
     private String remainingWallet;
     public ArrayList<String> listBid;
+    private User pUser;
+    private DatabaseReference userDatabase;
 
 
 
@@ -87,7 +89,27 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 .inflate(R.layout.fragment_item_list, parent, false);
         advertMap = new HashMap<>();
         fUser = FirebaseAuth.getInstance().getCurrentUser();
+        userDatabase = FirebaseDatabase.getInstance().getReference("users").child(fUser.getUid());
         //mDatabase = FirebaseDatabase.getInstance().getReference("advert");
+
+
+        userDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final DataSnapshot snapshot = dataSnapshot;
+                pUser = snapshot.getValue(User.class);
+
+                new User
+                        (
+                                pUser.getWallet().toString()
+                        );
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         return new ViewHolder(view);
@@ -134,6 +156,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             holder.mView.setBackgroundColor(Color.WHITE);
         }
 
+
     }
 
     @Override
@@ -173,12 +196,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         }
     }
 
-//    public void bidText(Advert advert, View view)
-//    {
-//        bidUser = view.findViewById(R.id.enterBid);
-//        bidUser.setText(bidser.getBid());
-//    }
-
     public void updateBid(final View view, final ArrayList<String> advertKey, DatabaseReference reference, final HashMap<String, String> advertMap, User user)
     {
         //Trying to return name after bid is placed!
@@ -200,17 +217,19 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 int d = userWallet - newBid;
                 remainingWallet = String.valueOf(d);
                 System.out.println(remainingWallet);
-
-                //result.put("Remaining balance", remainingWallet);
+            if(newBid > userWallet)
+            {
+                Toast.makeText(view.getContext(), "You have insufficient funds in your wallet!", Toast.LENGTH_SHORT).show();
+            }
+            else {
                 result.put(userKey, bidUser.getText().toString());
-                //user.setWallet(remainingWallet);
                 listBid.add(remainingWallet);
                 updateWallet(view);
-
-            reference.child(advertMap.get(String.valueOf(advertKey.get(pos)))).
-                    child(String.valueOf(advertKey.get(pos))).child("bid").child(id).setValue(result);
-            Log.d(TAG, "Bid Added:success");
-            Toast.makeText(view.getContext(), "Bid Added!", Toast.LENGTH_SHORT).show();
+                reference.child(advertMap.get(String.valueOf(advertKey.get(pos)))).
+                        child(String.valueOf(advertKey.get(pos))).child("bid").child(id).setValue(result);
+                Log.d(TAG, "Bid Added:success");
+                Toast.makeText(view.getContext(), "Bid Added!", Toast.LENGTH_SHORT).show();
+            }
         }
     }
     public void findUser()
