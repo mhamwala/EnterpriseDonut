@@ -16,7 +16,7 @@ public class User
     String location;
     String email;
     String regNumber;
-    double wallet;
+    String wallet;
     boolean driver = false;
     String number;
 
@@ -29,10 +29,16 @@ public class User
         location ="";
         number = "";
         regNumber = "";
-        wallet = 0;
+        wallet = "";
 
     }
-    User(String n, String e, String l,  String num)
+
+    User(String wall)
+    {
+        wallet = wall;
+
+    }
+    User(String n, String e, String l,  String num, String wal)
     {
         name= n;
         email = e;
@@ -40,10 +46,10 @@ public class User
         number = num;
         regNumber = "";
         driver = false;
-        wallet = 0;
+        wallet = wal;
     }
 
-    User(String n, String e, String l, String num, String reg)
+    User(String n, String e, String l, String num, String reg, String wal)
     {
         name= n;
         email = e;
@@ -51,14 +57,14 @@ public class User
         number = num;
         regNumber = reg;
         driver = true;
-        wallet = 0;
+        wallet = wal;
     }
 
-    public double getWallet() {
+    public String getWallet() {
         return wallet;
     }
 
-    public void setWallet(double wallet) {
+    public void setWallet(String wallet) {
         this.wallet = wallet;
     }
 

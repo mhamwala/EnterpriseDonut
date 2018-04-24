@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -45,6 +46,7 @@ public class sign_up_driver extends AppCompatActivity
         final EditText nameEdit = findViewById(R.id.enterName);
         final EditText locEdit = findViewById(R.id.enterLoc);
         final EditText numEdit = findViewById(R.id.enterNumber);
+        final TextView wallEdit = findViewById((R.id.nav_wallet));
 
         final Switch userSwitch = findViewById(R.id.userSwitch);
         userSwitch.setOnClickListener(new Switch.OnClickListener()
@@ -72,7 +74,8 @@ public class sign_up_driver extends AppCompatActivity
                               emailEdit.getText().toString(),
                               locEdit.getText().toString(),
                               numEdit.getText().toString(),
-                              regEdit.getText().toString()
+                              regEdit.getText().toString(),
+                                  wallEdit.getText().toString()
                           );
                           String password = passEdit.getText().toString();
                           createAccount(user, password);
