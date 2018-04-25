@@ -129,9 +129,9 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         });
         if(pos == position)
         {
-            //advertFrag.getPosition(pos);
             //advertFrag.removeAdvert();
             holder.mView.setBackgroundColor(Color.GREEN);
+            advertFrag.getPosition(pos);
         }
         else {
             holder.mView.setBackgroundColor(Color.WHITE);

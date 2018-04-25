@@ -60,7 +60,6 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     private RecyclerView recyclerView;
     private MyItemRecyclerViewAdapter recycleAdapter;
     private Button removeAd;
-    private View viewAd;
     private int position;
     public ViewAdvertFragment()
     {
@@ -100,11 +99,14 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             //driverCheck = getArguments().getBoolean(DRIVER_BOOLEAN);
         }
+        getPosition(pos);
     }
 
-    public int getPosition(int position)
+    public int getPosition(int pos)
     {
-        return position;
+        int a = pos;
+        System.out.println("Position in getPosition Method is :" + position);
+        return a;
     }
 
     @Override
@@ -117,35 +119,40 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
 
         }
         final View view = inflater.inflate(R.layout.fragment_user_adverts, container, false);
-        viewAd = inflater.inflate(R.layout.fragment_user_adverts, container, false);
-        removeAd = viewAd.findViewById(R.id.removeAdvert);
+        checkDriver(view);
+
+        System.out.println("Position after getPosition call is :" + position);
+        removeAd = view.findViewById(R.id.removeAdvert);
         removeAd.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view2)
             {
-                removeAdvert();
+                getPosition(pos);
+                System.out.println("Position onClick is :" + pos);
+
+                //removeAdvert();
                 System.out.println("HELOOOOOOOSODOSAD:  " + position);
             }
         });
 
-        checkDriver(view);
+
         // Inflate the layout for this fragment
         return view;
     }
 
-    public void removeAdvert()
-    {
-        getPosition(position);
-        removeAd.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View view2)
-            {
-                System.out.println("HELOOOOOOOSODOSAD:  " + position);
-            }
-        });
-    }
+//    public void removeAdvert()
+//    {
+//        getPosition(position);
+//        removeAd.setOnClickListener(new View.OnClickListener()
+//        {
+//            @Override
+//            public void onClick(View view2)
+//            {
+//                System.out.println("HELOOOOOOOSODOSAD:  " + position);
+//            }
+//        });
+//    }
 
     @Override
     public void onAttach(Context context)
