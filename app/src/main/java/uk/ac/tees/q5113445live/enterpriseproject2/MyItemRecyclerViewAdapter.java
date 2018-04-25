@@ -52,7 +52,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     //private ArrayList advertKey;
     private String userBidOn;
     private HashMap<String, String> advertMap;
-    private int pos;
+    private static int pos;
     private ArrayList value;
     private StorageReference mStorageRef;
     private ImageView imageView;
@@ -131,7 +131,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         {
             //advertFrag.removeAdvert();
             holder.mView.setBackgroundColor(Color.GREEN);
-            advertFrag.getPosition(pos);
         }
         else {
             holder.mView.setBackgroundColor(Color.WHITE);
@@ -258,6 +257,12 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 .load(ref)
                 .into(i);
 
+    }
+
+    public static int getPosition()
+    {
+
+        return pos;
     }
     
 }
