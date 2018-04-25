@@ -59,6 +59,9 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     private Button updateBid;
     private RecyclerView recyclerView;
     private MyItemRecyclerViewAdapter recycleAdapter;
+    private Button removeAd;
+    private View viewAd;
+    private int position;
     public ViewAdvertFragment()
     {
 
@@ -99,6 +102,11 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         }
     }
 
+    public int getPosition(int position)
+    {
+        return position;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -106,12 +114,37 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         if (mListener != null)
         {
             mListener.onListFragmentInteraction("View Adverts");
+
         }
         final View view = inflater.inflate(R.layout.fragment_user_adverts, container, false);
+        viewAd = inflater.inflate(R.layout.fragment_user_adverts, container, false);
+        removeAd = viewAd.findViewById(R.id.removeAdvert);
+        removeAd.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view2)
+            {
+                removeAdvert();
+                System.out.println("HELOOOOOOOSODOSAD:  " + position);
+            }
+        });
 
         checkDriver(view);
         // Inflate the layout for this fragment
         return view;
+    }
+
+    public void removeAdvert()
+    {
+        getPosition(position);
+        removeAd.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view2)
+            {
+                System.out.println("HELOOOOOOOSODOSAD:  " + position);
+            }
+        });
     }
 
     @Override
@@ -179,6 +212,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
             recyclerView.setAdapter(recycleAdapter);
 
         }
+
     }
     private void refresh()
     {
@@ -234,12 +268,12 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         });
     }
 
-
     public void onButtonPressed(Uri uri)
     {
         if (mListener != null)
         {
             mListener.onListFragmentInteraction("View Adverts");
+
         }
     }
 
@@ -274,10 +308,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         return location;
     }
 
-    public void removeAdvert()
-    {
 
-    }
 
     @Override
     public void onListFragmentInteraction(String title)

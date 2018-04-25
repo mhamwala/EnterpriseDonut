@@ -61,7 +61,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     private double newBid;
     private String remainingWallet;
     public ArrayList<String> listBid;
-
+    private ViewAdvertFragment advertFrag;
 
     public MyItemRecyclerViewAdapter(List<Advert> items,List<String> advertId, OnListFragmentInteractionListener listener)
     {
@@ -99,6 +99,11 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         holder.c.setText(mValues.get(position).getFrom());
         holder.d.setText(mValues.get(position).getTo());
         mStorageRef = FirebaseStorage.getInstance().getReference("AdvertImage").child(mAds.get(position));
+
+        //______________________________________________________________________________________
+        advertFrag = new ViewAdvertFragment();
+        //______________________________________________________________________________________
+
         //holder.s.setText(mValues.get(position).getBid());
         try
         {
@@ -117,21 +122,20 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                     mListener.onListFragmentInteraction(holder.mItem.getDeliveryType());
                     pos = position;
                     notifyDataSetChanged();
-//                    imageView = view.findViewById(R.id.imageView3);
+                    //imageView = view.findViewById(R.id.imageView3);
                 }
 
             }
         });
         if(pos == position)
         {
-
+            //advertFrag.getPosition(pos);
+            //advertFrag.removeAdvert();
             holder.mView.setBackgroundColor(Color.GREEN);
         }
-        else
-        {
+        else {
             holder.mView.setBackgroundColor(Color.WHITE);
         }
-
 
     }
 
