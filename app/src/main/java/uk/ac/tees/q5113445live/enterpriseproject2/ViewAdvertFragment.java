@@ -105,7 +105,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     {
         if (mListener != null)
         {
-            mListener.onListFragmentInteraction("View Adverts");
+            mListener.onListFragmentInteraction("View My Adverts");
         }
         final View view = inflater.inflate(R.layout.fragment_user_adverts, container, false);
 
@@ -239,7 +239,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     {
         if (mListener != null)
         {
-            mListener.onListFragmentInteraction("View Adverts");
+            mListener.onListFragmentInteraction("View My Adverts");
         }
     }
 

@@ -126,7 +126,7 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
     {
         if (mListener != null)
         {
-            mListener.onListFragmentInteraction("View Adverts");
+            mListener.onListFragmentInteraction("View My Adverts");
         }
         final View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
@@ -315,7 +315,7 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
     {
         if (mListener != null)
         {
-            mListener.onListFragmentInteraction("View Adverts");
+            mListener.onListFragmentInteraction("View My Adverts");
         }
     }
 
