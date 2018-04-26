@@ -74,4 +74,9 @@
     <string name="removeAdvert">Remove Advert</string>
     <string name="viewAdvert">View Advert</string>
 
+    //Advert Details page
+    <string name="selectBid">Select Bid</string>
+    <string name="userId">User ID</string>
+    <string name="rating">Rating</string>
+
 </resources>
