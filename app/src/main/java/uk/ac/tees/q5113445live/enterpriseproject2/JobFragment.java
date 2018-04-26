@@ -13,7 +13,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -49,15 +49,18 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
     private DatabaseReference bidDatabase;
     private boolean driverCheck;
     private ArrayList<String> location;
-    private ArrayList<String> bid;
+
     private FirebaseUser fUser;
     private HashMap<String, String> advertMap;
     private String userBidOn;
     private ArrayList advertKey;
     private MyItemRecyclerViewAdapter.OnListFragmentInteractionListener mListener;
     public static final List<Advert> ITEMS = new ArrayList<Advert>();
+    public static final List<String> ADVERTID = new ArrayList<>();
     public static final Map<String, Advert> ITEM_MAP = new HashMap<String, Advert>();
     private Button updateBid;
+    private User pUser;
+    private DataSnapshot snapshot;
     private RecyclerView recyclerView;
     private MyItemRecyclerViewAdapter recycleAdapter;
     /**
@@ -83,7 +86,6 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
-
         super.onCreate(savedInstanceState);
         user = FirebaseAuth.getInstance().getCurrentUser();
         userDatabase = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
@@ -91,13 +93,31 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
         location = new ArrayList<>();
         advertMap = new HashMap<>();
         advertKey = new ArrayList();
-
         refresh();
         if (getArguments() != null)
         {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             driverCheck = getArguments().getBoolean(DRIVER_BOOLEAN);
         }
+
+        userDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                final DataSnapshot snapshot = dataSnapshot;
+                pUser = snapshot.getValue(User.class);
+
+                //final TextView walletText = getView().findViewById(R.id.nav_wallet);
+                new User
+                        (
+                                pUser.getWallet().toString()
+                        );
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -111,13 +131,13 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
         final View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
         checkDriver(view);
-        updateBid = view.findViewById(R.id.updateBid);
+        updateBid = view.findViewById(R.id.removeAdvert);
         updateBid.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick(View view2)
             {
-                recycleAdapter.updateBid(view, advertKey,mDatabase, advertMap);
+                recycleAdapter.updateBid(view, advertKey,mDatabase, advertMap, pUser);
 
 
             }
@@ -156,10 +176,12 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
 
 
 
-    private static void addItem(Advert item)
+    private static void addItem(Advert item,String id)
     {
         //Adds the items to a static list which is shown to the user
         ITEMS.add(item);
+        ADVERTID.add(id);
+
         ITEM_MAP.put(item.getName(),item);
         ITEM_MAP.put(item.getFrom(),item);
         ITEM_MAP.put(item.getTo(),item);
@@ -183,7 +205,7 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
             {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS, mListener);
+            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, mListener);
             recyclerView.setAdapter(recycleAdapter);
 
         }
@@ -205,6 +227,7 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
                 {
                     for(DataSnapshot child : dataSnapshot.getChildren())
                     {
+
                         if(user.getUid().equals(dataSnapshot.getKey()))
                         {
                         }
@@ -218,13 +241,13 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
                             if (!child.getKey().equals(user.getUid()))
                             {
                                 userBidOn = dataSnapshot.getKey();
-                                advertMap.put( child.getKey().toString(),userBidOn);
+                                advertMap.put(child.getKey().toString(),userBidOn);
                             }
 
 //                            location = getLocation(advert.from,advert.to);
 //                            advert.setFrom(location.get(0));
 //                            advert.setTo(location.get(1));
-                            addItem(advert);
+                            addItem(advert, child.getKey().toString());
                             recyclerMethod(view);
                         }
 
@@ -238,7 +261,7 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
                         if(user.getUid().equals(dataSnapshot.getKey()))
                         {
                             Advert advert = child.getValue(Advert.class);
-                            addItem(advert);
+                            //addItem(advert);
                             recyclerMethod(view);
                         }
                     }

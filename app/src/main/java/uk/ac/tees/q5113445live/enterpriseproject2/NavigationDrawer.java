@@ -175,7 +175,7 @@ public class NavigationDrawer extends AppCompatActivity
                 TextView userText = findViewById(R.id.nav_name);
                 userText.setText(user.getName());
                 TextView walletText = findViewById(R.id.nav_wallet);
-                walletText.setText(walletText.getText() + Double.toString(user.getWallet()));
+                walletText.setText(walletText.getText() + (user.getWallet()));
                 imageView = findViewById(R.id.nav_profile);
                 try
                 {

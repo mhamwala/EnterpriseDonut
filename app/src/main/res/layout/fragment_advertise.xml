@@ -221,7 +221,7 @@
             android:layout_below="@+id/size"
             android:ems="10"
             android:hint="34Kg"
-            android:inputType="textPersonName" />
+            android:inputType="number" />
     </RelativeLayout>
 
     <TextView

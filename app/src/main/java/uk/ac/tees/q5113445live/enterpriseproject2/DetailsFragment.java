@@ -24,6 +24,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -50,6 +51,8 @@ public class DetailsFragment extends Fragment
     private StorageReference mStorageRef;
     private DataSnapshot userData;
     private FirebaseAuth mAuth;
+    private Bid pBid;
+    ;private ArrayList<String> listBid;
 
     //endregion
 
@@ -59,7 +62,13 @@ public class DetailsFragment extends Fragment
     private TextView userLocation;
     private TextView userEmail;
     private TextView userReg;
+    private TextView userWallet;
     //endregion
+
+    private int newBid;
+    private int wall;
+    private String remainingWallet;
+    private String ass;
 
     private OnFragmentInteractionListener mListener;
 
@@ -123,12 +132,13 @@ public class DetailsFragment extends Fragment
                 userData = dataSnapshot;
 
                 //Initialisess user to stored data and populates TextViews in layout.
-                User user = userData.getValue(User.class);
+                final User user = userData.getValue(User.class);
                 nameText(user,view);
                 numText(user,view);
                 locationText(user,view);
                 emailText(user, view);
                 regText(user, view);
+                walletText(user, view);
 
                 //TextView userText = view.findViewById(R.id.showUserName);
                 //userText.setText(fUser.getName());
@@ -257,6 +267,11 @@ public class DetailsFragment extends Fragment
         userReg = view.findViewById(R.id.showRegistration);
         userReg.setText(user.getRegNumber());
     }
+    public void walletText(User user, View view)
+    {
+        userWallet = view.findViewById(R.id.nav_wallet);
+        userWallet.setText(userWallet.getText() + (user.getWallet()));
+    }
     //endregion
 
     //region Update Button methods
@@ -277,15 +292,11 @@ public class DetailsFragment extends Fragment
                 HashMap<String, Object> result = new HashMap<>();
                 result.put("name", userName.getText().toString());
                 result.put("location", userLocation.getText().toString());
-
                 result.put("email", userEmail.getText().toString());
                 result.put("number", userNumber.getText().toString());
                 result.put("regNumber", userReg.getText().toString());
                 reference.child("users").child(fUser.getUid()).updateChildren(result);
-                System.out.println(fUser.getEmail());
                 fUser.updateEmail(userEmail.getText().toString());
-                System.out.println(fUser.getEmail());
-                System.out.println("HELLO");
                 Log.w(TAG, "UpdateDetails:Success");
             }
 
