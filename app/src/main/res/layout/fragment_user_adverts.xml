@@ -50,6 +50,8 @@
             android:hint="@string/removeAdvert"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:textColor="@color/colorPrimary" />
+            android:text="@string/removeAdvert"
+            android:textAllCaps="false"
+            android:textColor="@android:color/black" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>

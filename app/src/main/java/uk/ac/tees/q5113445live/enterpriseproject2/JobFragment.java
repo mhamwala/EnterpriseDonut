@@ -131,7 +131,7 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
         final View view = inflater.inflate(R.layout.fragment_item_list, container, false);
 
         checkDriver(view);
-        updateBid = view.findViewById(R.id.removeAdvert);
+        updateBid = view.findViewById(R.id.updateBid);
         updateBid.setOnClickListener(new View.OnClickListener()
         {
             @Override
