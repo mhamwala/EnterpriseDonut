@@ -72,5 +72,6 @@
     <string name="enterBid">Entering A Bid</string>
     <string name="getBid">Getting The Bid</string>
     <string name="removeAdvert">Remove Advert</string>
+    <string name="viewAdvert">View Advert</string>
 
 </resources>

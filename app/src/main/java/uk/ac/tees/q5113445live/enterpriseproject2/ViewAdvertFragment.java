@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -116,7 +117,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     {
         if (mListener != null)
         {
-            mListener.onListFragmentInteraction("View Adverts");
+            mListener.onListFragmentInteraction("My Adverts");
         }
         final View view = inflater.inflate(R.layout.fragment_user_adverts, container, false);
         checkDriver(view);
@@ -142,48 +143,44 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     {
         final int tempCheck = -1;
         removeAdvertRef = FirebaseDatabase.getInstance().getReference("advert").child(user.getUid());
-        mDatabase.addValueEventListener(new ValueEventListener()
+        if(temp < 0)
         {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot)
-            {
-                if (temp > tempCheck)
-                {
+            Toast.makeText(getContext(), "Please select an advert", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (temp > tempCheck) {
 
-                    removeAdvertRef.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            for(DataSnapshot child : dataSnapshot.getChildren())
-                            {
-                                if(advertKey.get(temp) == child.getKey())
-                                {
-                                    child.getRef().removeValue();
-                                    System.out.println("Fuck yeahhh");
-                                    System.out.println(child.toString());
+                        removeAdvertRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                    if (advertKey.get(temp) == child.getKey()) {
+                                        child.getRef().removeValue();
+                                    }
                                 }
                             }
-                        }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
 
-                        }
-                    });
+                            }
+                        });
+                    } else {
+                    }
+                }
 
-                    //advertKey.remove(temp);
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
                 }
-                else
-                {
-                }
-            }
-            @Override
-            public void onCancelled (DatabaseError databaseError)
-            {
-
-            }
-        });
+            });
+        }
     }
+
+
 
     @Override
     public void onAttach(Context context)
