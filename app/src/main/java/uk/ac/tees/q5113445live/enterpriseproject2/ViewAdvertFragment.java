@@ -158,6 +158,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         removeAdvertRef = FirebaseDatabase.getInstance().getReference("advert").child(user.getUid());
         if(temp < 0)
         {
+
             Toast.makeText(getContext(), "Please select an advert", Toast.LENGTH_SHORT).show();
         }
         else {
