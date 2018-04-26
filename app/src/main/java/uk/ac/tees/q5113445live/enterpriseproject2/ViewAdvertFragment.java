@@ -116,7 +116,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     {
         if (mListener != null)
         {
-            mListener.onListFragmentInteraction("View Adverts");
+            mListener.onListFragmentInteraction("My Adverts");
         }
         final View view = inflater.inflate(R.layout.fragment_user_adverts, container, false);
         checkDriver(view);
@@ -158,7 +158,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
                                 if(advertKey.get(temp) == child.getKey())
                                 {
                                     child.getRef().removeValue();
-                                    System.out.println("Fuck yeahhh");
+                                    System.out.println("removed");
                                     System.out.println(child.toString());
                                 }
                             }

@@ -106,7 +106,7 @@ public class AdvertiseFragment extends Fragment
         View view= inflater.inflate(R.layout.fragment_advertise, container, false);
         if (mListener != null)
         {
-            mListener.onFragmentInteraction("Advertise");
+            mListener.onFragmentInteraction("Advertise an item");
         }
         //Initialises EditText to their corresponding layout item.
         final EditText name = view.findViewById(R.id.itemName);
