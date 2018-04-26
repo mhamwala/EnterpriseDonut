@@ -21,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private DatabaseReference mDatabase;
+    private DatabaseReference removeAdvertRef;
     private DatabaseReference userDatabase;
     private FirebaseUser user;
     private DatabaseReference bidDatabase;
@@ -50,6 +52,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     private ArrayList<String> bid;
     private FirebaseUser fUser;
     private HashMap<String, String> advertMap;
+    private HashMap<String, String> tempAdvertMap;
     private String userBidOn;
     private ArrayList advertKey;
     private MyItemRecyclerViewAdapter.OnListFragmentInteractionListener mListener;
@@ -93,6 +96,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         mDatabase = FirebaseDatabase.getInstance().getReference("advert");
         location = new ArrayList<>();
         advertMap = new HashMap<>();
+        tempAdvertMap = new HashMap<>();
         advertKey = new ArrayList();
         //pos = -1;
 
@@ -124,9 +128,9 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
             @Override
             public void onClick(View view2)
             {
+                //Gets position of currently clicked item and passes it into removeAdvert()
                 int temp = MyItemRecyclerViewAdapter.getPosition();
-                System.out.println("Position onClick is :" + temp);
-                removeAdvert();
+                removeAdvert(temp);
             }
         });
 
@@ -135,9 +139,51 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         return view;
     }
 
-    public void removeAdvert()
+    public void removeAdvert(final int temp)
     {
+        final int tempCheck = -1;
+        removeAdvertRef = FirebaseDatabase.getInstance().getReference("advert").child(user.getUid());
+        mDatabase.addValueEventListener(new ValueEventListener()
+        {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot)
+            {
+                if (temp > tempCheck)
+                {
 
+                    removeAdvertRef.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot child : dataSnapshot.getChildren())
+                            {
+                                if(advertKey.get(temp) == child.getKey())
+                                {
+                                    child.getRef().removeValue();
+                                    System.out.println("Fuck yeahhh");
+                                    System.out.println(child.toString());
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                    //advertKey.remove(temp);
+
+                }
+                else
+                {
+                }
+            }
+            @Override
+            public void onCancelled (DatabaseError databaseError)
+            {
+
+            }
+        });
     }
 
     @Override
