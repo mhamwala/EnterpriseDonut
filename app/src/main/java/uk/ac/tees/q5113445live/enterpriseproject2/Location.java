@@ -18,20 +18,25 @@ public class Location
     private String postCode;
     private String city;
     private Context context;
-    Location()
-    {
-        houseNum = "";
-        postCode = "";
-        context = null;
-    }
+//    Location()
+//    {
+//        houseNum = "";
+//        postCode = "";
+//        context = null;
+//    }
     Location(String hNum, String pCode, Context con)
     {
         houseNum = hNum;
         postCode = pCode;
         context = con;
+        city = getCity();
     }
 
-    public String getLocation()
+    public Location getLocation()
+    {
+        return this;
+    }
+    public String getCity()
     {
         String c = null;
         Geocoder gps = new Geocoder(context, Locale.getDefault());

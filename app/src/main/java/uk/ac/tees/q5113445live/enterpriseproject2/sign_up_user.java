@@ -127,7 +127,7 @@ public class sign_up_user extends AppCompatActivity
                                            getApplicationContext()
                                    ),
                                numEdit.getText().toString(),
-                               walEdit.getText().toString()
+                               "50"
                            );
                            String password = passEdit.getText().toString();
                            createAccount(user, password);
@@ -264,6 +264,7 @@ public class sign_up_user extends AppCompatActivity
     private void newUser(User user, String id)
     {
         mDatabase.child("users").child(id).setValue(user);
+        mDatabase.child("users").child(id).child("Location").setValue(user.getLocation());
     }
 
     private void updateUI(FirebaseUser currentUser)

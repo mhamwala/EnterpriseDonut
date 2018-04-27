@@ -23,17 +23,17 @@ public class User
 
 
 
-    User()
-
-    {
-        name = "";
-        email = "";
-        location = null;
-        number = "";
-        regNumber = "";
-        wallet = "";
-
-    }
+//    User()
+//
+//    {
+//        name = "";
+//        email = "";
+//        location = null;
+//        number = "";
+//        regNumber = "";
+//        wallet = "";
+//
+//    }
 
     User(String wall)
     {
@@ -119,11 +119,13 @@ public class User
         this.email = email;
     }
 
-    public Location getLocation() {
+    public Location getLocation()
+    {
         return location;
     }
 
-    public void setLocation(Location location) {
+    public void setLocation(Location location)
+    {
         this.location = location;
     }
 
