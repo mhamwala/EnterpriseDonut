@@ -138,7 +138,7 @@ public class DetailsFragment extends Fragment
                 locationText(user,view);
                 emailText(user, view);
                 regText(user, view);
-                walletText(user, view);
+               walletText(user, view);
 
                 //TextView userText = view.findViewById(R.id.showUserName);
                 //userText.setText(fUser.getName());

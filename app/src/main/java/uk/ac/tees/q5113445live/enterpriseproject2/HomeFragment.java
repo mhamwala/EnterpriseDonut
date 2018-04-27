@@ -121,6 +121,9 @@ public class HomeFragment extends Fragment
                 User user = dataSnapshot.getValue(User.class);
                 System.out.println(user);
                 TextView userText = view.findViewById(R.id.showUserName);
+
+
+
                 userText.setText(user.getName());
                 imageView = view.findViewById(R.id.imageView);
                 try

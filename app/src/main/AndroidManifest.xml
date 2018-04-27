@@ -22,8 +22,9 @@
         <activity
             android:name=".NavigationDrawer"
             android:label="@string/title_activity_navigation_drawer"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
-        <activity android:name=".VehicleDetailsActivity"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".VehicleDetailsActivity" />
+        <activity android:name=".MyAdvertDetailsActivity"></activity>
     </application>
 
 </manifest>

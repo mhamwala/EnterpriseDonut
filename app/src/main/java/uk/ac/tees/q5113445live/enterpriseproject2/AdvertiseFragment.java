@@ -106,7 +106,7 @@ public class AdvertiseFragment extends Fragment
         View view= inflater.inflate(R.layout.fragment_advertise, container, false);
         if (mListener != null)
         {
-            mListener.onFragmentInteraction("Advertise");
+            mListener.onFragmentInteraction("Advertise an item");
         }
         //Initialises EditText to their corresponding layout item.
         final EditText name = view.findViewById(R.id.itemName);
@@ -116,6 +116,7 @@ public class AdvertiseFragment extends Fragment
         final EditText weight = view.findViewById(R.id.weight);
         final EditText collect = view.findViewById(R.id.collect);
         final Button addImage = view.findViewById(R.id.imageButton);
+        final Button captureImage = view.findViewById(R.id.imageButton2);
         final EditText bid = view.findViewById(R.id.enterBid);
         imageView = view.findViewById(R.id.imageView);
 
@@ -123,6 +124,22 @@ public class AdvertiseFragment extends Fragment
 
 
         testImage = view.findViewById(R.id.testImage);
+
+        captureImage.setOnClickListener(new Switch.OnClickListener()
+        {
+
+            @Override
+            public void onClick(View v)
+            {
+                launchCamera();
+
+
+
+            }
+        });
+
+
+
         addImage.setOnClickListener(new Switch.OnClickListener()
         {
 
@@ -135,6 +152,22 @@ public class AdvertiseFragment extends Fragment
 
             }
         });
+
+
+        captureImage.setOnClickListener(new Switch.OnClickListener()
+        {
+
+            @Override
+            public void onClick(View v)
+            {
+                launchCamera();
+
+
+
+            }
+        });
+
+
         advertiseItem.setOnClickListener(new Button.OnClickListener()
 
 
@@ -186,6 +219,13 @@ public class AdvertiseFragment extends Fragment
         return view;
     }
 
+
+
+
+
+
+
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -219,12 +259,29 @@ public class AdvertiseFragment extends Fragment
 
     private void addPicture()
     {
+
+
         startActivityForResult(new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI),
                 GET_FROM_GALLERY
         );
 
+
+
     }
+
+    private  void launchCamera()
+{
+
+
+
+    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    startActivity(intent);
+
+
+}
+
+
 
     @Override
     public void onAttach(Context context)

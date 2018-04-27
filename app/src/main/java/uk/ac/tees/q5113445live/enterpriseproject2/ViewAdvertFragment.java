@@ -1,6 +1,7 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -21,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +45,8 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private DatabaseReference mDatabase;
+    private DatabaseReference removeAdvertRef;
+    private DatabaseReference AdvertRef;
     private DatabaseReference userDatabase;
     private FirebaseUser user;
     private DatabaseReference bidDatabase;
@@ -50,6 +55,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     private ArrayList<String> bid;
     private FirebaseUser fUser;
     private HashMap<String, String> advertMap;
+    private HashMap<String, String> tempAdvertMap;
     private String userBidOn;
     private ArrayList advertKey;
     private MyItemRecyclerViewAdapter.OnListFragmentInteractionListener mListener;
@@ -59,6 +65,13 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     private Button updateBid;
     private RecyclerView recyclerView;
     private MyItemRecyclerViewAdapter recycleAdapter;
+    private Button removeAd;
+    private Button viewAdDetails;
+    private int pos;
+    private int a = -1;
+    private MyItemRecyclerViewAdapter b;
+    private String ad;
+    private Intent Advert;
     public ViewAdvertFragment()
     {
 
@@ -89,15 +102,17 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         mDatabase = FirebaseDatabase.getInstance().getReference("advert");
         location = new ArrayList<>();
         advertMap = new HashMap<>();
+        tempAdvertMap = new HashMap<>();
         advertKey = new ArrayList();
 
         refresh();
-        if (getArguments() != null)
-        {
+        if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             //driverCheck = getArguments().getBoolean(DRIVER_BOOLEAN);
         }
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -105,14 +120,107 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     {
         if (mListener != null)
         {
-            mListener.onListFragmentInteraction("View Adverts");
+            mListener.onListFragmentInteraction("My Adverts");
         }
         final View view = inflater.inflate(R.layout.fragment_user_adverts, container, false);
-
         checkDriver(view);
+
+        removeAd = view.findViewById(R.id.removeAdvert);
+        removeAd.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view2)
+            {
+                //Gets position of currently clicked item and passes it into removeAdvert()
+                int temp = MyItemRecyclerViewAdapter.getPosition();
+                removeAdvert(temp);
+            }
+        });
+
+        viewAdDetails = view.findViewById(R.id.viewAdvert);
+        viewAdDetails.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view2)
+            {
+                viewAdvertDetails();
+            }
+        });
+
+
         // Inflate the layout for this fragment
         return view;
     }
+
+    public void removeAdvert(final int temp)
+    {
+        final int tempCheck = -1;
+        removeAdvertRef = FirebaseDatabase.getInstance().getReference("advert").child(user.getUid());
+        if(temp < 0)
+        {
+
+            Toast.makeText(getContext(), "Please select an advert!", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            mDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (temp > tempCheck) {
+
+                        removeAdvertRef.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                    if (advertKey.get(temp) == child.getKey()) {
+                                        child.getRef().removeValue();
+                                        Toast.makeText(getContext(), "Advert Removed!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                            }
+                        });
+                    } else {
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+    }
+
+    public String viewAdvertDetails()
+    {
+        DatabaseReference AdvertRef = FirebaseDatabase.getInstance().getReference("advert").child(user.getUid());
+        final int temp = MyItemRecyclerViewAdapter.getPosition();
+
+        AdvertRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        if (advertKey.get(temp) == child.getKey()) {
+                            ad = child.getRef().getKey();
+                            Advert = new Intent(getContext(), MyAdvertDetailsActivity.class);
+                            startActivity(Advert);
+                        }
+                    }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        System.out.println("After Ad" + ad);
+
+        return ad;
+    }
+
+
 
     @Override
     public void onAttach(Context context)
@@ -179,6 +287,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
             recyclerView.setAdapter(recycleAdapter);
 
         }
+
     }
     private void refresh()
     {
@@ -234,7 +343,6 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         });
     }
 
-
     public void onButtonPressed(Uri uri)
     {
         if (mListener != null)
@@ -274,10 +382,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         return location;
     }
 
-    public void removeAdvert()
-    {
 
-    }
 
     @Override
     public void onListFragmentInteraction(String title)
