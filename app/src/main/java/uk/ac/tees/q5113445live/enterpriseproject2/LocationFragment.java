@@ -91,7 +91,6 @@ public class LocationFragment extends Fragment
         TextView country = view.findViewById(R.id.showCountry);
         country.setText(countryName);
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.fragment_view_map);
         return view;
     }
     //endregion

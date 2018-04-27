@@ -141,7 +141,7 @@ public class NavigationDrawer extends AppCompatActivity
         else if (id == R.id.nav_jobs)
         {
             //fragment = advertiseJobs(driver, fragment, ft);
-            fragment = new LocationFragment();
+            fragment = new Map();
         }
 
         else if (id == R.id.nav_signout)
