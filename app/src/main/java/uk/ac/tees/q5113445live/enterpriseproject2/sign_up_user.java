@@ -12,14 +12,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -34,9 +40,16 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.concurrent.ExecutionException;
 
 public class sign_up_user extends AppCompatActivity
 {
@@ -48,6 +61,7 @@ public class sign_up_user extends AppCompatActivity
     private  Bitmap bitmap = null;
     private ImageView testImage = null;
     private Uri selectedImage;
+    private String destination;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -68,18 +82,29 @@ public class sign_up_user extends AppCompatActivity
         final Button addImage = findViewById(R.id.addImage);
         final TextView walEdit = findViewById(R.id.nav_wallet);
         testImage = findViewById(R.id.testImage);
-
-        addImage.setOnClickListener(new Switch.OnClickListener()
-        {
-
-            @Override
-            public void onClick(View v)
-            {
-                addPicture();
-
-            }
-        });
-
+        Spinner dropdown = findViewById(R.id.spinner1);
+        GetAddress address = new GetAddress("TS30DD");
+        System.out.println("HELLO");
+        String[] addresses = new String[0];
+        try {
+            addresses = address.execute().get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, addresses);
+        dropdown.setAdapter(adapter);
+//        addImage.setOnClickListener(new Switch.OnClickListener()
+//        {
+//
+//            @Override
+//            public void onClick(View v)
+//            {
+//                addPicture();
+//
+//            }
+//        });
 
         Button signUp = findViewById(R.id.signUpButton);
         signUp.setOnClickListener(new Button.OnClickListener()
