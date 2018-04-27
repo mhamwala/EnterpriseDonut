@@ -159,7 +159,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         if(temp < 0)
         {
 
-            Toast.makeText(getContext(), "Please select an advert", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Please select an advert!", Toast.LENGTH_SHORT).show();
         }
         else {
             mDatabase.addValueEventListener(new ValueEventListener() {
@@ -173,6 +173,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
                                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                                     if (advertKey.get(temp) == child.getKey()) {
                                         child.getRef().removeValue();
+                                        Toast.makeText(getContext(), "Advert Removed!", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
