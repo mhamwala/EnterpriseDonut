@@ -81,7 +81,6 @@ public class LocationFragment extends Fragment
         final View view = inflater.inflate(R.layout.fragment_location, container, false);
         TextView houseNum = view.findViewById(R.id.showHouseNum);
 
-
         TextView city = view.findViewById(R.id.showCity);
         city.setText(cityName);
 
@@ -94,10 +93,10 @@ public class LocationFragment extends Fragment
     //endregion
 
     // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(String title) {
-        if (mListener != null) {
-
-
+    public void onButtonPressed(String title)
+    {
+        if (mListener != null)
+        {
             mListener.onFragmentInteraction(title);
         }
     }
@@ -114,7 +113,6 @@ public class LocationFragment extends Fragment
                     + " must implement OnFragmentInteractionListener");
         }
     }
-
     @Override
     public void onDetach()
     {
@@ -143,13 +141,14 @@ public class LocationFragment extends Fragment
         Geocoder gps = new Geocoder(getActivity(), Locale.getDefault());
         if (gps.isPresent()) {
             try {
-                List<Address> list = gps.getFromLocationName("TS1 1LY", 1);
+                List<Address> list = gps.getFromLocationName("NE8 2TL", 100);
                 Address address = list.get(0);
                 double lat = address.getLatitude();
                 double lng = address.getLongitude();
                 countryName = address.getCountryCode();
                 cityName = address.getLocality();
-            } catch (IOException e) {
+            } catch (IOException e)
+            {
                 e.printStackTrace();
             }
         }
