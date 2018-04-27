@@ -68,14 +68,19 @@ public class sign_up_driver extends AppCompatActivity
                 {
                       try
                       {
+                          Location l;
                           User user = new User
                           (
                               nameEdit.getText().toString(),
                               emailEdit.getText().toString(),
-                              locEdit.getText().toString(),
+                              l = new Location
+                              (
+                                          locEdit.getText().toString().substring(0,locEdit.getText().toString().indexOf(" ")),
+                                          locEdit.getText().toString().substring(locEdit.getText().toString().indexOf(" ")),
+                                          getApplicationContext()
+                              ),
                               numEdit.getText().toString(),
-                              regEdit.getText().toString(),
-                                  wallEdit.getText().toString()
+                              wallEdit.getText().toString()
                           );
                           String password = passEdit.getText().toString();
                           createAccount(user, password);

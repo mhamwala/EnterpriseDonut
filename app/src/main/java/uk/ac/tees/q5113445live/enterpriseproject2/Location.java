@@ -18,6 +18,12 @@ public class Location
     private String postCode;
     private String city;
     private Context context;
+    Location()
+    {
+        houseNum = "";
+        postCode = "";
+        context = null;
+    }
     Location(String hNum, String pCode, Context con)
     {
         houseNum = hNum;

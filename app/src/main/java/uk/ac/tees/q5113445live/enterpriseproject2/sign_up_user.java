@@ -82,7 +82,7 @@ public class sign_up_user extends AppCompatActivity
         final Button addImage = findViewById(R.id.addImage);
         final TextView walEdit = findViewById(R.id.nav_wallet);
         testImage = findViewById(R.id.testImage);
-        Spinner dropdown = findViewById(R.id.spinner1);
+        //Spinner dropdown = findViewById(R.id.spinner1);
         GetAddress address = new GetAddress("TS30DD");
         System.out.println("HELLO");
         String[] addresses = new String[0];
@@ -93,8 +93,8 @@ public class sign_up_user extends AppCompatActivity
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, addresses);
-        dropdown.setAdapter(adapter);
+        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, addresses);
+        //dropdown.setAdapter(adapter);
 //        addImage.setOnClickListener(new Switch.OnClickListener()
 //        {
 //
@@ -115,13 +115,19 @@ public class sign_up_user extends AppCompatActivity
 
                        try
                        {
+                           Location l;
                            User user = new User
                            (
                                nameEdit.getText().toString(),
                                emailEdit.getText().toString(),
-                               locEdit.getText().toString(),
+                               l = new Location
+                                   (
+                                        locEdit.getText().toString().substring(0,locEdit.getText().toString().indexOf(" ")),
+                                        locEdit.getText().toString().substring(locEdit.getText().toString().indexOf(" ")),
+                                           getApplicationContext()
+                                   ),
                                numEdit.getText().toString(),
-                                   walEdit.getText().toString()
+                               walEdit.getText().toString()
                            );
                            String password = passEdit.getText().toString();
                            createAccount(user, password);
