@@ -255,7 +255,7 @@ public class DetailsFragment extends Fragment
     public void locationText(User user, View view)
     {
         userLocation = view.findViewById(R.id.showUserLocation);
-        userLocation.setText(user.getLocation().toString());
+        userLocation.setText(user.getCityName());
     }
     public void emailText(User user, View view)
     {

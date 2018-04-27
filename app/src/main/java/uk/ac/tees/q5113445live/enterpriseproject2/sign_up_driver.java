@@ -20,6 +20,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.List;
+
 /**
  * Created by Luke on 15/02/2018.
  */
@@ -68,20 +70,18 @@ public class sign_up_driver extends AppCompatActivity
                 {
                       try
                       {
-                          Location l;
+                          List<String> location = stringManip(locEdit.getText().toString());
+
                           User user = new User
-                          (
-                              nameEdit.getText().toString(),
-                              emailEdit.getText().toString(),
-                              l = new Location
-                              (
-                                          locEdit.getText().toString().substring(0,locEdit.getText().toString().indexOf(" ")),
-                                          locEdit.getText().toString().substring(locEdit.getText().toString().indexOf(" ")),
-                                          getApplicationContext()
-                              ),
-                              numEdit.getText().toString(),
-                              wallEdit.getText().toString()
-                          );
+                                  (
+                                          nameEdit.getText().toString(),
+                                          emailEdit.getText().toString(),
+                                          location.get(0),
+                                          location.get(1),
+                                          location.get(2),
+                                          numEdit.getText().toString(),
+                                          "50"
+                                  );
                           String password = passEdit.getText().toString();
                           createAccount(user, password);
                       }
@@ -150,5 +150,20 @@ public class sign_up_driver extends AppCompatActivity
     {
         Intent home = new Intent(sign_up_driver.this, NavigationDrawer.class);
         startActivity(home);
+    }
+    private List<String> stringManip(String locEdit)
+    {
+        List<String> location = null;
+
+        String houseNumber = locEdit.substring(0,locEdit.indexOf(" "));
+        locEdit.replace(houseNumber, "");
+        String postCode = locEdit.substring(0, locEdit.indexOf(" "));
+        locEdit.replace(postCode, "");
+        String city = locEdit.substring(0, locEdit.indexOf(" "));
+        location.add(houseNumber);
+        location.add(postCode);
+        location.add(city);
+
+        return location;
     }
 }

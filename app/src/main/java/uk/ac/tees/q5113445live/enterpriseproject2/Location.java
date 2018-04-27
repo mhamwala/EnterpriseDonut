@@ -24,25 +24,30 @@ public class Location
 //        postCode = "";
 //        context = null;
 //    }
-    Location(String hNum, String pCode, Context con)
+    Location(String hNum, String pCode,String c, Context con)
     {
         houseNum = hNum;
         postCode = pCode;
         context = con;
-        city = getCity();
+        city = c;
     }
 
-    public Location getLocation()
-    {
-        return this;
+    public String getPostCode() {
+        return postCode;
     }
-    public String getCity()
+
+    public void setPostCode(String postCode)
+    {
+        this.postCode = postCode;
+    }
+
+    public String getCity(String postcode)
     {
         String c = null;
         Geocoder gps = new Geocoder(context, Locale.getDefault());
         if (gps.isPresent()) {
             try {
-                List<Address> list = gps.getFromLocationName("NE8 2TL", 100);
+                List<Address> list = gps.getFromLocationName("NE8 2TL", 10);
                 Address address = list.get(0);
                 double lat = address.getLatitude();
                 double lng = address.getLongitude();
@@ -54,5 +59,16 @@ public class Location
             }
         }
         return c;
+
+    }
+
+    public void setCity(String city)
+    {
+        this.city = city;
+    }
+
+    public Location getLocation()
+    {
+        return this;
     }
 }

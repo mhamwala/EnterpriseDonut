@@ -13,40 +13,41 @@ public class User
     String name;
     String cityName;
     String postcode;
+    String houseNumber;
     String email;
     String regNumber;
     String wallet;
     boolean driver = false;
     String number;
-    Location location;
 
 
+    User()
 
-
-//    User()
-//
-//    {
-//        name = "";
-//        email = "";
-//        location = null;
-//        number = "";
-//        regNumber = "";
-//        wallet = "";
-//
-//    }
+    {
+        name = "";
+        email = "";
+        houseNumber = "";
+        postcode = "";
+        cityName = "";
+        number = "";
+        regNumber = "";
+        wallet = "";
+    }
 
     User(String wall)
     {
         wallet = wall;
 
     }
-    User(String n, String e, Location l,  String num, String wal)
+    User(String n, String e,String num,String hn, String pc, String c, String wal)
     {
         name= n;
         email = e;
-        location = l;
         number = num;
         regNumber = "";
+        houseNumber = hn;
+        postcode = pc;
+        cityName = c;
         driver = false;
         wallet = wal;
     }
@@ -55,7 +56,6 @@ public class User
     {
         name= n;
         email = e;
-        location = l;
         number = num;
         regNumber = reg;
         driver = true;
@@ -119,15 +119,18 @@ public class User
         this.email = email;
     }
 
-    public Location getLocation()
+    public String getCityName()
     {
-        return location;
+        return cityName;
     }
 
-    public void setLocation(Location location)
+    public String getHouseNumber()
     {
-        this.location = location;
+        return houseNumber;
     }
 
-
+    public String getPostcode()
+    {
+        return postcode;
+    }
 }
