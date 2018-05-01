@@ -141,7 +141,8 @@ public class NavigationDrawer extends AppCompatActivity
         }
         else if (id == R.id.nav_jobs)
         {
-            fragment = advertiseJobs(driver, fragment, ft);
+            //fragment = advertiseJobs(driver, fragment, ft);
+            fragment = new LocationFragment();
         }
 
         else if (id == R.id.nav_signout)
