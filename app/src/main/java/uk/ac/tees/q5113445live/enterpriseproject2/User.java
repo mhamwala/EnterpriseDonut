@@ -20,8 +20,6 @@ public class User
     boolean driver = false;
     String number;
 
-
-
     User()
     {
         name = "";
@@ -30,7 +28,6 @@ public class User
         number = "";
         regNumber = "";
         wallet = "";
-
     }
 
     User(String wall)
@@ -38,6 +35,7 @@ public class User
         wallet = wall;
 
     }
+
     User(String n, String e, String l,  String num, String wal)
     {
         name= n;

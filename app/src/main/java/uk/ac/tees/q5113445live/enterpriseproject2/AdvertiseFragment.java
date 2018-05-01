@@ -109,7 +109,7 @@ public class AdvertiseFragment extends Fragment
             mListener.onFragmentInteraction("Advertise an item");
         }
         //Initialises EditText to their corresponding layout item.
-        final EditText name = view.findViewById(R.id.itemName);
+        final EditText name = view.findViewById(R.id.advertName);
         final EditText deliveryType = view.findViewById(R.id.deliveryType);
         final EditText distance = view.findViewById(R.id.deliverTo);
         final EditText size = view.findViewById(R.id.size);
