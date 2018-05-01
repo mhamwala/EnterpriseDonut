@@ -98,6 +98,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         holder.n.setText(mValues.get(position).getName());
         holder.c.setText(mValues.get(position).getFrom());
         holder.d.setText(mValues.get(position).getTo());
+        holder.s.setText(mValues.get(position).getSize());
+        holder.w.setText(mValues.get(position).getWeight());
         mStorageRef = FirebaseStorage.getInstance().getReference("AdvertImage").child(mAds.get(position));
 
         //______________________________________________________________________________________
@@ -149,6 +151,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         public final TextView n;
         public final TextView c;
         public final TextView d;
+        public final TextView s;
+        public final TextView w;
         public final ImageView i;
         //public final TextView s;
         //public final TextView s;
@@ -163,6 +167,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             n = view.findViewById(R.id.itemName);
             c = (TextView) view.findViewById(R.id.collect);
             d = (TextView) view.findViewById(R.id.deliver);
+            s= (TextView) view.findViewById(R.id.size);
+            w= (TextView) view.findViewById(R.id.weight);
             i = (ImageView) view.findViewById(R.id.imageView3);
             //s = (TextView) view.findViewById(R.id.updateBid);
 

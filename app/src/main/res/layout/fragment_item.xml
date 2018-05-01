@@ -77,11 +77,44 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView13"
-                android:layout_marginStart="13dp"
+                android:layout_marginStart="51dp"
                 android:layout_toEndOf="@+id/imageView3"
-                android:text="Current Bid  £:"
+                android:text="Size"
                 android:textAllCaps="true"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/weights"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignStart="@+id/getBid"
+                android:layout_below="@+id/getBid"
+                android:text="Weight"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignStart="@+id/size"
+                android:layout_below="@+id/size"
+                android:text="Weight:"
+
+                 />
+
+            <TextView
+                android:id="@+id/size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignStart="@+id/collect"
+                android:layout_below="@+id/collect"
+                android:text="Size:"
+
+                 />
 
             <TextView
                 android:id="@+id/textView"
@@ -90,10 +123,9 @@
                 android:layout_alignBaseline="@+id/deliver"
                 android:layout_alignBottom="@+id/deliver"
                 android:layout_alignStart="@+id/getBid"
-                android:layout_marginStart="40dp"
                 android:text="To:"
                 android:textAllCaps="true"
-                android:textStyle="bold" />
+                 />
 
             <TextView
                 android:id="@+id/textView13"
@@ -101,13 +133,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignStart="@+id/getBid"
                 android:layout_centerVertical="true"
-                android:layout_marginStart="32dp"
                 android:gravity="center"
                 android:text="From:"
                 android:textAllCaps="true"
-                android:textStyle="bold" />
-
-
+                 />
 
 
         </RelativeLayout>
