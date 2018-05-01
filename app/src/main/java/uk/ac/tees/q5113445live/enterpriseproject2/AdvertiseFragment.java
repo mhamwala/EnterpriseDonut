@@ -259,7 +259,6 @@ public class AdvertiseFragment extends Fragment
             imageView.setImageBitmap(bitmap);
 
 
-
         }
 
     }
@@ -296,7 +295,8 @@ public class AdvertiseFragment extends Fragment
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent,7);
 
-
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        startActivityForResult(intent,7);
     }
 
 
