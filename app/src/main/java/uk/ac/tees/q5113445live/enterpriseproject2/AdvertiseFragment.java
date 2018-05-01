@@ -283,7 +283,10 @@ public class AdvertiseFragment extends Fragment
                 GET_FROM_GALLERY
         );
 
-
+//        startActivityForResult(new Intent(Intent.ACTION_PICK,
+//                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI),
+//                GET_FROM_GALLERY
+//        );
 
     }
 
