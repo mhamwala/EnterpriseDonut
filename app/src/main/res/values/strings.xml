@@ -78,5 +78,12 @@
     <string name="selectBid">Select Bid</string>
     <string name="userId">User ID</string>
     <string name="rating">Rating</string>
+    <string name="advertName">Get name of advert</string>
 
+    //Rating
+    <string name="ratingBar">Current rating</string>
+    <string name="placeRating">Button to place rating</string>
+
+    //f
+    <string name="confirmDelivery">Confirm Delivery</string>
 </resources>

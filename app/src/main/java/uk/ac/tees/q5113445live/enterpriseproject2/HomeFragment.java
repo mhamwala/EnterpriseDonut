@@ -3,6 +3,7 @@ package uk.ac.tees.q5113445live.enterpriseproject2;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 
 /**
@@ -44,6 +46,8 @@ public class HomeFragment extends Fragment
     //region Firebase variables
     private DatabaseReference mDatabase;
     private StorageReference mStorageRef;
+    private DataSnapshot dataSnapshot;
+    private DataSnapshot userData;
 
     private FirebaseUser user;
     //endregion
@@ -94,6 +98,19 @@ public class HomeFragment extends Fragment
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
+        ValueEventListener eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+
+
     }
 
     //This method is for initialising buttons
@@ -117,6 +134,8 @@ public class HomeFragment extends Fragment
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
+                userData = dataSnapshot;
+                final User testUser = userData.getValue(User.class);
 
                 User user = dataSnapshot.getValue(User.class);
                 System.out.println(user);
@@ -214,6 +233,7 @@ public class HomeFragment extends Fragment
                 .into(imageView);
 
     }
+
     //region Legacy methods for changing activities.
     /*public void userButton(View view)
     {

@@ -1,5 +1,6 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
@@ -7,7 +8,7 @@ import java.util.HashMap;
  * to be collected and delivered. Drivers will bid on these objects also.
  */
 
-public class Advert
+public class Advert implements Serializable
 {
     //Initialise variables
     String name;
@@ -48,6 +49,15 @@ public class Advert
         to = d;
         weight= w;
         size = s;
+    }
+    Advert(Advert a)
+    {
+        name = a.getName();
+        deliveryType= a.getDeliveryType();
+        from = a.getFrom();
+        to = a.getTo();
+        weight = a.getWeight();
+        size= a.getSize();
     }
 
     //Required getters and setters

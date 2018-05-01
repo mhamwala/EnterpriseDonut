@@ -23,10 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import uk.ac.tees.q5113445live.enterpriseproject2.JobFragment.OnListFragmentInteractionListener;
-
-import uk.ac.tees.q5113445live.enterpriseproject2.dummy.DummyContent.DummyItem;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -82,7 +78,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         pos = -1;
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item, parent, false);
-        final View parentView =LayoutInflater.from(parent.getContext())
+        final View parentView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_item_list, parent, false);
         advertMap = new HashMap<>();
         //mDatabase = FirebaseDatabase.getInstance().getReference("advert");
@@ -160,13 +156,11 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             super(view);
             mView = view;
             //mBid = view;
-            n = view.findViewById(R.id.itemName);
+            n = view.findViewById(R.id.advertName);
             c = (TextView) view.findViewById(R.id.collect);
             d = (TextView) view.findViewById(R.id.deliver);
             i = (ImageView) view.findViewById(R.id.imageView3);
             //s = (TextView) view.findViewById(R.id.updateBid);
-
-
         }
 
         @Override
@@ -179,7 +173,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     public void updateBid(final View view, final ArrayList<String> advertKey, DatabaseReference reference, final HashMap<String, String> advertMap, User user)
     {
         //Trying to return name after bid is placed!
-        listBid = new ArrayList<String>();
+        listBid = new ArrayList<>();
         if(pos == -1)
         {
             Toast.makeText(view.getContext(), "Please select job", Toast.LENGTH_SHORT).show();
@@ -261,7 +255,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
 
     public static int getPosition()
     {
-
         return pos;
     }
     

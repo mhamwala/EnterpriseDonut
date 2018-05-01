@@ -9,7 +9,7 @@
     <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/list"
+        android:id="@+id/list2"
         android:name="uk.ac.tees.q5113445live.enterpriseproject2.TestFragment"
         android:layout_width="match_parent"
         android:layout_height="273dp"
@@ -70,13 +70,15 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/item"
+            android:id="@+id/advertName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="13dp"
-            android:text="@string/deliveryTypes" />
+            android:text="@+id/advertName"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView19"
@@ -84,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/textView21"
             android:layout_marginBottom="14dp"
-            android:layout_toStartOf="@+id/item"
+            android:layout_toStartOf="@+id/advertName"
             android:text="Delivery Type:" />
 
         <TextView
@@ -109,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/textView19"
-            android:layout_toEndOf="@+id/item"
+            android:layout_toEndOf="@+id/advertName"
             android:text="deliveryType" />
 
         <TextView
@@ -117,7 +119,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/textView21"
-            android:layout_toEndOf="@+id/item"
+            android:layout_toEndOf="@+id/advertName"
             android:text="from" />
 
         <TextView
@@ -125,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/textView22"
-            android:layout_toEndOf="@+id/item"
+            android:layout_toEndOf="@+id/advertName"
             android:text="@string/size" />
 
         <TextView
