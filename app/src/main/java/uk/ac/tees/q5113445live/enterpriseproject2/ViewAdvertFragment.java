@@ -279,10 +279,10 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     private void recyclerMethod(View view)
     {
         //Recyclers which handles the showing of items to the user.
-        if (view.findViewById(R.id.list) instanceof RecyclerView)
+        if (view.findViewById(R.id.list3) instanceof RecyclerView)
         {
             Context context = view.getContext();
-            recyclerView = (RecyclerView) view.findViewById(R.id.list);
+            recyclerView = (RecyclerView) view.findViewById(R.id.list3);
             if (mColumnCount <= 1)
             {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
