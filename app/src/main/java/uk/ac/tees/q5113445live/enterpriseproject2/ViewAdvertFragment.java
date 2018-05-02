@@ -174,8 +174,12 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
                                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                                     if (advertKey.get(temp) == child.getKey()) {
                                         child.getRef().removeValue();
+
                                         Toast.makeText(getContext(), "AdDetails Removed!", Toast.LENGTH_SHORT).show();
+                                      
+
                                     }
+
                                 }
                             }
                             @Override

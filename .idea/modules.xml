@@ -3,13 +3,13 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://\home\scm-studs\q5113445\Desktop\EnterpriseDonut\Desktop-EnterpriseDonut.iml" filepath="\home\scm-studs\q5113445\Desktop\EnterpriseDonut\Desktop-EnterpriseDonut.iml" />
-      <module fileurl="file://$PROJECT_DIR$/EnterpriseDonut.iml" filepath="$PROJECT_DIR$/EnterpriseDonut.iml" />
       <module fileurl="file:///home/scm-studs/q5168593/Music/EnterpriseDonut/EnterpriseDonut.iml" filepath="/home/scm-studs/q5168593/Music/EnterpriseDonut/EnterpriseDonut.iml" />
       <module fileurl="file://D:\Uni_work\Uni\Year 2\Enterprise_Project\EnterpriseDonut\EnterpriseDonut.iml" filepath="D:\Uni_work\Uni\Year 2\Enterprise_Project\EnterpriseDonut\EnterpriseDonut.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/EnterpriseDonut.iml" filepath="$PROJECT_DIR$/EnterpriseDonut.iml" />
       <module fileurl="file:///home/scm-studs/q5168593/Music/EnterpriseDonut/app/app.iml" filepath="/home/scm-studs/q5168593/Music/EnterpriseDonut/app/app.iml" />
-      <module fileurl="file://\home\scm-studs\q5113445\Desktop\EnterpriseDonut\app\app.iml" filepath="\home\scm-studs\q5113445\Desktop\EnterpriseDonut\app\app.iml" />
       <module fileurl="file://D:\Uni_work\Uni\Year 2\Enterprise_Project\EnterpriseDonut\app\app.iml" filepath="D:\Uni_work\Uni\Year 2\Enterprise_Project\EnterpriseDonut\app\app.iml" />
+      <module fileurl="file://\home\scm-studs\q5113445\Desktop\EnterpriseDonut\app\app.iml" filepath="\home\scm-studs\q5113445\Desktop\EnterpriseDonut\app\app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>

@@ -38,18 +38,18 @@
                     android:id="@+id/deliveryType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/confirmDelivery"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginStart="27dp"
+                    android:layout_above="@+id/driverName"
+                    android:layout_marginBottom="22dp"
+                    android:layout_marginEnd="13dp"
+                    android:layout_toStartOf="@+id/ratingBar"
                     android:text="deliveryType" />
 
                 <TextView
                     android:id="@+id/driverName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/confirmDelivery"
-                    android:layout_alignBottom="@+id/confirmDelivery"
                     android:layout_alignStart="@+id/deliveryType"
+                    android:layout_below="@+id/confirmDelivery"
                     android:text="driverName" />
 
                 <Button
@@ -57,8 +57,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="15dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="9dp"
+                    android:layout_marginTop="24dp"
+                    android:background="@color/Background3"
+                    android:paddingHorizontal="10dp"
                     android:text="confirm_delivery"
                     android:textAllCaps="false" />
 
@@ -67,14 +70,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignEnd="@+id/confirmDelivery"
-                    android:layout_alignParentBottom="true" />
+                    android:layout_below="@+id/confirmDelivery" />
 
                 <TextView
                     android:id="@+id/rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/ratingBar"
                     android:layout_alignStart="@+id/driverName"
-                    android:layout_below="@+id/confirmDelivery"
                     android:text="@string/rating" />
 
             </RelativeLayout>
