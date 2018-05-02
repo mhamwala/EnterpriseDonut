@@ -153,8 +153,8 @@ public class NavigationDrawer extends AppCompatActivity
 
             Bundle args = new Bundle();
             fragment = new Map();
-            args.putString("LAT", user2.getLocation().getLatlng().get("latitude"));
-            args.putString("LNG", user2.getLocation().getLatlng().get("longitude"));
+            args.putString("LAT", user2.getLocation().getLat());
+            args.putString("LNG", user2.getLocation().getLng());
             fragment.setArguments(args);
         }
 
@@ -188,7 +188,7 @@ public class NavigationDrawer extends AppCompatActivity
                 //These text boxes need to be sorted within onCreateView
                 user2 = dataSnapshot.getValue(User.class);
                 driver = user2.isDriver();
-                TextView userText = findViewById(R.id.nav_name);
+                TextView userText = findViewById(R.id.showUserName);
                 userText.setText(user2.getName());
                 TextView walletText = findViewById(R.id.nav_wallet);
                 walletText.setText(user2.getWallet());
