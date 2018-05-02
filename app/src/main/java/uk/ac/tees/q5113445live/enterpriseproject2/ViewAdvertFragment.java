@@ -71,7 +71,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     private int a = -1;
     private MyItemRecyclerViewAdapter b;
     private String ad;
-    private Intent Advert;
+    private Intent AdDetails;
     public ViewAdvertFragment()
     {
 
@@ -106,7 +106,8 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         advertKey = new ArrayList();
 
         refresh();
-        if (getArguments() != null) {
+        if (getArguments() != null)
+        {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             //driverCheck = getArguments().getBoolean(DRIVER_BOOLEAN);
         }
@@ -173,7 +174,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
                                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                                     if (advertKey.get(temp) == child.getKey()) {
                                         child.getRef().removeValue();
-                                        Toast.makeText(getContext(), "Advert Removed!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getContext(), "AdDetails Removed!", Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             }
@@ -193,7 +194,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         }
     }
 
-    public String viewAdvertDetails()
+    public void viewAdvertDetails()
     {
         DatabaseReference AdvertRef = FirebaseDatabase.getInstance().getReference("advert").child(user.getUid());
         final int temp = MyItemRecyclerViewAdapter.getPosition();
@@ -202,10 +203,15 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
-                        if (advertKey.get(temp) == child.getKey()) {
+                        if (advertKey.get(temp) == child.getKey())
+                        {
                             ad = child.getRef().getKey();
-                            Advert = new Intent(getContext(), MyAdvertDetailsActivity.class);
-                            startActivity(Advert);
+                            AdDetails = new Intent(getContext(), MyAdvertDetailsActivity.class);
+                            Bundle mBundle = new Bundle();
+                            mBundle.putSerializable("details",child.getValue(Advert.class));
+                            AdDetails.putExtras(mBundle);
+                            System.out.println(child.toString());
+                            startActivity(AdDetails);
                         }
                     }
             }
@@ -215,9 +221,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
 
             }
         });
-        System.out.println("After Ad" + ad);
 
-        return ad;
     }
 
 
@@ -285,7 +289,6 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
             }
             recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, mListener);
             recyclerView.setAdapter(recycleAdapter);
-
         }
 
     }

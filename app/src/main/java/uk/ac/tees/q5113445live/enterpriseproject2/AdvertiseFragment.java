@@ -109,7 +109,7 @@ public class AdvertiseFragment extends Fragment
             mListener.onFragmentInteraction("Advertise an item");
         }
         //Initialises EditText to their corresponding layout item.
-        final EditText name = view.findViewById(R.id.itemName);
+        final EditText name = view.findViewById(R.id.advertName);
         final EditText deliveryType = view.findViewById(R.id.deliveryType);
         final EditText distance = view.findViewById(R.id.deliverTo);
         final EditText size = view.findViewById(R.id.size);
@@ -206,7 +206,8 @@ public class AdvertiseFragment extends Fragment
             }
         });
 
-        //addImage = view.findViewById(R.id.imageButton);
+
+
         addImage.setOnClickListener(new Switch.OnClickListener()
         {
             @Override
@@ -231,7 +232,8 @@ public class AdvertiseFragment extends Fragment
         super.onActivityResult(requestCode, resultCode, data);
 
         //Detects request codes
-        if (requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK) {
+        if (requestCode == GET_FROM_GALLERY && resultCode == Activity.RESULT_OK)
+        {
             selectedImage = data.getData();
 
             try {
@@ -246,7 +248,30 @@ public class AdvertiseFragment extends Fragment
                 e.printStackTrace();
             }
         }
+
+        else if (requestCode == 7 && resultCode == Activity.RESULT_OK)
+        {
+//            selectedImage = data.getData();
+//
+//            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+//
+//            imageView.setImageBitmap(bitmap);
+
+            selectedImage =Uri.parse(data.getExtras().get("data").toString()) ;
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(photo);
+
+
+
+
+
+
+
+        }
+
     }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(String title)
@@ -266,20 +291,24 @@ public class AdvertiseFragment extends Fragment
                 GET_FROM_GALLERY
         );
 
-
+//        startActivityForResult(new Intent(Intent.ACTION_PICK,
+//                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI),
+//                GET_FROM_GALLERY
+//        );
 
     }
 
     private  void launchCamera()
-{
+    {
 
 
 
-    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-    startActivity(intent);
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult(intent,7);
 
-
-}
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        startActivityForResult(intent,7);
+    }
 
 
 
@@ -355,3 +384,28 @@ public class AdvertiseFragment extends Fragment
     }
 
 }
+
+
+    //
+//    public void onActivityResult2(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        //Detects request codes
+//        if (requestCode == 7 && resultCode == Activity.RESULT_OK) {
+//            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+//
+//            imageView.setImageBitmap(bitmap);
+//
+//        }
+//    }
+//
+//    private  void launchCamera()
+//    {
+//
+//
+//        intent2 = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+//
+//        startActivityForResult(intent2, 7);
+//
+//
+//    }

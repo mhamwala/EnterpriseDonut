@@ -122,6 +122,7 @@ public class sign_up_user extends AppCompatActivity
                                locEdit.getText().toString(),
                                numEdit.getText().toString(),
                                    walEdit.getText().toString()
+
                            );
                            String password = passEdit.getText().toString();
                            createAccount(user, password);
