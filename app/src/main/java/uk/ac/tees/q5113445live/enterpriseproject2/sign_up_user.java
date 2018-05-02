@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -76,29 +77,15 @@ public class sign_up_user extends AppCompatActivity
         final TextView walEdit = findViewById(R.id.nav_wallet);
         testImage = findViewById(R.id.testImage);
         autocomplete();
-        //Spinner dropdown = findViewById(R.id.spinner1);
-        //GetAddress address = new GetAddress("TS30DD");
-        //System.out.println("HELLO");
-//        String[] addresses = new String[0];
-//        try {
-//            addresses = address.execute().get();
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        } catch (ExecutionException e) {
-//            e.printStackTrace();
-//        }
-        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, addresses);
-        //dropdown.setAdapter(adapter);
-//        addImage.setOnClickListener(new Switch.OnClickListener()
-//        {
-//
-//            @Override
-//            public void onClick(View v)
-//            {
-//                addPicture();
-//
-//            }
-//        });
+        addImage.setOnClickListener(new Switch.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                addPicture();
+
+            }
+        });
 
         Button signUp = findViewById(R.id.signUpButton);
         signUp.setOnClickListener(new Button.OnClickListener()
@@ -184,7 +171,7 @@ public class sign_up_user extends AppCompatActivity
                             FirebaseUser user = mAuth.getCurrentUser();
                             newUser(userIn, user.getUid());
                             uploadProfile();
-
+                            changeHome();
                         }
                         else
                         {
@@ -217,7 +204,6 @@ public class sign_up_user extends AppCompatActivity
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             Toast.makeText(sign_up_user.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                            changeHome();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -258,10 +244,7 @@ public class sign_up_user extends AppCompatActivity
     }
     private void newUser(User user, String id)
     {
-
         mDatabase.child("users").child(id).setValue(user);
-        mDatabase.child("users").child(id).child("place").setValue(user.getLocation());
-        //mDatabase.child("users").child(id).child("Location").setValue(user.getLocation());
     }
 
     private void updateUI(FirebaseUser currentUser)
