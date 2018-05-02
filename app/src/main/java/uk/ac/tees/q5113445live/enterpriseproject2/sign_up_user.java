@@ -49,6 +49,9 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
 public class sign_up_user extends AppCompatActivity
@@ -82,19 +85,19 @@ public class sign_up_user extends AppCompatActivity
         final Button addImage = findViewById(R.id.addImage);
         final TextView walEdit = findViewById(R.id.nav_wallet);
         testImage = findViewById(R.id.testImage);
-        Spinner dropdown = findViewById(R.id.spinner1);
-        GetAddress address = new GetAddress("TS30DD");
-        System.out.println("HELLO");
-        String[] addresses = new String[0];
-        try {
-            addresses = address.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, addresses);
-        dropdown.setAdapter(adapter);
+        //Spinner dropdown = findViewById(R.id.spinner1);
+        //GetAddress address = new GetAddress("TS30DD");
+        //System.out.println("HELLO");
+//        String[] addresses = new String[0];
+//        try {
+//            addresses = address.execute().get();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
+        //ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, addresses);
+        //dropdown.setAdapter(adapter);
 //        addImage.setOnClickListener(new Switch.OnClickListener()
 //        {
 //
@@ -115,14 +118,22 @@ public class sign_up_user extends AppCompatActivity
 
                        try
                        {
+                           String[] location = stringManip(locEdit.getText().toString());
+                           List<String> locations = new ArrayList<>();
+                           for(String x: location)
+                            {
+                                locations.add(x.toString());
+                            }
                            User user = new User
                            (
-                               nameEdit.getText().toString(),
-                               emailEdit.getText().toString(),
-                               locEdit.getText().toString(),
-                               numEdit.getText().toString(),
-                                   walEdit.getText().toString()
+                             nameEdit.getText().toString(),
+                                emailEdit.getText().toString(),
+                                numEdit.getText().toString(),
+                                locations.get(0),
+                                locations.get(1),
+                                locations.get(2),
 
+                               "50"
                            );
                            String password = passEdit.getText().toString();
                            createAccount(user, password);
@@ -259,6 +270,7 @@ public class sign_up_user extends AppCompatActivity
     private void newUser(User user, String id)
     {
         mDatabase.child("users").child(id).setValue(user);
+        //mDatabase.child("users").child(id).child("Location").setValue(user.getLocation());
     }
 
     private void updateUI(FirebaseUser currentUser)
@@ -267,5 +279,16 @@ public class sign_up_user extends AppCompatActivity
         {
 
         }
+    }
+    private String[] stringManip(String locEdit)
+    {
+
+        Scanner scanner = new Scanner(System.in);
+        String delims ="[ ]";
+        String[] locations = locEdit.split(delims);
+
+        //scanner.next(locEdit);
+
+        return locations;
     }
 }

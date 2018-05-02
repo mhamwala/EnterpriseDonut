@@ -13,7 +13,7 @@ public class User
     String name;
     String cityName;
     String postcode;
-    String location;
+    String houseNumber;
     String email;
     String regNumber;
     String wallet;
@@ -21,10 +21,13 @@ public class User
     String number;
 
     User()
+
     {
         name = "";
         email = "";
-        location ="";
+        houseNumber = "";
+        postcode = "";
+        cityName = "";
         number = "";
         regNumber = "";
         wallet = "";
@@ -36,22 +39,23 @@ public class User
 
     }
 
-    User(String n, String e, String l,  String num, String wal)
+    User(String n, String e,String num,String hn, String pc, String c, String wal)
     {
         name= n;
         email = e;
-        location = l;
         number = num;
         regNumber = "";
+        houseNumber = hn;
+        postcode = pc;
+        cityName = c;
         driver = false;
         wallet = wal;
     }
 
-    User(String n, String e, String l, String num, String reg, String wal)
+    User(String n, String e, Location l, String num, String reg, String wal)
     {
         name= n;
         email = e;
-        location = l;
         number = num;
         regNumber = reg;
         driver = true;
@@ -106,13 +110,6 @@ public class User
         this.name = name;
     }
 
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public String getEmail() {
         return email;
@@ -122,5 +119,18 @@ public class User
         this.email = email;
     }
 
+    public String getCityName()
+    {
+        return cityName;
+    }
 
+    public String getHouseNumber()
+    {
+        return houseNumber;
+    }
+
+    public String getPostcode()
+    {
+        return postcode;
+    }
 }
