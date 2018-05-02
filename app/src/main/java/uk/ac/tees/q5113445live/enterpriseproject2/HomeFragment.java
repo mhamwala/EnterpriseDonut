@@ -47,6 +47,7 @@ public class HomeFragment extends Fragment
     private DatabaseReference mDatabase;
     private StorageReference mStorageRef;
     private DataSnapshot dataSnapshot;
+    private FirebaseUser fUser;
     private DataSnapshot userData;
 
     private FirebaseUser user;
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment
 
     private ImageView imageView;
     private View view;
-
+    private TextView userRating;
 
 
     Button tempButton;
@@ -90,6 +91,7 @@ public class HomeFragment extends Fragment
     {
         super.onCreate(savedInstanceState);
         user = FirebaseAuth.getInstance().getCurrentUser();
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
         mStorageRef = FirebaseStorage.getInstance().getReference("images").child(user.getUid());
         if (getArguments() != null)
@@ -138,10 +140,13 @@ public class HomeFragment extends Fragment
                 final User testUser = userData.getValue(User.class);
 
                 User user = dataSnapshot.getValue(User.class);
-                System.out.println(user);
+
+                userRating = view.findViewById(R.id.rating);
+                userRating.setText(user.getRating());
+
                 TextView userText = view.findViewById(R.id.showUserName);
 
-
+                updateRating(view);
 
                 userText.setText(user.getName());
                 imageView = view.findViewById(R.id.imageView);
@@ -152,8 +157,6 @@ public class HomeFragment extends Fragment
                 {
                     e.printStackTrace();
                 }
-
-
             }
 
             @Override
@@ -175,6 +178,25 @@ public class HomeFragment extends Fragment
         return view;
     }
     //endregion
+
+    public void updateRating(final View view) {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        final DatabaseReference reference = firebaseDatabase.getReference();
+        reference.child("users").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                HashMap<String, Object> result = new HashMap<>();
+                result.put("rating", userRating.getText().toString());
+                reference.child("users").child(fUser.getUid()).updateChildren(result);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri)

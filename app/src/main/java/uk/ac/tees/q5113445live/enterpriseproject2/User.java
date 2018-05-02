@@ -24,6 +24,8 @@ public class User
     String wallet;
     boolean driver = false;
     String number;
+    String baseRating;
+    int newRating;
     Location location = null;
 
     User()
@@ -34,6 +36,7 @@ public class User
         location = null;
         regNumber = "";
         wallet = "";
+        baseRating = "2.5";
     }
 
     User(String wall)
@@ -168,4 +171,10 @@ public class User
         return location;
     }
 
+    public String getRating() {return baseRating;}
+
+    public void setRating(String rating){
+        rating = "2.5";
+        this.baseRating = rating;
+    }
 }

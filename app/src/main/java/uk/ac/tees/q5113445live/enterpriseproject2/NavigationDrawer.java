@@ -150,12 +150,12 @@ public class NavigationDrawer extends AppCompatActivity
         else if (id == R.id.nav_accepted)
         {
             //fragment = advertiseJobs(driver, fragment, ft);
+
             Bundle args = new Bundle();
             fragment = new Map();
             args.putString("LAT", user2.getLocation().getLatlng().get("latitude"));
             args.putString("LNG", user2.getLocation().getLatlng().get("longitude"));
             fragment.setArguments(args);
-
         }
 
         else if (id == R.id.nav_signout)

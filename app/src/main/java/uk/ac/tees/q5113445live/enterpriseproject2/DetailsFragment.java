@@ -276,13 +276,7 @@ public class DetailsFragment extends Fragment
         userWallet = view.findViewById(R.id.nav_wallet);
         userWallet.setText(userWallet.getText() + (user.getWallet()));
     }
-    public void ratingText(User user, View view)
-    {
-        //ratingBar.setNumStars(5);
-        userRating = view.findViewById(R.id.rating);
-        userRating.setText("3");
-        System.out.println("1");
-    }
+
     //endregion
 
     //region Update Button methods
@@ -291,25 +285,6 @@ public class DetailsFragment extends Fragment
      * in the TextViews and changes this data within the database.
      * @param view
      */
-
-    public void updateRating(final View view) {
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        final DatabaseReference reference = firebaseDatabase.getReference();
-        reference.child("users").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //User user = dataSnapshot.getValue(User.class);
-                HashMap<String, Object> result = new HashMap<>();
-                result.put("rating", userName.getText().toString());
-                reference.child("users").child(fUser.getUid()).updateChildren(result);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     public void updateButton(final View view)
     {
