@@ -24,8 +24,8 @@ public class User
     String wallet;
     boolean driver = false;
     String number;
-    String baseRating;
-    int newRating;
+    float baseRating;
+    float newRating;
     Location location = null;
 
     User()
@@ -36,7 +36,7 @@ public class User
         location = null;
         regNumber = "";
         wallet = "";
-        baseRating = "2.5";
+
     }
 
     User(String wall)
@@ -171,10 +171,28 @@ public class User
         return location;
     }
 
-    public String getRating() {return baseRating;}
+    public float getRating() {return baseRating;}
 
-    public void setRating(String rating){
-        rating = "2.5";
-        this.baseRating = rating;
+    public void setRating(float rating){
+        if(baseRating == 5 && rating > baseRating)
+        {
+            baseRating = 5;
+        }
+        else if(baseRating == 0 && rating < baseRating)
+        {
+            baseRating = 0;
+        }
+        else
+        {
+            if(rating > baseRating)
+            {
+                baseRating += 0.5;
+            }
+            else
+            {
+                baseRating -= 0.5;
+            }
+        }
+        this.baseRating = baseRating;
     }
 }
