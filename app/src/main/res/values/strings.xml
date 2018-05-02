@@ -80,6 +80,11 @@
     <string name="rating">Rating</string>
     <string name="advertName">Get name of advert</string>
 
+
+
+
+
+
     //Rating
     <string name="ratingBar">Current rating</string>
     <string name="placeRating">Button to place rating</string>
