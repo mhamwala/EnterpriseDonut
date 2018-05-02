@@ -20,7 +20,6 @@ public class User
     boolean driver = false;
     String number;
 
-
     User()
 
     {
@@ -39,6 +38,7 @@ public class User
         wallet = wall;
 
     }
+
     User(String n, String e,String num,String hn, String pc, String c, String wal)
     {
         name= n;

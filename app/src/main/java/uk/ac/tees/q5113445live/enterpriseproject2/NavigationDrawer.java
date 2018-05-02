@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -35,6 +36,7 @@ public class NavigationDrawer extends AppCompatActivity
         AdvertiseFragment.OnFragmentInteractionListener,
         DetailsFragment.OnFragmentInteractionListener,
         MyItemRecyclerViewAdapter.OnListFragmentInteractionListener,
+        MyBidRecyclerViewAdapter.OnListFragmentInteractionListener,
         JobFragment.OnListFragmentInteractionListener,
         LocationFragment.OnFragmentInteractionListener
 
@@ -173,10 +175,15 @@ public class NavigationDrawer extends AppCompatActivity
                 //These text boxes need to be sorted within onCreateView
                 User user = dataSnapshot.getValue(User.class);
                 driver = user.isDriver();
+
                 TextView userText = findViewById(R.id.nav_name);
                 userText.setText(user.getName());
+
+
+
                 TextView walletText = findViewById(R.id.nav_wallet);
-                walletText.setText(walletText.getText() + (user.getWallet()));
+                walletText.setText(user.getWallet());
+
                 imageView = findViewById(R.id.nav_profile);
                 try
                 {

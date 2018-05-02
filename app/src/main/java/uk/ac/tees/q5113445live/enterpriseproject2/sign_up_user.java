@@ -126,7 +126,7 @@ public class sign_up_user extends AppCompatActivity
                             }
                            User user = new User
                            (
-                                nameEdit.getText().toString(),
+                             nameEdit.getText().toString(),
                                 emailEdit.getText().toString(),
                                 numEdit.getText().toString(),
                                 locations.get(0),
