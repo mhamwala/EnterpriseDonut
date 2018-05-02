@@ -81,7 +81,7 @@ public class Map extends Fragment
                 googleMap.getUiSettings().setMyLocationButtonEnabled(true);
                 googleMap.getUiSettings().setRotateGesturesEnabled(true);
                 // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(Float.parseFloat("55.2"),                                                                                     Float.parseFloat("44.3"));
+                LatLng sydney = new LatLng(Float.parseFloat("54.5722"),                                                                                     Float.parseFloat("-1.23491"));
                 googleMap.addMarker(new MarkerOptions().position(sydney).
                         title("Title").snippet("TitleName"));
 
