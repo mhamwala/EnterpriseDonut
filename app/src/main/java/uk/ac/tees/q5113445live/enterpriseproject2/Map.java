@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -41,6 +42,7 @@ public class Map extends Fragment
 
     MapView mMapView;
     private GoogleMap googleMap;
+    //
 
     ArrayList<LatLng> markerPoints;
 
@@ -48,6 +50,7 @@ public class Map extends Fragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle                                                                          savedInstanceState)
     {
+
         final String latitude, longitude;
         latitude = getArguments().getString("LAT");
         longitude = getArguments().getString("LNG");
@@ -95,6 +98,7 @@ public class Map extends Fragment
                 .radius(1000)
                 .strokeColor(Color.BLUE)
                 .fillColor(Color.BLUE));
+                
 
 
                 // For zooming automatically to the location of the marker
@@ -202,5 +206,11 @@ public class Map extends Fragment
             }
 
         }
+    }
+
+    public void getCurrent()
+    {
+        LocationManager locationManager = (LocationManager) this.getContext().getSystemService(Context.LOCATION_SERVICE);
+
     }
 }
