@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
@@ -66,6 +69,7 @@ public class LocationFragment extends Fragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         getLocation();
 
         if (getArguments() != null) {
@@ -86,7 +90,6 @@ public class LocationFragment extends Fragment
 
         TextView country = view.findViewById(R.id.showCountry);
         country.setText(countryName);
-
 
         return view;
     }

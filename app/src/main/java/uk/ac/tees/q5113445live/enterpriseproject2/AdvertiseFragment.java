@@ -30,7 +30,7 @@ import java.util.HashMap;
 
 
 /**
- * The following fragment allows for the listing of adverts by users. The fragment will place these
+ * The following fragment allows for the listing of adverts by users. The fragment will location these
  * adverts onto the Firebase real-time database which is connected.
  */
 public class AdvertiseFragment extends Fragment

@@ -156,7 +156,7 @@ public class DetailsFragment extends Fragment
                 }
                 //region Update Buttons
                 //Temporary button for updating user
-                //TODO: Find correct place for update button.
+                //TODO: Find correct location for update button.
                 final TextView testingUpdate = view.findViewById(R.id.updateDetails);
                 testingUpdate.setOnClickListener(new View.OnClickListener()
                 {
@@ -259,7 +259,7 @@ public class DetailsFragment extends Fragment
     public void locationText(User user, View view)
     {
         userLocation = view.findViewById(R.id.showUserLocation);
-        userLocation.setText(user.getLocation());
+        userLocation.setText(user.getCityName());
     }
     public void emailText(User user, View view)
     {

@@ -12,6 +12,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -19,6 +23,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.List;
 
 /**
  * Created by Luke on 15/02/2018.
@@ -29,6 +35,7 @@ public class sign_up_driver extends AppCompatActivity
     private static final String TAG = "SignUpActivity";
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private Place location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,9 +51,10 @@ public class sign_up_driver extends AppCompatActivity
         final EditText passEdit = findViewById(R.id.enterPass);
         final EditText regEdit = findViewById(R.id.enterReg);
         final EditText nameEdit = findViewById(R.id.enterName);
-        final EditText locEdit = findViewById(R.id.enterLoc);
+        //final EditText locEdit = findViewById(R.id.enterLoc);
         final EditText numEdit = findViewById(R.id.enterNumber);
         final TextView wallEdit = findViewById((R.id.nav_wallet));
+        autocomplete();
 
         final Switch userSwitch = findViewById(R.id.userSwitch);
         userSwitch.setOnClickListener(new Switch.OnClickListener()
@@ -68,15 +76,16 @@ public class sign_up_driver extends AppCompatActivity
                 {
                       try
                       {
+                          //List<String> location = stringManip(locEdit.getText().toString());
+
                           User user = new User
-                          (
-                              nameEdit.getText().toString(),
-                              emailEdit.getText().toString(),
-                              locEdit.getText().toString(),
-                              numEdit.getText().toString(),
-                              regEdit.getText().toString(),
-                                  wallEdit.getText().toString()
-                          );
+                                  (
+                                          nameEdit.getText().toString(),
+                                          emailEdit.getText().toString(),
+                                          numEdit.getText().toString(),
+                                          location,
+                                          "50"
+                                  );
                           String password = passEdit.getText().toString();
                           createAccount(user, password);
                       }
@@ -145,5 +154,41 @@ public class sign_up_driver extends AppCompatActivity
     {
         Intent home = new Intent(sign_up_driver.this, NavigationDrawer.class);
         startActivity(home);
+    }
+    private List<String> stringManip(String locEdit)
+    {
+        List<String> location = null;
+
+        String houseNumber = locEdit.substring(0,locEdit.indexOf(" "));
+        locEdit.replace(houseNumber, "");
+        String postCode = locEdit.substring(0, locEdit.indexOf(" "));
+        locEdit.replace(postCode, "");
+        String city = locEdit.substring(0, locEdit.indexOf(" "));
+        location.add(houseNumber);
+        location.add(postCode);
+        location.add(city);
+
+        return location;
+    }
+    private void autocomplete()
+    {
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.enterLoc);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener()
+        {
+            @Override
+            public void onPlaceSelected(Place place)
+            {
+                // TODO: Get info about the selected location.
+                location = place;
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
     }
 }
