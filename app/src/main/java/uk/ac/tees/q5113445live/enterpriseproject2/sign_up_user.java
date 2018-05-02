@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -12,12 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,16 +36,11 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
-import java.util.concurrent.ExecutionException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class sign_up_user extends AppCompatActivity
 {
@@ -62,6 +53,9 @@ public class sign_up_user extends AppCompatActivity
     private ImageView testImage = null;
     private Uri selectedImage;
     private String destination;
+    private Place place;
+    private Location location;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -77,34 +71,21 @@ public class sign_up_user extends AppCompatActivity
         final EditText emailEdit = findViewById(R.id.enterEmail);
         final EditText passEdit = findViewById(R.id.enterPass);
         final EditText nameEdit = findViewById(R.id.enterName);
-        final EditText locEdit = findViewById(R.id.enterLoc);
+        //final EditText locEdit = findViewById(R.id.enterLoc);
         final EditText numEdit = findViewById(R.id.enterNumber);
         final Button addImage = findViewById(R.id.addImage);
         final TextView walEdit = findViewById(R.id.nav_wallet);
         testImage = findViewById(R.id.testImage);
-        Spinner dropdown = findViewById(R.id.spinner1);
-        GetAddress address = new GetAddress("TS30DD");
-        System.out.println("HELLO");
-        String[] addresses = new String[0];
-        try {
-            addresses = address.execute().get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, addresses);
-        dropdown.setAdapter(adapter);
-//        addImage.setOnClickListener(new Switch.OnClickListener()
-//        {
-//
-//            @Override
-//            public void onClick(View v)
-//            {
-//                addPicture();
-//
-//            }
-//        });
+        autocomplete();
+        addImage.setOnClickListener(new Switch.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                addPicture();
+
+            }
+        });
 
         Button signUp = findViewById(R.id.signUpButton);
         signUp.setOnClickListener(new Button.OnClickListener()
@@ -115,14 +96,20 @@ public class sign_up_user extends AppCompatActivity
 
                        try
                        {
+                           //String[] place = stringManip(locEdit.getText().toString());
+                           List<String> locations = new ArrayList<>();
+//                           for(String x: place)
+//                            {
+//                                locations.add(x.toString());
+//                            }
                            User user = new User
                            (
-                               nameEdit.getText().toString(),
-                               emailEdit.getText().toString(),
-                               locEdit.getText().toString(),
-                               numEdit.getText().toString(),
-                                   walEdit.getText().toString()
+                             nameEdit.getText().toString(),
+                                emailEdit.getText().toString(),
+                                numEdit.getText().toString(),
+                                   place,
 
+                               "50"
                            );
                            String password = passEdit.getText().toString();
                            createAccount(user, password);
@@ -184,7 +171,7 @@ public class sign_up_user extends AppCompatActivity
                             FirebaseUser user = mAuth.getCurrentUser();
                             newUser(userIn, user.getUid());
                             uploadProfile();
-
+                            changeHome();
                         }
                         else
                         {
@@ -217,7 +204,6 @@ public class sign_up_user extends AppCompatActivity
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             progressDialog.dismiss();
                             Toast.makeText(sign_up_user.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                            changeHome();
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -267,5 +253,37 @@ public class sign_up_user extends AppCompatActivity
         {
 
         }
+    }
+    private String[] stringManip(String locEdit)
+    {
+
+        Scanner scanner = new Scanner(System.in);
+        String delims ="[ ]";
+        String[] locations = locEdit.split(delims);
+
+        //scanner.next(locEdit);
+
+        return locations;
+    }
+    private void autocomplete()
+    {
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.enterLoc);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener()
+        {
+            @Override
+            public void onPlaceSelected(Place place)
+            {
+                // TODO: Get info about the selected place.
+                sign_up_user.this.place = place;
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
     }
 }

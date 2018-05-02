@@ -12,12 +12,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -45,8 +45,10 @@ public class NavigationDrawer extends AppCompatActivity
     private DatabaseReference mDatabase;
     private StorageReference mStorageRef;
     private FirebaseUser user;
+    private User user2;
     private ImageView imageView;
     private boolean driver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -142,8 +144,18 @@ public class NavigationDrawer extends AppCompatActivity
         }
         else if (id == R.id.nav_jobs)
         {
+            fragment = advertiseJobs(driver, fragment, ft);
+            
+        }
+        else if (id == R.id.nav_accepted)
+        {
             //fragment = advertiseJobs(driver, fragment, ft);
-            fragment = new JobFragment();
+
+            Bundle args = new Bundle();
+            fragment = new Map();
+            args.putString("LAT", user2.getLocation().getLat());
+            args.putString("LNG", user2.getLocation().getLng());
+            fragment.setArguments(args);
         }
 
         else if (id == R.id.nav_signout)
@@ -167,20 +179,28 @@ public class NavigationDrawer extends AppCompatActivity
 
     public void getDetails()
     {
+        User user = null;
         ValueEventListener userListener = new ValueEventListener()
         {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
                 //These text boxes need to be sorted within onCreateView
+<<<<<<< HEAD
                 User user = dataSnapshot.getValue(User.class);
                 driver = user.isDriver();
 
                 TextView userText = findViewById(R.id.nav_name);
                 userText.setText(user.getName());
 
+=======
+                user2 = dataSnapshot.getValue(User.class);
+                driver = user2.isDriver();
+                TextView userText = findViewById(R.id.showUserName);
+                userText.setText(user2.getName());
+>>>>>>> cda756e79f58cf063c7c56c5acfcb24b3fdfb80a
                 TextView walletText = findViewById(R.id.nav_wallet);
-                walletText.setText(user.getWallet());
+                walletText.setText(user2.getWallet());
 
                 imageView = findViewById(R.id.nav_profile);
                 try
