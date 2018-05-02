@@ -251,12 +251,20 @@ public class AdvertiseFragment extends Fragment
 
         else if (requestCode == 7 && resultCode == Activity.RESULT_OK)
         {
-            selectedImage = data.getData();
+//            selectedImage = data.getData();
+//
+//            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+//
+//            imageView.setImageBitmap(bitmap);
+
+            selectedImage =Uri.parse(data.getExtras().get("data").toString()) ;
+            Bitmap photo = (Bitmap) data.getExtras().get("data");
+            imageView.setImageBitmap(photo);
 
 
-            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
 
-            imageView.setImageBitmap(bitmap);
+
+
 
 
         }
@@ -376,7 +384,6 @@ public class AdvertiseFragment extends Fragment
     }
 
 }
-
 
 
     //
