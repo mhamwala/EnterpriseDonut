@@ -1,8 +1,13 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
-import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
+
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Luke on 13/02/2018.
@@ -19,16 +24,15 @@ public class User
     String wallet;
     boolean driver = false;
     String number;
+    Place location;
+
 
     User()
-
     {
         name = "";
         email = "";
         houseNumber = "";
-        postcode = "";
-        cityName = "";
-        number = "";
+        location = null;
         regNumber = "";
         wallet = "";
     }
@@ -38,29 +42,111 @@ public class User
         wallet = wall;
 
     }
-
-    User(String n, String e,String num,String hn, String pc, String c, String wal)
+//
+//    User(String n, String e,String num,String hn, String pc, String c, String wal)
+//    {
+//        name= n;
+//        email = e;
+//        number = num;
+//        regNumber = "";
+//        houseNumber = hn;
+//        postcode = pc;
+//        cityName = c;
+//        driver = false;
+//        wallet = wal;
+//    }
+    User(String n, String e, String num, Place p, String wal)
     {
         name= n;
         email = e;
         number = num;
         regNumber = "";
-        houseNumber = hn;
-        postcode = pc;
-        cityName = c;
+        location = new Place()
+        {
+            @Override
+            public Place freeze() {
+                return null;
+            }
+
+            @Override
+            public boolean isDataValid() {
+                return false;
+            }
+
+            @Override
+            public String getId() {
+                return null;
+            }
+
+            @Override
+            public List<Integer> getPlaceTypes() {
+                return null;
+            }
+
+            @Override
+            public CharSequence getAddress() {
+                return null;
+            }
+
+            @Override
+            public Locale getLocale() {
+                return null;
+            }
+
+            @Override
+            public CharSequence getName() {
+                return null;
+            }
+
+            @Override
+            public LatLng getLatLng() {
+                return null;
+            }
+
+            @Override
+            public LatLngBounds getViewport() {
+                return null;
+            }
+
+            @Override
+            public Uri getWebsiteUri() {
+                return null;
+            }
+
+            @Override
+            public CharSequence getPhoneNumber() {
+                return null;
+            }
+
+            @Override
+            public float getRating() {
+                return 0;
+            }
+
+            @Override
+            public int getPriceLevel() {
+                return 0;
+            }
+
+            @Override
+            public CharSequence getAttributions() {
+                return null;
+            }
+        };
+
         driver = false;
         wallet = wal;
     }
 
-    User(String n, String e, Location l, String num, String reg, String wal)
-    {
-        name= n;
-        email = e;
-        number = num;
-        regNumber = reg;
-        driver = true;
-        wallet = wal;
-    }
+//    User(String n, String e, Location l, String num, String reg, String wal)
+//    {
+//        name= n;
+//        email = e;
+//        number = num;
+//        regNumber = reg;
+//        driver = true;
+//        wallet = wal;
+//    }
 
     public String getWallet() {
         return wallet;
@@ -132,5 +218,8 @@ public class User
     public String getPostcode()
     {
         return postcode;
+    }
+    public Place getLocation() {
+        return location;
     }
 }

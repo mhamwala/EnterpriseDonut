@@ -12,6 +12,10 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -31,6 +35,7 @@ public class sign_up_driver extends AppCompatActivity
     private static final String TAG = "SignUpActivity";
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
+    private Place location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,9 +51,10 @@ public class sign_up_driver extends AppCompatActivity
         final EditText passEdit = findViewById(R.id.enterPass);
         final EditText regEdit = findViewById(R.id.enterReg);
         final EditText nameEdit = findViewById(R.id.enterName);
-        final EditText locEdit = findViewById(R.id.enterLoc);
+        //final EditText locEdit = findViewById(R.id.enterLoc);
         final EditText numEdit = findViewById(R.id.enterNumber);
         final TextView wallEdit = findViewById((R.id.nav_wallet));
+        autocomplete();
 
         final Switch userSwitch = findViewById(R.id.userSwitch);
         userSwitch.setOnClickListener(new Switch.OnClickListener()
@@ -70,16 +76,14 @@ public class sign_up_driver extends AppCompatActivity
                 {
                       try
                       {
-                          List<String> location = stringManip(locEdit.getText().toString());
+                          //List<String> location = stringManip(locEdit.getText().toString());
 
                           User user = new User
                                   (
                                           nameEdit.getText().toString(),
                                           emailEdit.getText().toString(),
-                                          location.get(0),
-                                          location.get(1),
-                                          location.get(2),
                                           numEdit.getText().toString(),
+                                          location,
                                           "50"
                                   );
                           String password = passEdit.getText().toString();
@@ -165,5 +169,26 @@ public class sign_up_driver extends AppCompatActivity
         location.add(city);
 
         return location;
+    }
+    private void autocomplete()
+    {
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.enterLoc);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener()
+        {
+            @Override
+            public void onPlaceSelected(Place place)
+            {
+                // TODO: Get info about the selected location.
+                location = place;
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
     }
 }

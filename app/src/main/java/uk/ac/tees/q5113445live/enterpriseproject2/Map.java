@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -39,12 +40,15 @@ public class Map extends Fragment
     MapView mMapView;
     private GoogleMap googleMap;
 
-
     ArrayList<LatLng> markerPoints;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle                                                                          savedInstanceState)
     {
+        final String latitude, longitude;
+        latitude = getArguments().getString("LAT");
+        longitude = getArguments().getString("LNG");
         View rootView = inflater.inflate(R.layout.content_map, container, false);
 
         mMapView= (MapView) rootView.findViewById(R.id.mapView);
@@ -81,7 +85,7 @@ public class Map extends Fragment
                 googleMap.getUiSettings().setMyLocationButtonEnabled(true);
                 googleMap.getUiSettings().setRotateGesturesEnabled(true);
                 // For dropping a marker at a point on the Map
-                LatLng sydney = new LatLng(Float.parseFloat("54.5722"),                                                                                     Float.parseFloat("-1.23491"));
+                LatLng sydney = new LatLng(Float.parseFloat(latitude),Float.parseFloat(longitude));
                 googleMap.addMarker(new MarkerOptions().position(sydney).
                         title("Title").snippet("TitleName"));
 
@@ -191,5 +195,4 @@ public class Map extends Fragment
 
         }
     }
-
 }

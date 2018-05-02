@@ -7,7 +7,6 @@
     android:background="@drawable/side_nav_bar"
     tools:context="uk.ac.tees.q5113445live.enterpriseproject2.sign_up_user">
 
-
     <EditText
         android:id="@+id/enterName"
         android:layout_width="343dp"
@@ -85,20 +84,34 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <EditText
+    <!--<EditText-->
+        <!--android:id="@+id/enterLoc"-->
+        <!--android:layout_width="340dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="8dp"-->
+        <!--android:ems="10"-->
+        <!--android:hint="@string/location"-->
+        <!--android:inputType="textPersonName"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/enterPass"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.492"-->
+        <!--app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--app:layout_constraintRight_toRightOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
+    <fragment
         android:id="@+id/enterLoc"
         android:layout_width="340dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:hint="@string/location"
-        android:inputType="textPersonName"
+        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
         app:layout_constraintBottom_toTopOf="@+id/enterPass"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <Button
         android:id="@+id/addImage"
@@ -114,6 +127,9 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/enterPass"
         app:layout_constraintVertical_bias="0.593" />
+
+
+
 
     <ImageButton
         android:id="@+id/testImage"
@@ -147,6 +163,5 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.368" />
-
 
 </android.support.constraint.ConstraintLayout>

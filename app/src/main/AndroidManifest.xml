@@ -12,6 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCkwkTh-cle320khzRn8bbsF98T51daTO8"/>
+
         <activity android:name=".login_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,7 +31,6 @@
 
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
         <activity android:name=".VehicleDetailsActivity"></activity>
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyCkwkTh-cle320khzRn8bbsF98T51daTO8"/>
         <activity android:name=".MyAdvertDetailsActivity"></activity>
 
     </application>

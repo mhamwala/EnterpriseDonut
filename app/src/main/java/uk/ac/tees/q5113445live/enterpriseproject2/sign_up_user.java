@@ -22,8 +22,11 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -65,6 +68,7 @@ public class sign_up_user extends AppCompatActivity
     private ImageView testImage = null;
     private Uri selectedImage;
     private String destination;
+    private Place location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -80,11 +84,12 @@ public class sign_up_user extends AppCompatActivity
         final EditText emailEdit = findViewById(R.id.enterEmail);
         final EditText passEdit = findViewById(R.id.enterPass);
         final EditText nameEdit = findViewById(R.id.enterName);
-        final EditText locEdit = findViewById(R.id.enterLoc);
+        //final EditText locEdit = findViewById(R.id.enterLoc);
         final EditText numEdit = findViewById(R.id.enterNumber);
         final Button addImage = findViewById(R.id.addImage);
         final TextView walEdit = findViewById(R.id.nav_wallet);
         testImage = findViewById(R.id.testImage);
+        autocomplete();
         //Spinner dropdown = findViewById(R.id.spinner1);
         //GetAddress address = new GetAddress("TS30DD");
         //System.out.println("HELLO");
@@ -118,20 +123,18 @@ public class sign_up_user extends AppCompatActivity
 
                        try
                        {
-                           String[] location = stringManip(locEdit.getText().toString());
+                           //String[] location = stringManip(locEdit.getText().toString());
                            List<String> locations = new ArrayList<>();
-                           for(String x: location)
-                            {
-                                locations.add(x.toString());
-                            }
+//                           for(String x: location)
+//                            {
+//                                locations.add(x.toString());
+//                            }
                            User user = new User
                            (
                              nameEdit.getText().toString(),
                                 emailEdit.getText().toString(),
                                 numEdit.getText().toString(),
-                                locations.get(0),
-                                locations.get(1),
-                                locations.get(2),
+                               location,
 
                                "50"
                            );
@@ -270,6 +273,7 @@ public class sign_up_user extends AppCompatActivity
     private void newUser(User user, String id)
     {
         mDatabase.child("users").child(id).setValue(user);
+        mDatabase.child("users").child(id).child("location").setValue(location);
         //mDatabase.child("users").child(id).child("Location").setValue(user.getLocation());
     }
 
@@ -290,5 +294,26 @@ public class sign_up_user extends AppCompatActivity
         //scanner.next(locEdit);
 
         return locations;
+    }
+    private void autocomplete()
+    {
+        PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
+                getFragmentManager().findFragmentById(R.id.enterLoc);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener()
+        {
+            @Override
+            public void onPlaceSelected(Place place)
+            {
+                // TODO: Get info about the selected location.
+                location = place;
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
     }
 }
