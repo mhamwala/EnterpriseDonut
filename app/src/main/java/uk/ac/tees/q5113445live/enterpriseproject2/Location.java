@@ -4,6 +4,7 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
@@ -28,6 +29,13 @@ public class Location
 //        postCode = "";
 //        context = null;
 //    }
+    Location(Place p)
+    {
+        address = p.getAddress().toString();
+        lat = Double.toString(p.getLatLng().latitude);
+        lng = Double.toString(p.getLatLng().longitude);
+
+    }
     Location(String a, String la, String ln)
     {
         address = a;
