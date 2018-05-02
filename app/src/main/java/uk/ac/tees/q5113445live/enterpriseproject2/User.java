@@ -24,14 +24,9 @@ public class User
     String wallet;
     boolean driver = false;
     String number;
-<<<<<<< HEAD
     float baseRating;
     float newRating;
-=======
-    String baseRating;
-    int newRating;
     Location location = null;
->>>>>>> cda756e79f58cf063c7c56c5acfcb24b3fdfb80a
 
     User()
     {

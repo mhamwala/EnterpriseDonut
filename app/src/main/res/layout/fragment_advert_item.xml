@@ -45,7 +45,7 @@
                 android:layout_alignBaseline="@+id/textView20"
                 android:layout_alignBottom="@+id/textView20"
                 android:layout_alignStart="@+id/bid"
-                android:layout_marginStart="14dp"
+                android:layout_marginStart="11dp"
                 android:gravity="center"
                 android:text="Bid"
                 android:textAlignment="center"
@@ -57,9 +57,10 @@
                 android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_above="@+id/ratingBar2"
                 android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="62dp"
+                android:layout_marginBottom="13dp"
+                android:layout_marginStart="71dp"
                 android:text="Rating"
                 android:textAllCaps="true"
                 android:textStyle="bold" />
@@ -74,13 +75,12 @@
                 android:layout_marginEnd="18dp"
                 android:text="TextView" />
 
-            <TextView
-                android:id="@+id/rating"
+            <RatingBar
+                android:id="@+id/ratingBar2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/bid"
-                android:layout_alignStart="@+id/textView20"
-                android:text="@+id/rating" />
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true" />
 
 
         </RelativeLayout>
