@@ -186,19 +186,18 @@ public class NavigationDrawer extends AppCompatActivity
             public void onDataChange(DataSnapshot dataSnapshot)
             {
                 //These text boxes need to be sorted within onCreateView
-<<<<<<< HEAD
                 User user = dataSnapshot.getValue(User.class);
                 driver = user.isDriver();
 
-                TextView userText = findViewById(R.id.nav_name);
-                userText.setText(user.getName());
+//                TextView userText = findViewById(R.id.nav_name);
+//                userText.setText(user.getName());
 
-=======
+
                 user2 = dataSnapshot.getValue(User.class);
                 driver = user2.isDriver();
                 TextView userText = findViewById(R.id.showUserName);
                 userText.setText(user2.getName());
->>>>>>> cda756e79f58cf063c7c56c5acfcb24b3fdfb80a
+
                 TextView walletText = findViewById(R.id.nav_wallet);
                 walletText.setText(user2.getWallet());
 
