@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -12,21 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
-import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.places.Place;
-import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,19 +35,11 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.io.BufferedInputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.concurrent.ExecutionException;
 
 public class sign_up_user extends AppCompatActivity
 {
@@ -68,7 +52,9 @@ public class sign_up_user extends AppCompatActivity
     private ImageView testImage = null;
     private Uri selectedImage;
     private String destination;
-    private Place location;
+    private Place place;
+    private Location location;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -123,9 +109,9 @@ public class sign_up_user extends AppCompatActivity
 
                        try
                        {
-                           //String[] location = stringManip(locEdit.getText().toString());
+                           //String[] place = stringManip(locEdit.getText().toString());
                            List<String> locations = new ArrayList<>();
-//                           for(String x: location)
+//                           for(String x: place)
 //                            {
 //                                locations.add(x.toString());
 //                            }
@@ -134,7 +120,7 @@ public class sign_up_user extends AppCompatActivity
                              nameEdit.getText().toString(),
                                 emailEdit.getText().toString(),
                                 numEdit.getText().toString(),
-                               location,
+                                   place,
 
                                "50"
                            );
@@ -272,8 +258,9 @@ public class sign_up_user extends AppCompatActivity
     }
     private void newUser(User user, String id)
     {
+
         mDatabase.child("users").child(id).setValue(user);
-        mDatabase.child("users").child(id).child("location").setValue(location);
+        mDatabase.child("users").child(id).child("place").setValue(user.getLocation());
         //mDatabase.child("users").child(id).child("Location").setValue(user.getLocation());
     }
 
@@ -305,8 +292,8 @@ public class sign_up_user extends AppCompatActivity
             @Override
             public void onPlaceSelected(Place place)
             {
-                // TODO: Get info about the selected location.
-                location = place;
+                // TODO: Get info about the selected place.
+                sign_up_user.this.place = place;
             }
 
             @Override

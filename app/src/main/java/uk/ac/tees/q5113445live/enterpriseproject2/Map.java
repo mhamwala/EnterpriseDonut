@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
@@ -20,6 +21,7 @@ import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -88,6 +90,12 @@ public class Map extends Fragment
                 LatLng sydney = new LatLng(Float.parseFloat(latitude),Float.parseFloat(longitude));
                 googleMap.addMarker(new MarkerOptions().position(sydney).
                         title("Title").snippet("TitleName"));
+                googleMap.addCircle(new CircleOptions()
+                .center(sydney)
+                .radius(1000)
+                .strokeColor(Color.BLUE)
+                .fillColor(Color.BLUE));
+
 
                 // For zooming automatically to the location of the marker
                 CameraPosition cameraPosition =                                                                           new CameraPosition.Builder().target(sydney).zoom(12).build();

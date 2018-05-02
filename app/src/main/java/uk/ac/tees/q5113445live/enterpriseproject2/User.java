@@ -24,8 +24,7 @@ public class User
     String wallet;
     boolean driver = false;
     String number;
-    Place location;
-
+    Location location = null;
 
     User()
     {
@@ -50,7 +49,25 @@ public class User
 //        number = num;
 //        regNumber = "";
 //        houseNumber = hn;
-//        postcode = pc;
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+
+    public void setHouseNumber(String houseNumber) {
+        this.houseNumber = houseNumber;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public void setCityName(String cityName)
+    {
+        this.cityName = cityName;
+    }
+
+    //        postcode = pc;
 //        cityName = c;
 //        driver = false;
 //        wallet = wal;
@@ -61,79 +78,7 @@ public class User
         email = e;
         number = num;
         regNumber = "";
-        location = new Place()
-        {
-            @Override
-            public Place freeze() {
-                return null;
-            }
-
-            @Override
-            public boolean isDataValid() {
-                return false;
-            }
-
-            @Override
-            public String getId() {
-                return null;
-            }
-
-            @Override
-            public List<Integer> getPlaceTypes() {
-                return null;
-            }
-
-            @Override
-            public CharSequence getAddress() {
-                return null;
-            }
-
-            @Override
-            public Locale getLocale() {
-                return null;
-            }
-
-            @Override
-            public CharSequence getName() {
-                return null;
-            }
-
-            @Override
-            public LatLng getLatLng() {
-                return null;
-            }
-
-            @Override
-            public LatLngBounds getViewport() {
-                return null;
-            }
-
-            @Override
-            public Uri getWebsiteUri() {
-                return null;
-            }
-
-            @Override
-            public CharSequence getPhoneNumber() {
-                return null;
-            }
-
-            @Override
-            public float getRating() {
-                return 0;
-            }
-
-            @Override
-            public int getPriceLevel() {
-                return 0;
-            }
-
-            @Override
-            public CharSequence getAttributions() {
-                return null;
-            }
-        };
-
+        location = new Location((String) p.getAddress(),Double.toString(p.getLatLng().latitude),Double.toString(p.getLatLng().longitude));
         driver = false;
         wallet = wal;
     }
@@ -219,7 +164,8 @@ public class User
     {
         return postcode;
     }
-    public Place getLocation() {
+    public Location getLocation() {
         return location;
     }
+
 }

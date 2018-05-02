@@ -151,9 +151,9 @@ public class NavigationDrawer extends AppCompatActivity
         {
             //fragment = advertiseJobs(driver, fragment, ft);
             Bundle args = new Bundle();
-            LatLng latLng = user2.getLocation().getLatLng();
-            args.putDouble("LAT", latLng.latitude);
-            args.putDouble("LNG", latLng.longitude);
+            fragment = new Map();
+            args.putString("LAT", user2.getLocation().getLatlng().get("latitude"));
+            args.putString("LNG", user2.getLocation().getLatlng().get("longitude"));
             fragment.setArguments(args);
 
         }
