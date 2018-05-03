@@ -32,12 +32,11 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link LocationFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the  factory method to
  * create an instance of this fragment.
  */
-public class Map extends Fragment
+public class MapFragment extends Fragment
 {
 
     MapView mMapView;
@@ -52,8 +51,17 @@ public class Map extends Fragment
     {
 
         final String latitude, longitude;
-        latitude = getArguments().getString("LAT");
-        longitude = getArguments().getString("LNG");
+        if(getArguments()!= null)
+        {
+            latitude = getArguments().getString("LAT");
+            longitude = getArguments().getString("LNG");
+        }
+        else
+        {
+             latitude ="0";
+             longitude ="0";
+        }
+
         View rootView = inflater.inflate(R.layout.content_map, container, false);
 
         mMapView= (MapView) rootView.findViewById(R.id.mapView);
@@ -89,7 +97,7 @@ public class Map extends Fragment
                 googleMap.getUiSettings().setCompassEnabled(true);
                 googleMap.getUiSettings().setMyLocationButtonEnabled(true);
                 googleMap.getUiSettings().setRotateGesturesEnabled(true);
-                // For dropping a marker at a point on the Map
+                // For dropping a marker at a point on the MapFragment
                 LatLng sydney = new LatLng(Float.parseFloat(latitude),Float.parseFloat(longitude));
                 googleMap.addMarker(new MarkerOptions().position(sydney).
                         title("Title").snippet("TitleName"));

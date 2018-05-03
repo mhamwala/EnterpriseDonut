@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,8 +36,7 @@ public class NavigationDrawer extends AppCompatActivity
         DetailsFragment.OnFragmentInteractionListener,
         MyItemRecyclerViewAdapter.OnListFragmentInteractionListener,
         MyBidRecyclerViewAdapter.OnListFragmentInteractionListener,
-        JobFragment.OnListFragmentInteractionListener,
-        LocationFragment.OnFragmentInteractionListener
+        JobFragment.OnListFragmentInteractionListener
 
 {
 
@@ -151,8 +149,9 @@ public class NavigationDrawer extends AppCompatActivity
         {
             //fragment = advertiseJobs(driver, fragment, ft);
 
+
             Bundle args = new Bundle();
-            fragment = new Map();
+            fragment = new MapFragment();
             args.putString("LAT", user2.getLocation().getLat());
             args.putString("LNG", user2.getLocation().getLng());
             fragment.setArguments(args);
