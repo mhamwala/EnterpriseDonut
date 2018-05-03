@@ -210,10 +210,15 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
                         if (advertKey.get(temp) == child.getKey())
                         {
                             ad = child.getRef().getKey();
-                            AdDetails = new Intent(getContext(), MyAdvertDetailsActivity.class);
+
+                            Intent i = new Intent(getContext(), MyAdvertDetailsActivity.class);
+                            AdDetails = i;
                             Bundle mBundle = new Bundle();
+
                             mBundle.putSerializable("details",child.getValue(Advert.class));
+                            mBundle.putString("advertID",child.getKey());
                             AdDetails.putExtras(mBundle);
+
                             System.out.println(child.toString());
                             startActivity(AdDetails);
                         }
@@ -357,39 +362,6 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
             mListener.onListFragmentInteraction("View Adverts");
         }
     }
-
-    public ArrayList<String> getLocation(String from, String to)
-    {
-        ArrayList<String> location = new ArrayList<>();
-
-        String cityFrom = "";
-        String cityTo = "";
-        Geocoder gps = new Geocoder(getActivity(), Locale.getDefault());
-        if (gps.isPresent()) {
-            try {
-                List<Address> list = gps.getFromLocationName(from, 1);
-                Address address = list.get(0);
-                double lat = address.getLatitude();
-                double lng = address.getLongitude();
-                cityFrom = address.getLocality();
-
-                list = gps.getFromLocationName(to, 1);
-                address = list.get(0);
-                lat = address.getLatitude();
-                lng = address.getLongitude();
-                cityTo = address.getLocality();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        location.add(cityFrom);
-        location.add(cityTo);
-
-        return location;
-    }
-
-
 
     @Override
     public void onListFragmentInteraction(String title)

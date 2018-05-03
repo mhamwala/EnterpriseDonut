@@ -1,5 +1,6 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -23,6 +25,8 @@ public class MyAdvertDetailsActivity extends AppCompatActivity
     private TextView from;
     private TextView weight;
     private TextView advertName;
+    private Button acceptBid;
+    String adID;
 
     private RecyclerView recyclerView;
     private MyBidRecyclerViewAdapter recycleAdapter;
@@ -36,16 +40,29 @@ public class MyAdvertDetailsActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_advert_details);
 
+        mListener = new MyBidRecyclerViewAdapter.OnListFragmentInteractionListener()
+        {
+            @Override
+            public void onListFragmentInteraction(String title)
+            {
+
+            }
+        };
+        System.out.println("HELLO");
+        setContentView(R.layout.activity_my_advert_details);
         test = new ViewAdvertFragment();
         mColumnCount = 1;
         Intent in = getIntent();
+
         Bundle b = in.getExtras();
+        adID = b.getString("advertID");
+
 
         a = (Advert) b.getSerializable("details");
         System.out.println(a.toString());
         delivery = this.findViewById(R.id.deliveryType);
+        acceptBid = this.findViewById(R.id.selectBid);
         size = this.findViewById(R.id.size);
         from = this.findViewById(R.id.from);
         weight = this.findViewById(R.id.weight);
@@ -58,6 +75,14 @@ public class MyAdvertDetailsActivity extends AppCompatActivity
         weight.setText(a.getWeight());
         advertName.setText(a.getName());
         recyclerMethod(findViewById(R.id.list2));
+        acceptBid.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                recycleAdapter.acceptBid(adID);
+            }
+        });
         //        final String a = test.viewAdvertDetails();
       //  System.out.println("YEAHHH its ya boyy "+a);
     }
