@@ -1,9 +1,6 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
 import android.content.Context;
-import android.location.Address;
-import android.location.Geocoder;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -24,11 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -100,6 +95,10 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             driverCheck = getArguments().getBoolean(DRIVER_BOOLEAN);
         }
+        MapFragment m = (MapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.addMap);
+
+        //m.isHidden();
+//        m = new MapFragment();
 
         userDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -139,16 +138,15 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
             public void onClick(View view2)
             {
                 recycleAdapter.updateBid(view, advertKey,mDatabase, advertMap, pUser);
-                Fragment f = null;
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
                 Bundle args = new Bundle();
-                f = new uk.ac.tees.q5113445live.enterpriseproject2.Map();
                 int x = recycleAdapter.getPosition();
-                args.putString("LAT", ITEMS.get(x).getFrom().getLat());
-                args.putString("LNG", ITEMS.get(x).getFrom().getLng());
-                f.setArguments(args);
-                ft.replace(R.id.mainFrame, f);
-                ft.commit();
+                args.putString("LAT", "0");
+                args.putString("LNG", "0");
+                //m.setArguments(args);
+//                Fragment f = null;
+//                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//                ft.replace(R.id.mainFrame, f);
+//                ft.commit();
 
 
 
