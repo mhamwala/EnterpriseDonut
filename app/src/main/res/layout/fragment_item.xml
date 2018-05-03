@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="46dp"
+                android:layout_marginEnd="7dp"
                 android:gravity="center"
                 android:text="From: "
                 android:textAlignment="center"
@@ -76,8 +76,9 @@
                 android:id="@+id/getBid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView13"
-                android:layout_marginStart="51dp"
+                android:layout_alignBaseline="@+id/size"
+                android:layout_alignBottom="@+id/size"
+                android:layout_marginStart="11dp"
                 android:layout_toEndOf="@+id/imageView3"
                 android:text="Size"
                 android:textAllCaps="true"
@@ -120,23 +121,21 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/deliver"
-                android:layout_alignBottom="@+id/deliver"
-                android:layout_alignStart="@+id/getBid"
+                android:layout_above="@+id/textView13"
+                android:layout_alignStart="@+id/textView13"
                 android:text="To:"
-                android:textAllCaps="true"
-                 />
+                android:textAllCaps="true" />
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/collect"
+                android:layout_alignBottom="@+id/collect"
                 android:layout_alignStart="@+id/getBid"
-                android:layout_centerVertical="true"
                 android:gravity="center"
                 android:text="From:"
-                android:textAllCaps="true"
-                 />
+                android:textAllCaps="true" />
 
 
         </RelativeLayout>

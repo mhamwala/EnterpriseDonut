@@ -235,13 +235,7 @@ public class sign_up_user extends AppCompatActivity
         );
 
     }
-    private void changeUserType(View v)
-    {
-        Intent intent;
-        intent = new Intent(this, sign_up_driver.class);
-        startActivity(intent);
-        finish();
-    }
+
     private void newUser(User user, String id)
     {
         mDatabase.child("users").child(id).setValue(user);

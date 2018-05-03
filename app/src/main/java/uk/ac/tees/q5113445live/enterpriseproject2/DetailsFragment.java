@@ -3,6 +3,7 @@ package uk.ac.tees.q5113445live.enterpriseproject2;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,10 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -54,13 +59,14 @@ public class DetailsFragment extends Fragment
     private FirebaseAuth mAuth;
     private Bid pBid;
     ;private ArrayList<String> listBid;
+    private Place place;
 
     //endregion
 
     //region TextViews
     private TextView userName;
     private TextView userNumber;
-    private TextView userLocation;
+//    private TextView userLocation;
     private TextView userEmail;
     private TextView userReg;
     private TextView userWallet;
@@ -139,10 +145,11 @@ public class DetailsFragment extends Fragment
                 final User user = userData.getValue(User.class);
                 nameText(user,view);
                 numText(user,view);
-                locationText(user,view);
+                //locationText(user,view);
                 emailText(user, view);
                 regText(user, view);
                 walletText(user, view);
+                autocomplete();
 
                 //TextView userText = view.findViewById(R.id.showUserName);
                 //userText.setText(fUser.getName());
@@ -256,11 +263,11 @@ public class DetailsFragment extends Fragment
         userNumber = view.findViewById(R.id.showUserNumber);
         userNumber.setText(user.getNumber());
     }
-    public void locationText(User user, View view)
-    {
-        userLocation = view.findViewById(R.id.showUserLocation);
-        userLocation.setText(user.getCityName());
-    }
+//    public void locationText(User user, View view)
+//    {
+//        userLocation = view.findViewById(R.id.showUserLocation);
+//        userLocation.setText(user.getCityName());
+//    }
     public void emailText(User user, View view)
     {
         userEmail = view.findViewById(R.id.showUserEmail);
@@ -294,10 +301,11 @@ public class DetailsFragment extends Fragment
             @Override
             public void onDataChange(DataSnapshot dataSnapshot)
             {
+                Location l = new Location(place);
                 //User user = dataSnapshot.getValue(User.class);
                 HashMap<String, Object> result = new HashMap<>();
                 result.put("name", userName.getText().toString());
-                result.put("location", userLocation.getText().toString());
+                result.put("location", l);
                 result.put("email", userEmail.getText().toString());
                 result.put("number", userNumber.getText().toString());
                 result.put("regNumber", userReg.getText().toString());
@@ -350,6 +358,29 @@ public class DetailsFragment extends Fragment
                 .using(new FirebaseImageLoader())
                 .load(mStorageRef)
                 .into(imageView);
+    }
+    private void autocomplete()
+    {
+
+        PlaceAutocompleteFragment autocompleteFragment;
+        autocompleteFragment = (PlaceAutocompleteFragment)
+                getActivity().getFragmentManager().findFragmentById(R.id.showUserLocation);
+
+        autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener()
+        {
+            @Override
+            public void onPlaceSelected(Place p)
+            {
+                // TODO: Get info about the selected place.
+                 place = p;
+            }
+
+            @Override
+            public void onError(Status status) {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
     }
 
 }

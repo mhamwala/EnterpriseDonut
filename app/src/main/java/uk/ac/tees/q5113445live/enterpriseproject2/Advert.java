@@ -1,5 +1,7 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import com.google.android.gms.location.places.Place;
+
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -13,10 +15,11 @@ public class Advert implements Serializable
     //Initialise variables
     String name;
     String deliveryType;
-    String from;
-    String to;
+    Location from;
+    Location to;
     String weight;
     String size;
+    Location location;
     HashMap<String, HashMap<String, String>> bid;
 
     //Blank Advert
@@ -24,31 +27,33 @@ public class Advert implements Serializable
     {
         name = "";
         deliveryType= "";
-        from = "";
-        to ="";
+        from = null;
+        to = null;
         weight = "";
         size="";
+        bid = null;
     }
 
     //Constructor for full advert.
-    Advert(String n, String dt, String c, String d, String w, String s, HashMap b)
+    Advert(String n, String dt, Place c, Place d, String w, String s, HashMap b)
     {
         name = n;
         deliveryType= dt;
-        from = c;
-        to = d;
+        from = new Location(c);
+        to = new Location(d);
         weight= w;
         size = s;
         bid = b;
     }
-    Advert(String n, String dt, String c, String d, String w, String s)
+    Advert(String n, String dt, Place c, Place d, String w, String s)
     {
         name = n;
         deliveryType= dt;
-        from = c;
-        to = d;
+        from = new Location(c);
+        to = new Location(d);
         weight= w;
         size = s;
+        bid = null;
     }
     Advert(Advert a)
     {
@@ -67,10 +72,7 @@ public class Advert implements Serializable
     public void setDeliveryType(String deliveryType) {
         this.deliveryType = deliveryType;
     }
-    public String getFrom() {return from;    }
-    public void setFrom(String from) {this.from = from; }
-    public String getTo() {return to;}
-    public void setTo(String to) {this.to = to;}
+
     public String getWeight() {
         return weight;
     }
@@ -90,6 +92,22 @@ public class Advert implements Serializable
     public void setName(String name)
     {
         this.name = name;
+    }
+
+    public Location getFrom() {
+        return from;
+    }
+
+    public void setFrom(Location from) {
+        this.from = from;
+    }
+
+    public Location getTo() {
+        return to;
+    }
+
+    public void setTo(Location to) {
+        this.to = to;
     }
 
     public HashMap<String, HashMap<String, String>> getBid() {
