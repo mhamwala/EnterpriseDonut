@@ -32,7 +32,6 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link LocationFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the  factory method to
  * create an instance of this fragment.

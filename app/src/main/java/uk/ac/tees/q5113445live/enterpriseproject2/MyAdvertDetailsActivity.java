@@ -54,7 +54,7 @@ public class MyAdvertDetailsActivity extends AppCompatActivity
         //addBID();
         delivery.setText(a.getDeliveryType());
         size.setText(a.getSize());
-        from.setText(a.getFrom());
+        from.setText(a.getFrom().getAddress());
         weight.setText(a.getWeight());
         advertName.setText(a.getName());
         recyclerMethod(findViewById(R.id.list2));

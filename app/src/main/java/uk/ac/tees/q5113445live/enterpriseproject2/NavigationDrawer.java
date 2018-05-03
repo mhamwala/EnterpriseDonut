@@ -37,8 +37,7 @@ public class NavigationDrawer extends AppCompatActivity
         DetailsFragment.OnFragmentInteractionListener,
         MyItemRecyclerViewAdapter.OnListFragmentInteractionListener,
         MyBidRecyclerViewAdapter.OnListFragmentInteractionListener,
-        JobFragment.OnListFragmentInteractionListener,
-        LocationFragment.OnFragmentInteractionListener
+        JobFragment.OnListFragmentInteractionListener
 
 {
 

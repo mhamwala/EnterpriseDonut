@@ -268,12 +268,12 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         //Adds the items to a static list which is shown to the user
         ITEMS.add(item);
         ADVERTID.add(id);
-        ITEM_MAP.put(item.getName(),item);
-        ITEM_MAP.put(item.getFrom(),item);
-        ITEM_MAP.put(item.getTo(),item);
-        ITEM_MAP.put(item.getDeliveryType(), item);
-        ITEM_MAP.put(item.getSize(),item);
-        ITEM_MAP.put(item.getWeight(),item);
+//        ITEM_MAP.put(item.getName(),item);
+//        ITEM_MAP.put(item.getFrom(),item);
+//        ITEM_MAP.put(item.getTo(),item);
+//        ITEM_MAP.put(item.getDeliveryType(), item);
+//        ITEM_MAP.put(item.getSize(),item);
+//        ITEM_MAP.put(item.getWeight(),item);
     }
 
     private void recyclerMethod(View view)

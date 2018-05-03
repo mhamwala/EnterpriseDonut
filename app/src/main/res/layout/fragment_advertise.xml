@@ -164,25 +164,45 @@
             android:textAllCaps="true"
             android:textStyle="bold" />
 
-        <EditText
+        <!--<EditText-->
+            <!--android:id="@+id/collect"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:ems="10"-->
+            <!--android:hint="TS1 2ES"-->
+            <!--android:inputType="textPersonName" />-->
+        <fragment
             android:id="@+id/collect"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:ems="10"
-            android:hint="TS1 2ES"
-            android:inputType="textPersonName" />
+            android:hint="Collect From"
+            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+            />
 
-        <EditText
+        <!--<EditText-->
+            <!--android:id="@+id/deliverTo"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentEnd="true"-->
+            <!--android:layout_alignTop="@+id/textView9"-->
+            <!--android:ems="10"-->
+            <!--android:hint="TS1 1LY"-->
+            <!--android:inputType="textPersonName" />-->
+        <fragment
             android:id="@+id/deliverTo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/textView9"
             android:ems="10"
-            android:hint="TS1 1LY"
-            android:inputType="textPersonName" />
+            android:hint="Collect From"
+            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+            />
     </RelativeLayout>
 
     <RelativeLayout

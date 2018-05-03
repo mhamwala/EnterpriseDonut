@@ -92,8 +92,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     {
         holder.mItem = mValues.get(position);
         holder.n.setText(mValues.get(position).getName());
-        holder.c.setText(mValues.get(position).getFrom());
-        holder.d.setText(mValues.get(position).getTo());
+        holder.c.setText(mValues.get(position).getFrom().getAddress());
+        holder.d.setText(mValues.get(position).getTo().getAddress());
         holder.s.setText(mValues.get(position).getSize());
         holder.w.setText(mValues.get(position).getWeight());
         mStorageRef = FirebaseStorage.getInstance().getReference("AdvertImage").child(mAds.get(position));
