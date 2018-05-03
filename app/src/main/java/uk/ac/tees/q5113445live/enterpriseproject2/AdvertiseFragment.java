@@ -176,6 +176,8 @@ public class AdvertiseFragment extends Fragment
                 {
                     //Creates new advert by gather text from user.
                     HashMap<String, String> x;
+                    HashMap<String, Boolean> a = new HashMap<>();
+                    a.put("noUser", false);
                     Advert advert = new Advert
                             (
                                     name.getText().toString(),
@@ -183,7 +185,10 @@ public class AdvertiseFragment extends Fragment
                                     collect,
                                     deliver,
                                     weight.getText().toString(),
-                                    size.getText().toString()
+                                    size.getText().toString(),
+                                    false,
+                                    a
+
                             );
                     //Create the entry in the database.
                     String key = mDatabase.getDatabase().getReference("advert").push().getKey();

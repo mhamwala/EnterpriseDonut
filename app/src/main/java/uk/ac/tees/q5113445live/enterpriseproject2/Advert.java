@@ -20,6 +20,8 @@ public class Advert implements Serializable
     String weight;
     String size;
     Location location;
+    Boolean delivered;
+    HashMap<String, Boolean> accepted;
     HashMap<String, HashMap<String, String>> bid;
 
     //Blank Advert
@@ -31,11 +33,13 @@ public class Advert implements Serializable
         to = null;
         weight = "";
         size="";
-        bid = null;
+        bid = new HashMap<>();
+        delivered = false;
+        accepted = new HashMap<>();
     }
 
     //Constructor for full advert.
-    Advert(String n, String dt, Place c, Place d, String w, String s, HashMap b)
+    Advert(String n, String dt, Place c, Place d, String w, String s, HashMap b, boolean da, HashMap a)
     {
         name = n;
         deliveryType= dt;
@@ -44,8 +48,10 @@ public class Advert implements Serializable
         weight= w;
         size = s;
         bid = b;
+        delivered = da;
+        accepted = a;
     }
-    Advert(String n, String dt, Place c, Place d, String w, String s)
+    Advert(String n, String dt, Place c, Place d, String w, String s, boolean da, HashMap a)
     {
         name = n;
         deliveryType= dt;
@@ -53,7 +59,9 @@ public class Advert implements Serializable
         to = new Location(d);
         weight= w;
         size = s;
-        bid = null;
+        bid = new HashMap<>();
+        delivered = da;
+        accepted = a;
     }
     Advert(Advert a)
     {
@@ -63,6 +71,8 @@ public class Advert implements Serializable
         to = a.getTo();
         weight = a.getWeight();
         size= a.getSize();
+        delivered = a.getDelivered();
+        accepted = a.getAccepted();
     }
 
     //Required getters and setters
@@ -117,5 +127,30 @@ public class Advert implements Serializable
     public void setBid(HashMap<String, HashMap<String, String>> bid)
     {
         this.bid = bid;
+    }
+
+    public Location getLocation()
+    {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Boolean getDelivered() {
+        return delivered;
+    }
+
+    public void setDelivered(Boolean delivered) {
+        this.delivered = delivered;
+    }
+
+    public HashMap<String, Boolean> getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(HashMap<String, Boolean> accepted) {
+        this.accepted = accepted;
     }
 }

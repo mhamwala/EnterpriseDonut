@@ -2,11 +2,20 @@ package uk.ac.tees.q5113445live.enterpriseproject2;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.renderscript.Sampler;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,6 +34,7 @@ public class MyBidRecyclerViewAdapter extends RecyclerView.Adapter<MyBidRecycler
     private  List<HashMap<String, String>> bids = null;
     private final OnListFragmentInteractionListener mListener;
     private static int pos;
+    private FirebaseUser fUser;
 
     public MyBidRecyclerViewAdapter(HashMap<String, HashMap<String, String>> items, OnListFragmentInteractionListener listener)
     {
@@ -32,8 +42,8 @@ public class MyBidRecyclerViewAdapter extends RecyclerView.Adapter<MyBidRecycler
         userID =new ArrayList<>();
         bidVal = new ArrayList<>();
         bids = new ArrayList<>();
-
-        mListener = (OnListFragmentInteractionListener) listener;
+        mListener = listener;
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
         for(String key: items.keySet())
         {
             bidID.add(key);
@@ -44,6 +54,14 @@ public class MyBidRecyclerViewAdapter extends RecyclerView.Adapter<MyBidRecycler
             bids.add(items.get(x));
             System.out.println("e" + x);
         }
+        for (HashMap x: bids)
+        {
+            for (Object z: x.keySet())
+            {
+                userID.add(z.toString());
+            }
+        }
+
 
     }
 
@@ -66,15 +84,17 @@ public class MyBidRecyclerViewAdapter extends RecyclerView.Adapter<MyBidRecycler
         {
             @Override
             public void onClick(View v) {
-                if (null == mListener) {
+                if (null != mListener)
+                {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem.getDeliveryType());
+                    mListener.onListFragmentInteraction(holder.c.getText().toString());
                     pos = position;
                     notifyDataSetChanged();
                     //imageView = view.findViewById(R.id.imageView3);
                 }
-                else{
+                else
+                {
                     System.out.println("Hello");
                 }
 
@@ -84,7 +104,8 @@ public class MyBidRecyclerViewAdapter extends RecyclerView.Adapter<MyBidRecycler
         {
             holder.mView.setBackgroundColor(Color.GREEN);
         }
-        else {
+        else
+        {
             holder.mView.setBackgroundColor(Color.WHITE);
         }
 
@@ -137,6 +158,19 @@ public class MyBidRecyclerViewAdapter extends RecyclerView.Adapter<MyBidRecycler
     public interface OnListFragmentInteractionListener
     {
         void onListFragmentInteraction(String title);
+    }
+    public void acceptBid(String advertID)
+    {
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("advert").child(fUser.getUid()).child(advertID);
+        HashMap<String, Boolean> innerMap = new HashMap<String, Boolean>();
+        innerMap.put(userID.get(pos), true);
+        databaseReference.child("accepted").removeValue();
+        databaseReference.child("accepted").setValue(innerMap);
+
+    }
+    public void updateAccept(DatabaseReference databaseReference)
+    {
+
     }
 
 //    public class ViewHolder extends RecyclerView.ViewHolder
