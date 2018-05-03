@@ -24,7 +24,7 @@
         app:layout_constraintHorizontal_bias="0.907"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
-        app:layout_constraintVertical_bias="0.494" />
+        app:layout_constraintVertical_bias="0.549" />
 
     <Button
         android:id="@+id/button5"
@@ -86,7 +86,6 @@
             android:layout_height="match_parent"
             android:layout_above="@+id/deliveryType"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="18dp"
             android:gravity="center"
             android:text="Item Name:"
             android:textAlignment="center"
@@ -139,25 +138,12 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView8"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/textView9"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:gravity="center"
-            android:text="Collect From:"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/textView9"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_below="@+id/collect"
+            android:layout_marginBottom="7dp"
             android:gravity="center"
             android:text="Deliver To:"
             android:textAlignment="center"
@@ -175,7 +161,7 @@
             <!--android:inputType="textPersonName" />-->
         <fragment
             android:id="@+id/collect"
-            android:layout_width="wrap_content"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
@@ -195,14 +181,26 @@
             <!--android:inputType="textPersonName" />-->
         <fragment
             android:id="@+id/deliverTo"
-            android:layout_width="wrap_content"
+            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
+            android:layout_width="230dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignTop="@+id/textView9"
             android:ems="10"
-            android:hint="Collect From"
-            android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
-            />
+            android:hint="Collect From" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="12dp"
+            android:gravity="center"
+            android:text="Collect From:"
+            android:textAlignment="center"
+            android:textAllCaps="true"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -220,10 +218,9 @@
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/textView17"
-            android:layout_alignEnd="@+id/textView17"
+            android:layout_alignBaseline="@+id/size"
+            android:layout_alignBottom="@+id/size"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:gravity="center"
             android:text="Size:"
             android:textAllCaps="true"
@@ -326,7 +323,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:ems="10"
-            android:gravity="center"
+            android:gravity="left"
             android:hint="52.60"
             android:inputType="textPersonName|numberDecimal" />
     </RelativeLayout>
