@@ -6,6 +6,7 @@ import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -138,6 +139,17 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
             public void onClick(View view2)
             {
                 recycleAdapter.updateBid(view, advertKey,mDatabase, advertMap, pUser);
+                Fragment f = null;
+                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+                Bundle args = new Bundle();
+                f = new uk.ac.tees.q5113445live.enterpriseproject2.Map();
+                int x = recycleAdapter.getPosition();
+                args.putString("LAT", ITEMS.get(x).getFrom().getLat());
+                args.putString("LNG", ITEMS.get(x).getFrom().getLng());
+                f.setArguments(args);
+                ft.replace(R.id.mainFrame, f);
+                ft.commit();
+
 
 
             }
@@ -310,16 +322,6 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
     }
 
 
-
-    public void onButtonPressed(Uri uri)
-    {
-        if (mListener != null)
-        {
-            mListener.onListFragmentInteraction("View My Adverts");
-        }
-    }
-
-
     public interface OnFragmentInteractionListener
     {
         // TODO: Update argument type and name
@@ -344,36 +346,7 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
 //        };
 //        userDatabase.addValueEventListener(userListener);
 //    }
-    public ArrayList<String> getLocation(String from, String to)
-    {
-        ArrayList<String> location = new ArrayList<>();
 
-        String cityFrom = "";
-        String cityTo = "";
-        Geocoder gps = new Geocoder(getActivity(), Locale.getDefault());
-        if (gps.isPresent()) {
-            try {
-                List<Address> list = gps.getFromLocationName(from, 1);
-                Address address = list.get(0);
-                double lat = address.getLatitude();
-                double lng = address.getLongitude();
-                cityFrom = address.getLocality();
-
-                list = gps.getFromLocationName(to, 1);
-                address = list.get(0);
-                lat = address.getLatitude();
-                lng = address.getLongitude();
-                cityTo = address.getLocality();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        location.add(cityFrom);
-        location.add(cityTo);
-
-        return location;
-    }
     @Override
     public void onListFragmentInteraction(String title)
     {

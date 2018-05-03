@@ -150,6 +150,7 @@ public class NavigationDrawer extends AppCompatActivity
         {
             //fragment = advertiseJobs(driver, fragment, ft);
 
+
             Bundle args = new Bundle();
             fragment = new Map();
             args.putString("LAT", user2.getLocation().getLat());
