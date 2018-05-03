@@ -1,6 +1,7 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -10,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
@@ -56,9 +59,9 @@ public class HomeFragment extends Fragment
     private ImageView imageView;
     private View view;
     private TextView userRating;
-
-
-    Button tempButton;
+    private RatingBar rateBar;
+    private Button rateButton;
+    private User rateUser;
 
     private OnFragmentInteractionListener mListener;
     public HomeFragment()
@@ -137,16 +140,32 @@ public class HomeFragment extends Fragment
             public void onDataChange(DataSnapshot dataSnapshot)
             {
                 userData = dataSnapshot;
-                final User testUser = userData.getValue(User.class);
-
                 User user = dataSnapshot.getValue(User.class);
 
                 userRating = view.findViewById(R.id.rating);
-                userRating.setText(user.getRating());
+                rateBar = view.findViewById(R.id.ratingBar);
+                rateButton = view.findViewById(R.id.placeRating);
+                rateUser = dataSnapshot.getValue(User.class);
+
+                rateBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+                    @Override
+                    public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                        //int a = rateBar.getNumStars();
+                        rateUser.setRating(v);
+                        Toast.makeText(getContext(), "Confirm " + v + "Rating?", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                rateButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view2) {
+                        updateRating(view);
+                    }
+                });
 
                 TextView userText = view.findViewById(R.id.showUserName);
 
-                updateRating(view);
+                //updateRating(view);
 
                 userText.setText(user.getName());
                 imageView = view.findViewById(R.id.imageView);
@@ -186,7 +205,7 @@ public class HomeFragment extends Fragment
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 HashMap<String, Object> result = new HashMap<>();
-                result.put("rating", userRating.getText().toString());
+                result.put("rating", rateUser.getRating());
                 reference.child("users").child(fUser.getUid()).updateChildren(result);
             }
 
