@@ -298,7 +298,6 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     {
         ITEMS.clear();
         ADVERTID.clear();
-        ITEM_MAP.clear();
     }
     public void checkDriver(final View view)
     {

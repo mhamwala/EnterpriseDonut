@@ -103,7 +103,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
             case 1:
                 pos = -1;
                 final View view2 = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.expected_delivery, parent, false);
+                        .inflate(R.layout.accepted, parent, false);
 //                final View parentView = LayoutInflater.from(parent.getContext())
 //                        .inflate(R.layout.fragment_item_list, parent, false);
                 advertMap = new HashMap<>();
@@ -153,7 +153,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         public final View mView;
         public final TextView b;
         public final TextView u;
-        public final TextView d;
+        //public final TextView d;
 
         //public final TextView s;
         //public final TextView s;
@@ -163,11 +163,12 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         public ViewHolder2(View view)
         {
             super(view);
+
             mView = view;
             //mBid = view;
-            b = view.findViewById(R.id.deliveryType);
-            u = (TextView) view.findViewById(R.id.userId);
-            d = (TextView) view.findViewById(R.id.driverName);
+            b = view.findViewById(R.id.advertName);
+            u = (TextView) view.findViewById(R.id.bid);
+           // d = (TextView) view.findViewById(R.id.driverName);
 
             //s = (TextView) view.findViewById(R.id.updateBid);
         }
@@ -186,6 +187,7 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
         {
             case 0:
                 final ViewHolder viewholder;
+
                 viewholder = (ViewHolder) holder;
                 viewholder.mItem = mValues.get(position);
                 viewholder.mItem = mValues.get(position);
@@ -234,24 +236,32 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView
                 break;
             case 1:
                 ViewHolder2 viewHolder2;
-                viewHolder2 =  (ViewHolder2) holder;
+                boolean accepted;
                 viewHolder2 = (ViewHolder2) holder;
                 viewHolder2.mItem = mValues.get(position);
-                viewHolder2.mItem = mValues.get(position);
-                viewHolder2.b.setText(mValues.get(position).getDeliveryType());
-                viewHolder2.u.setText(mValues.get(position).getFrom().getAddress());
-                viewHolder2.d.setText(mValues.get(position).getTo().getAddress());
+                try
+                {
+                   accepted  = viewHolder2.mItem.getAccepted().get(fUser.getUid());
+                }
+                catch (NullPointerException e)
+                {
+                    accepted = false;
+                }
+
+                viewHolder2.b.setText(mValues.get(position).getName());
+                viewHolder2.u.setText("10");
+                if (accepted)
+                {
+                    viewHolder2.mView.setBackgroundColor(Color.GREEN);
+                }
+                else
+                {
+                    viewHolder2.mView.setBackgroundColor(Color.RED);
+                }
+                //viewHolder2.d.setText(mValues.get(position).getTo().getAddress());
 
                 //holder.s.setText(mValues.get(position).getBid());
 
-                if(pos == position)
-                {
-                    //advertFrag.removeAdvert();
-                    viewHolder2.mView.setBackgroundColor(Color.GREEN);
-                }
-                else {
-                    viewHolder2.mView.setBackgroundColor(Color.WHITE);
-                }
                 break;
         }
 
