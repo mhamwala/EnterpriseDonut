@@ -258,10 +258,7 @@ public class AdvertiseFragment extends Fragment
 
             imageView.setImageBitmap(Bitmap.createScaledBitmap(bitmap, 290, 300, false));
 
-//            selectedImage =Uri.parse(data.getExtras().get("data").toString()) ;
-//            Bitmap photo = (Bitmap) data.getExtras().get("data");
-//            imageView.setImageBitmap(photo);
-//
+
 
 
 
@@ -292,10 +289,6 @@ public class AdvertiseFragment extends Fragment
                 GET_FROM_GALLERY
         );
 
-//        startActivityForResult(new Intent(Intent.ACTION_PICK,
-//                        android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI),
-//                GET_FROM_GALLERY
-//        );
 
     }
 
@@ -307,8 +300,7 @@ public class AdvertiseFragment extends Fragment
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent,7);
 
-//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//        startActivityForResult(intent,7);
+
     }
 
 

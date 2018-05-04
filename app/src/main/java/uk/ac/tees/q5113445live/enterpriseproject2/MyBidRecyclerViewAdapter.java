@@ -109,25 +109,14 @@ public class MyBidRecyclerViewAdapter extends RecyclerView.Adapter<MyBidRecycler
             holder.mView.setBackgroundColor(Color.WHITE);
         }
 
-//        holder.mView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (null != mListener) {
-//                    // Notify the active callbacks interface (the activity, if the
-//                    // fragment is attached to one) that an item has been selected.
-//                    mListener.onListFragmentInteraction(holder.toString());
-//                }
-//            }
-//        });
+
     }
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         public final View mView;
         public final TextView n;
         public final TextView c;
-        //public final TextView d;
-        //public final TextView s;
-        //public final TextView s;
+
 
         public Advert mItem;
 
@@ -138,9 +127,7 @@ public class MyBidRecyclerViewAdapter extends RecyclerView.Adapter<MyBidRecycler
             //mBid = view;
             n = view.findViewById(R.id.bid);
             c = (TextView) view.findViewById(R.id.userId);
-            //d = (TextView) view.findViewById(R.id.deliver);
 
-            //s = (TextView) view.findViewById(R.id.updateBid);
         }
 
         @Override
@@ -173,23 +160,5 @@ public class MyBidRecyclerViewAdapter extends RecyclerView.Adapter<MyBidRecycler
 
     }
 
-//    public class ViewHolder extends RecyclerView.ViewHolder
-//    {
-//        public final View mView;
-//        public final TextView mIdView;
-//        public final TextView mContentView;
-//        public String mItem;
-//
-//        public ViewHolder(View view) {
-//            super(view);
-//            mView = view;
-//            mIdView = (TextView) view.findViewById(R.id.id);
-//            mContentView = (TextView) view.findViewById(R.id.content);
-//        }
-//
-//        @Override
-//        public String toString() {
-//            return super.toString() + " '" + mContentView.getText() + "'";
-//        }
-//    }
+
 }
