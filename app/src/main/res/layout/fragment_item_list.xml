@@ -25,15 +25,6 @@
         tools:context="uk.ac.tees.q5113445live.enterpriseproject2.JobFragment"
         tools:listitem="@layout/fragment_item" />
 
-    <fragment
-        android:id="@+id/addMap"
-        android:name="uk.ac.tees.q5113445live.enterpriseproject2.MapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:ems="10"
-        android:hint="@string/location"
-        app:layout_constraintBottom_toTopOf="@+id/enterPass" />
-
     <RelativeLayout
         android:id="@+id/relativeLayout3"
         android:layout_width="380dp"
