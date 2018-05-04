@@ -49,6 +49,7 @@ public class Advert implements Serializable
         size = s;
         bid = b;
         delivered = da;
+        accepted = new HashMap<>();
         accepted = a;
     }
     Advert(String n, String dt, Place c, Place d, String w, String s, boolean da, HashMap a)
@@ -61,6 +62,7 @@ public class Advert implements Serializable
         size = s;
         bid = new HashMap<>();
         delivered = da;
+        accepted = new HashMap<>();
         accepted = a;
     }
     Advert(Advert a)
@@ -128,6 +130,7 @@ public class Advert implements Serializable
     {
         this.bid = bid;
     }
+
 
     public Location getLocation()
     {

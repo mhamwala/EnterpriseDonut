@@ -54,6 +54,7 @@ public class HomeFragment extends Fragment
 
     //region Firebase variables
     private DatabaseReference mDatabase;
+    private DatabaseReference aDatabase;
     private StorageReference mStorageRef;
     private DataSnapshot dataSnapshot;
     private FirebaseUser fUser;
@@ -112,7 +113,11 @@ public class HomeFragment extends Fragment
         user = FirebaseAuth.getInstance().getCurrentUser();
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+        aDatabase = FirebaseDatabase.getInstance().getReference("advert");
         mStorageRef = FirebaseStorage.getInstance().getReference("images").child(user.getUid());
+        advertMap = new HashMap<>();
+        advertKey = new ArrayList();
+        refresh();
         if (getArguments() != null)
         {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -140,7 +145,9 @@ public class HomeFragment extends Fragment
                              Bundle savedInstanceState)
     {
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
+        refresh();
         checkDriver(view);
+
         if (mListener != null)
         {
             mListener.onFragmentInteraction("Home");
@@ -302,10 +309,10 @@ public class HomeFragment extends Fragment
     private void recyclerMethod(View view)
     {
         //Recyclers which handles the showing of items to the user.
-        if (view.findViewById(R.id.list3) instanceof RecyclerView)
+        if (view.findViewById(R.id.list4) instanceof RecyclerView)
         {
             Context context = view.getContext();
-            recyclerView = (RecyclerView) view.findViewById(R.id.list3);
+            recyclerView = (RecyclerView) view.findViewById(R.id.list4);
             if (mColumnCount <= 1)
             {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -314,7 +321,7 @@ public class HomeFragment extends Fragment
             {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, (MyItemRecyclerViewAdapter.OnListFragmentInteractionListener) aListener, 1);
+            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, aListener, 1);
 
             recyclerView.setAdapter(recycleAdapter);
         }
@@ -323,49 +330,58 @@ public class HomeFragment extends Fragment
 
     public void checkDriver(final View view)
     {
-        mDatabase.addChildEventListener(new ChildEventListener()
+        aDatabase.addChildEventListener(new ChildEventListener()
         {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
+                boolean driverCheck = true;
                 //Add each advert to a list.
-                for(DataSnapshot child : dataSnapshot.getChildren())
+                if(driverCheck)
                 {
-                    if(user.getUid().equals(dataSnapshot.getKey()))
+                    for(DataSnapshot child : dataSnapshot.getChildren())
                     {
-                        Advert advert = child.getValue(Advert.class);
-                        if(!advertKey.contains(child.getKey()))
+                        for(DataSnapshot advert: child.getChildren())
                         {
-                            //Singular adverts
-                            advertKey.add(child.getKey());
-                        }
-                        if (!child.getKey().equals(user.getUid()))
-                        {
-                            //UserBidOn = users adverts
-                            userBidOn = dataSnapshot.getKey();
-                            advertMap.put( child.getKey().toString(),userBidOn);
-                        }
+                            for(DataSnapshot accepted: advert.getChildren())
+                            {
+                                for(DataSnapshot bid: accepted.getChildren())
+                                {
+                                    if (user.getUid().equals(bid.getKey()))
+                                    {
+                                        Advert advert2 = child.getValue(Advert.class);
+                                        if (!advertKey.contains(child.getKey()))
+                                        {
+                                            advertKey.add(child.getKey());
+                                        }
+                                        if (!child.getKey().equals(user.getUid()))
+                                        {
+                                            userBidOn = dataSnapshot.getKey();
+                                            advertMap.put(child.getKey().toString(), userBidOn);
+                                        }
 
 //                            location = getLocation(advert.from,advert.to);
 //                            advert.setFrom(location.get(0));
 //                            advert.setTo(location.get(1));
-                        addItem(advert,child.getKey().toString());
-                        recyclerMethod(view);
-                    }
-                    else
-                    {
-
+                                        addItem(advert2, child.getKey().toString());
+                                        recyclerMethod(view);
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
+            //region Unused Overrides
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            public void onChildChanged(DataSnapshot dataSnapshot, String s){}
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {}
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
             @Override
             public void onCancelled(DatabaseError databaseError) {}
+            //endregionfdUnu
         });
     }
     private static void addItem(Advert item, String id)
@@ -373,6 +389,11 @@ public class HomeFragment extends Fragment
         //Adds the items to a static list which is shown to the user
         ITEMS.add(item);
         ADVERTID.add(id);
+    }
+    private void refresh()
+    {
+        ITEMS.clear();
+        ADVERTID.clear();
     }
 
 

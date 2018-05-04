@@ -201,13 +201,13 @@ public class NavigationDrawer extends AppCompatActivity
                 walletText.setText(user2.getWallet());
 
                 imageView = findViewById(R.id.nav_profile);
-                try
-                {
-                    getProfileImage();
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
+//                try
+//                {
+//                   // getProfileImage();
+//                } catch (IOException e)
+//                {
+//                    e.printStackTrace();
+//                }
             }
 
             @Override
