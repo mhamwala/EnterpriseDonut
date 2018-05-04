@@ -54,6 +54,7 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
     public static final List<Advert> ITEMS = new ArrayList<Advert>();
     public static final List<String> ADVERTID = new ArrayList<>();
     public static final Map<String, Advert> ITEM_MAP = new HashMap<String, Advert>();
+
     private Button updateBid;
     private User pUser;
     private DataSnapshot snapshot;
@@ -215,7 +216,8 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
             {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, mListener);
+
+            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, mListener,0);
             recyclerView.setAdapter(recycleAdapter);
 
         }

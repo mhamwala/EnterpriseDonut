@@ -55,7 +55,6 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     private ArrayList<String> bid;
     private FirebaseUser fUser;
     private HashMap<String, String> advertMap;
-    private HashMap<String, String> tempAdvertMap;
     private String userBidOn;
     private ArrayList advertKey;
     private MyItemRecyclerViewAdapter.OnListFragmentInteractionListener mListener;
@@ -72,6 +71,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     private MyItemRecyclerViewAdapter b;
     private String ad;
     private Intent AdDetails;
+
     public ViewAdvertFragment()
     {
 
@@ -102,7 +102,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         mDatabase = FirebaseDatabase.getInstance().getReference("advert");
         location = new ArrayList<>();
         advertMap = new HashMap<>();
-        tempAdvertMap = new HashMap<>();
+
         advertKey = new ArrayList();
 
         refresh();
@@ -233,8 +233,6 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
 
     }
 
-
-
     @Override
     public void onAttach(Context context)
     {
@@ -273,12 +271,6 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         //Adds the items to a static list which is shown to the user
         ITEMS.add(item);
         ADVERTID.add(id);
-//        ITEM_MAP.put(item.getName(),item);
-//        ITEM_MAP.put(item.getFrom(),item);
-//        ITEM_MAP.put(item.getTo(),item);
-//        ITEM_MAP.put(item.getDeliveryType(), item);
-//        ITEM_MAP.put(item.getSize(),item);
-//        ITEM_MAP.put(item.getWeight(),item);
     }
 
     private void recyclerMethod(View view)
@@ -296,7 +288,8 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
             {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, mListener);
+            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, mListener, 0);
+
             recyclerView.setAdapter(recycleAdapter);
         }
 
