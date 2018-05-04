@@ -141,7 +141,7 @@ public class DetailsFragment extends Fragment
                 //Initialise snapshot
                 userData = dataSnapshot;
 
-                //Initialisess user to stored data and populates TextViews in layout.
+                //Initialises user to stored data and populates TextViews in layout.
                 final User user = userData.getValue(User.class);
                 nameText(user,view);
                 numText(user,view);

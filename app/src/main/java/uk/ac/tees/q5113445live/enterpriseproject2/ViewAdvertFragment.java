@@ -39,6 +39,8 @@ import java.util.Map;
  * Activities containing this fragment MUST implement the {@link MyItemRecyclerViewAdapter.OnListFragmentInteractionListener}
  * interface.
  */
+
+//This is where we are able to view our adverts which we have created
 public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAdapter.OnListFragmentInteractionListener{
     private static final String ARG_COLUMN_COUNT = "column-count";
     //private static final String DRIVER_BOOLEAN = "driverCheck";
@@ -153,7 +155,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         return view;
     }
 
-    public void removeAdvert(final int temp)
+    public void removeAdvert(final int temp) //allows us to remove an advert if we dont want it delivering anymore
     {
         final int tempCheck = -1;
         removeAdvertRef = FirebaseDatabase.getInstance().getReference("advert").child(user.getUid());
@@ -198,7 +200,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         }
     }
 
-    public void viewAdvertDetails()
+    public void viewAdvertDetails() // Selecting this button means we can look at that advert and select a bid which a driver has implemented
     {
         DatabaseReference AdvertRef = FirebaseDatabase.getInstance().getReference("advert").child(user.getUid());
         final int temp = MyItemRecyclerViewAdapter.getPosition();

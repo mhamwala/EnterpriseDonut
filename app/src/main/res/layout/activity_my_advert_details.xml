@@ -35,6 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
+
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list3"
@@ -62,20 +63,18 @@
         android:layout_height="200dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/list3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
             android:id="@+id/advertName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="13dp"
+            android:layout_marginStart="17dp"
             android:text="@+id/advertName"
             android:textAllCaps="true"
             android:textStyle="bold" />
@@ -93,8 +92,10 @@
             android:id="@+id/textView21"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/textView19"
-            android:layout_centerVertical="true"
+            android:layout_alignStart="@+id/advertName"
+            android:layout_below="@+id/advertName"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="14dp"
             android:text="From:" />
 
         <TextView
@@ -110,32 +111,34 @@
             android:id="@+id/deliveryType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textView19"
-            android:layout_toEndOf="@+id/advertName"
+            android:layout_alignBottom="@+id/textView19"
+            android:layout_alignStart="@+id/from"
             android:text="deliveryType" />
 
         <TextView
             android:id="@+id/from"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textView21"
-            android:layout_toEndOf="@+id/advertName"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_alignBaseline="@+id/textView21"
+            android:layout_alignBottom="@+id/textView21"
+            android:layout_marginStart="91dp"
+            android:layout_toEndOf="@+id/textView27"
             android:text="from" />
 
         <TextView
             android:id="@+id/size"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/textView22"
-            android:layout_toEndOf="@+id/advertName"
+            android:layout_alignBaseline="@+id/textView22"
+            android:layout_alignBottom="@+id/textView22"
+            android:layout_alignStart="@+id/deliveryType"
             android:text="@string/size" />
 
         <TextView
             android:id="@+id/textView27"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/weight"
-            android:layout_alignBottom="@+id/weight"
+            android:layout_alignBottom="@+id/from"
             android:layout_alignStart="@+id/textView22"
             android:text="Weight:" />
 
@@ -143,8 +146,9 @@
             android:id="@+id/weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/size"
-            android:layout_alignParentBottom="true"
+            android:layout_alignBaseline="@+id/textView27"
+            android:layout_alignBottom="@+id/textView27"
+            android:layout_alignStart="@+id/from"
             android:text="@string/weight" />
     </RelativeLayout>
 </android.support.constraint.ConstraintLayout>
