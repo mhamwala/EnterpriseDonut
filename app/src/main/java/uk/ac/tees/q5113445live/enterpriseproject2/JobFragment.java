@@ -96,7 +96,7 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             driverCheck = getArguments().getBoolean(DRIVER_BOOLEAN);
         }
-        MapFragment m = (MapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.addMap);
+        //MapFragment m = (MapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.addMap);
 
         //m.isHidden();
 //        m = new MapFragment();
