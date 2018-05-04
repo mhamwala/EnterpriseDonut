@@ -7,8 +7,8 @@
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="modules">
           <set>
-            <option value="/home/scm-studs/q5113445/Desktop/EnterpriseDonut" />
-            <option value="/home/scm-studs/q5113445/Desktop/EnterpriseDonut/app" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

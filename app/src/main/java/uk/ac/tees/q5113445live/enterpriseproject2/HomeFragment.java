@@ -6,6 +6,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +32,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -48,6 +54,7 @@ public class HomeFragment extends Fragment
 
     //region Firebase variables
     private DatabaseReference mDatabase;
+    private DatabaseReference aDatabase;
     private StorageReference mStorageRef;
     private DataSnapshot dataSnapshot;
     private FirebaseUser fUser;
@@ -62,8 +69,18 @@ public class HomeFragment extends Fragment
     private RatingBar rateBar;
     private Button rateButton;
     private User rateUser;
+    private RecyclerView recyclerView;
+    private MyItemRecyclerViewAdapter recycleAdapter;
+    private int mColumnCount = 1;
+    public static final List<Advert> ITEMS = new ArrayList<Advert>();
+    public static final List<String> ADVERTID = new ArrayList<>();
+    private HashMap<String, String> advertMap;
+    private String userBidOn;
+    private ArrayList advertKey;
+
 
     private OnFragmentInteractionListener mListener;
+    private MyItemRecyclerViewAdapter.OnListFragmentInteractionListener aListener;
     public HomeFragment()
     {
         // Required empty public constructor
@@ -96,7 +113,11 @@ public class HomeFragment extends Fragment
         user = FirebaseAuth.getInstance().getCurrentUser();
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+        aDatabase = FirebaseDatabase.getInstance().getReference("advert");
         mStorageRef = FirebaseStorage.getInstance().getReference("images").child(user.getUid());
+        advertMap = new HashMap<>();
+        advertKey = new ArrayList();
+        refresh();
         if (getArguments() != null)
         {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -124,6 +145,8 @@ public class HomeFragment extends Fragment
                              Bundle savedInstanceState)
     {
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
+        refresh();
+        checkDriver(view);
 
         if (mListener != null)
         {
@@ -231,6 +254,15 @@ public class HomeFragment extends Fragment
     public void onAttach(Context context)
     {
         super.onAttach(context);
+        if (context instanceof MyItemRecyclerViewAdapter.OnListFragmentInteractionListener)
+        {
+            aListener = (MyItemRecyclerViewAdapter.OnListFragmentInteractionListener) context;
+        }
+        else
+        {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnListFragmentInteractionListener");
+        }
         if (context instanceof OnFragmentInteractionListener)
         {
             mListener = (OnFragmentInteractionListener) context;
@@ -274,64 +306,95 @@ public class HomeFragment extends Fragment
                 .into(imageView);
 
     }
-
-    //region Legacy methods for changing activities.
-    /*public void userButton(View view)
+    private void recyclerMethod(View view)
     {
-        tempButton = view.findViewById(R.id.userButton);
-        tempButton.setOnClickListener(new View.OnClickListener()
+        //Recyclers which handles the showing of items to the user.
+        if (view.findViewById(R.id.list4) instanceof RecyclerView)
+        {
+            Context context = view.getContext();
+            recyclerView = (RecyclerView) view.findViewById(R.id.list4);
+            if (mColumnCount <= 1)
+            {
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            }
+            else
+            {
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
+            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, aListener, 1);
+
+            recyclerView.setAdapter(recycleAdapter);
+        }
+
+    }
+
+    public void checkDriver(final View view)
+    {
+        aDatabase.addChildEventListener(new ChildEventListener()
         {
             @Override
-            public void onClick(View view) {
-                Intent home = new Intent(getActivity(), UserActivity.class);
-                startActivity(home);
-            }
-        });
-    }
-
-
-    public void signOutButton(View view)
-    {
-        tempButton = view.findViewById(R.id.signOut);
-
-        tempButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
-                FirebaseAuth.getInstance().signOut();
-                Intent home = new Intent(getActivity(), login_activity.class);
-                startActivity(home);
+                boolean driverCheck = true;
+                //Add each advert to a list.
+                if(driverCheck)
+                {
+                    for(DataSnapshot child : dataSnapshot.getChildren())
+                    {
+                        for(DataSnapshot advert: child.getChildren())
+                        {
+                            for(DataSnapshot accepted: advert.getChildren())
+                            {
+                                for(DataSnapshot bid: accepted.getChildren())
+                                {
+                                    if (user.getUid().equals(bid.getKey()))
+                                    {
+                                        Advert advert2 = child.getValue(Advert.class);
+                                        if (!advertKey.contains(child.getKey()))
+                                        {
+                                            advertKey.add(child.getKey());
+                                        }
+                                        if (!child.getKey().equals(user.getUid()))
+                                        {
+                                            userBidOn = dataSnapshot.getKey();
+                                            advertMap.put(child.getKey().toString(), userBidOn);
+                                        }
+
+//                            location = getLocation(advert.from,advert.to);
+//                            advert.setFrom(location.get(0));
+//                            advert.setTo(location.get(1));
+                                        addItem(advert2, child.getKey().toString());
+                                        recyclerMethod(view);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-        });
-
-    }
-
-    public void settingsButton(View view)
-    {
-        tempButton = view.findViewById(R.id.settingsButton);
-        tempButton.setOnClickListener(new View.OnClickListener() {
+            //region Unused Overrides
             @Override
-            public void onClick(View view) {
-                Intent home = new Intent(getActivity(), SettingsActivity.class);
-                startActivity(home);
-            }
-        });
-
-    }
-
-    public void driverButton(View view)
-    {
-        tempButton = view.findViewById(R.id.driverButton);
-        tempButton.setOnClickListener(new View.OnClickListener() {
+            public void onChildChanged(DataSnapshot dataSnapshot, String s){}
             @Override
-            public void onClick(View view)
-            {
-                Intent home = new Intent(getActivity(), DriverActivity.class);
-                startActivity(home);
-            }
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+            //endregionfdUnu
         });
-
     }
-    */
-    //endregion
+    private static void addItem(Advert item, String id)
+    {
+        //Adds the items to a static list which is shown to the user
+        ITEMS.add(item);
+        ADVERTID.add(id);
+    }
+    private void refresh()
+    {
+        ITEMS.clear();
+        ADVERTID.clear();
+    }
+
+
 }
