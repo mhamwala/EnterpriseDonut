@@ -1,11 +1,9 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
 import android.content.Context;
-import android.location.Address;
-import android.location.Geocoder;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,11 +21,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -58,6 +54,7 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
     public static final List<Advert> ITEMS = new ArrayList<Advert>();
     public static final List<String> ADVERTID = new ArrayList<>();
     public static final Map<String, Advert> ITEM_MAP = new HashMap<String, Advert>();
+
     private Button updateBid;
     private User pUser;
     private DataSnapshot snapshot;
@@ -99,6 +96,10 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
             driverCheck = getArguments().getBoolean(DRIVER_BOOLEAN);
         }
+        MapFragment m = (MapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.addMap);
+
+        //m.isHidden();
+//        m = new MapFragment();
 
         userDatabase.addValueEventListener(new ValueEventListener() {
             @Override
@@ -138,6 +139,16 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
             public void onClick(View view2)
             {
                 recycleAdapter.updateBid(view, advertKey,mDatabase, advertMap, pUser);
+                Bundle args = new Bundle();
+                int x = recycleAdapter.getPosition();
+                args.putString("LAT", "0");
+                args.putString("LNG", "0");
+                //m.setArguments(args);
+//                Fragment f = null;
+//                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+//                ft.replace(R.id.mainFrame, f);
+//                ft.commit();
+
 
 
             }
@@ -182,12 +193,12 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
         ITEMS.add(item);
         ADVERTID.add(id);
 
-        ITEM_MAP.put(item.getName(),item);
-        ITEM_MAP.put(item.getFrom(),item);
-        ITEM_MAP.put(item.getTo(),item);
-        ITEM_MAP.put(item.getDeliveryType(), item);
-        ITEM_MAP.put(item.getSize(),item);
-        ITEM_MAP.put(item.getWeight(),item);
+//        ITEM_MAP.put(item.getName(),item);
+//        ITEM_MAP.put(item.getFrom(),item);
+//        ITEM_MAP.put(item.getTo(),item);
+//        ITEM_MAP.put(item.getDeliveryType(), item);
+//        ITEM_MAP.put(item.getSize(),item);
+//        ITEM_MAP.put(item.getWeight(),item);
     }
 
     private void recyclerMethod(View view)
@@ -205,7 +216,8 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
             {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, mListener);
+
+            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, mListener,0);
             recyclerView.setAdapter(recycleAdapter);
 
         }
@@ -310,16 +322,6 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
     }
 
 
-
-    public void onButtonPressed(Uri uri)
-    {
-        if (mListener != null)
-        {
-            mListener.onListFragmentInteraction("View My Adverts");
-        }
-    }
-
-
     public interface OnFragmentInteractionListener
     {
         // TODO: Update argument type and name
@@ -344,36 +346,7 @@ public class JobFragment extends Fragment implements MyItemRecyclerViewAdapter.O
 //        };
 //        userDatabase.addValueEventListener(userListener);
 //    }
-    public ArrayList<String> getLocation(String from, String to)
-    {
-        ArrayList<String> location = new ArrayList<>();
 
-        String cityFrom = "";
-        String cityTo = "";
-        Geocoder gps = new Geocoder(getActivity(), Locale.getDefault());
-        if (gps.isPresent()) {
-            try {
-                List<Address> list = gps.getFromLocationName(from, 1);
-                Address address = list.get(0);
-                double lat = address.getLatitude();
-                double lng = address.getLongitude();
-                cityFrom = address.getLocality();
-
-                list = gps.getFromLocationName(to, 1);
-                address = list.get(0);
-                lat = address.getLatitude();
-                lng = address.getLongitude();
-                cityTo = address.getLocality();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        location.add(cityFrom);
-        location.add(cityTo);
-
-        return location;
-    }
     @Override
     public void onListFragmentInteraction(String title)
     {

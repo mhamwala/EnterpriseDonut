@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,6 +32,8 @@ import com.google.firebase.storage.UploadTask;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+
+import static com.bumptech.glide.gifdecoder.GifHeaderParser.TAG;
 
 
 /**
@@ -51,6 +58,8 @@ public class AdvertiseFragment extends Fragment
     public static final int GET_FROM_GALLERY = 3;
     private  Bitmap bitmap = null;
     private ImageView testImage = null;
+    private Place collect;
+    private Place deliver;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -111,14 +120,17 @@ public class AdvertiseFragment extends Fragment
         //Initialises EditText to their corresponding layout item.
         final EditText name = view.findViewById(R.id.advertName);
         final EditText deliveryType = view.findViewById(R.id.deliveryType);
-        final EditText distance = view.findViewById(R.id.deliverTo);
+
         final EditText size = view.findViewById(R.id.size);
         final EditText weight = view.findViewById(R.id.weight);
-        final EditText collect = view.findViewById(R.id.collect);
         final Button addImage = view.findViewById(R.id.imageButton);
         final Button captureImage = view.findViewById(R.id.imageButton2);
         final EditText bid = view.findViewById(R.id.enterBid);
         imageView = view.findViewById(R.id.imageView);
+
+        autocomplete();
+//        final EditText deliverTo = view.findViewById(R.id.deliverTo);
+//        final EditText collect = view.findViewById(R.id.collect);
 
         Button advertiseItem = view.findViewById(R.id.button5);
 
@@ -132,13 +144,8 @@ public class AdvertiseFragment extends Fragment
             public void onClick(View v)
             {
                 launchCamera();
-
-
-
             }
         });
-
-
 
         addImage.setOnClickListener(new Switch.OnClickListener()
         {
@@ -147,12 +154,8 @@ public class AdvertiseFragment extends Fragment
             public void onClick(View v)
             {
                 addPicture();
-
-
-
             }
         });
-
 
         captureImage.setOnClickListener(new Switch.OnClickListener()
         {
@@ -161,16 +164,10 @@ public class AdvertiseFragment extends Fragment
             public void onClick(View v)
             {
                 launchCamera();
-
-
-
             }
         });
 
-
         advertiseItem.setOnClickListener(new Button.OnClickListener()
-
-
         {
             @Override
             public void onClick(View v)
@@ -179,14 +176,19 @@ public class AdvertiseFragment extends Fragment
                 {
                     //Creates new advert by gather text from user.
                     HashMap<String, String> x;
+                    HashMap<String, Boolean> a = new HashMap<>();
+                    a.put("noUser", false);
                     Advert advert = new Advert
                             (
                                     name.getText().toString(),
                                     deliveryType.getText().toString(),
-                                    distance.getText().toString(),
-                                    collect.getText().toString(),
+                                    collect,
+                                    deliver,
                                     weight.getText().toString(),
-                                    size.getText().toString()
+                                    size.getText().toString(),
+                                    false,
+                                    a
+
                             );
                     //Create the entry in the database.
                     String key = mDatabase.getDatabase().getReference("advert").push().getKey();
@@ -195,9 +197,6 @@ public class AdvertiseFragment extends Fragment
                     //Reverts back to home activity.
                     Intent home = new Intent(getActivity(),NavigationDrawer.class);
                     startActivity(home);
-
-
-
                 }
                 catch (NumberFormatException e)
                 {
@@ -205,9 +204,6 @@ public class AdvertiseFragment extends Fragment
                 }
             }
         });
-
-
-
         addImage.setOnClickListener(new Switch.OnClickListener()
         {
             @Override
@@ -387,30 +383,45 @@ public class AdvertiseFragment extends Fragment
             }
         });
     }
+    private void autocomplete()
+    {
+
+        PlaceAutocompleteFragment collectFrag = (PlaceAutocompleteFragment)
+                getActivity().getFragmentManager().findFragmentById(R.id.collect);
+        PlaceAutocompleteFragment deliverFrag = (PlaceAutocompleteFragment)
+                getActivity().getFragmentManager().findFragmentById(R.id.deliverTo);
+        collectFrag.setOnPlaceSelectedListener(new PlaceSelectionListener()
+        {
+            @Override
+            public void onPlaceSelected(Place place)
+            {
+                // TODO: Get info about the selected place.
+                collect = place;
+            }
+
+            @Override
+            public void onError(Status status)
+            {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+        deliverFrag.setOnPlaceSelectedListener(new PlaceSelectionListener()
+        {
+            @Override
+            public void onPlaceSelected(Place place)
+            {
+                // TODO: Get info about the selected place.
+                deliver = place;
+            }
+
+            @Override
+            public void onError(Status status)
+            {
+                // TODO: Handle the error.
+                Log.i(TAG, "An error occurred: " + status);
+            }
+        });
+    }
 
 }
-
-
-    //
-//    public void onActivityResult2(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//
-//        //Detects request codes
-//        if (requestCode == 7 && resultCode == Activity.RESULT_OK) {
-//            Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-//
-//            imageView.setImageBitmap(bitmap);
-//
-//        }
-//    }
-//
-//    private  void launchCamera()
-//    {
-//
-//
-//        intent2 = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-//
-//        startActivityForResult(intent2, 7);
-//
-//
-//    }

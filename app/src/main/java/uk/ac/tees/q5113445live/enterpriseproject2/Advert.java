@@ -1,5 +1,7 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import com.google.android.gms.location.places.Place;
+
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -13,10 +15,13 @@ public class Advert implements Serializable
     //Initialise variables
     String name;
     String deliveryType;
-    String from;
-    String to;
+    Location from;
+    Location to;
     String weight;
     String size;
+    Location location;
+    Boolean delivered;
+    HashMap<String, Boolean> accepted;
     HashMap<String, HashMap<String, String>> bid;
 
     //Blank Advert
@@ -24,31 +29,41 @@ public class Advert implements Serializable
     {
         name = "";
         deliveryType= "";
-        from = "";
-        to ="";
+        from = null;
+        to = null;
         weight = "";
         size="";
+        bid = new HashMap<>();
+        delivered = false;
+        accepted = new HashMap<>();
     }
 
     //Constructor for full advert.
-    Advert(String n, String dt, String c, String d, String w, String s, HashMap b)
+    Advert(String n, String dt, Place c, Place d, String w, String s, HashMap b, boolean da, HashMap a)
     {
         name = n;
         deliveryType= dt;
-        from = c;
-        to = d;
+        from = new Location(c);
+        to = new Location(d);
         weight= w;
         size = s;
         bid = b;
+        delivered = da;
+        accepted = new HashMap<>();
+        accepted = a;
     }
-    Advert(String n, String dt, String c, String d, String w, String s)
+    Advert(String n, String dt, Place c, Place d, String w, String s, boolean da, HashMap a)
     {
         name = n;
         deliveryType= dt;
-        from = c;
-        to = d;
+        from = new Location(c);
+        to = new Location(d);
         weight= w;
         size = s;
+        bid = new HashMap<>();
+        delivered = da;
+        accepted = new HashMap<>();
+        accepted = a;
     }
     Advert(Advert a)
     {
@@ -58,6 +73,8 @@ public class Advert implements Serializable
         to = a.getTo();
         weight = a.getWeight();
         size= a.getSize();
+        delivered = a.getDelivered();
+        accepted = a.getAccepted();
     }
 
     //Required getters and setters
@@ -67,10 +84,7 @@ public class Advert implements Serializable
     public void setDeliveryType(String deliveryType) {
         this.deliveryType = deliveryType;
     }
-    public String getFrom() {return from;    }
-    public void setFrom(String from) {this.from = from; }
-    public String getTo() {return to;}
-    public void setTo(String to) {this.to = to;}
+
     public String getWeight() {
         return weight;
     }
@@ -92,6 +106,22 @@ public class Advert implements Serializable
         this.name = name;
     }
 
+    public Location getFrom() {
+        return from;
+    }
+
+    public void setFrom(Location from) {
+        this.from = from;
+    }
+
+    public Location getTo() {
+        return to;
+    }
+
+    public void setTo(Location to) {
+        this.to = to;
+    }
+
     public HashMap<String, HashMap<String, String>> getBid() {
         return bid;
     }
@@ -99,5 +129,31 @@ public class Advert implements Serializable
     public void setBid(HashMap<String, HashMap<String, String>> bid)
     {
         this.bid = bid;
+    }
+
+
+    public Location getLocation()
+    {
+        return location;
+    }
+
+    public void setLocation(Location location) {
+        this.location = location;
+    }
+
+    public Boolean getDelivered() {
+        return delivered;
+    }
+
+    public void setDelivered(Boolean delivered) {
+        this.delivered = delivered;
+    }
+
+    public HashMap<String, Boolean> getAccepted() {
+        return accepted;
+    }
+
+    public void setAccepted(HashMap<String, Boolean> accepted) {
+        this.accepted = accepted;
     }
 }

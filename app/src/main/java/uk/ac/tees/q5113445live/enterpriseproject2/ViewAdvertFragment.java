@@ -55,7 +55,6 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     private ArrayList<String> bid;
     private FirebaseUser fUser;
     private HashMap<String, String> advertMap;
-    private HashMap<String, String> tempAdvertMap;
     private String userBidOn;
     private ArrayList advertKey;
     private MyItemRecyclerViewAdapter.OnListFragmentInteractionListener mListener;
@@ -72,6 +71,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     private MyItemRecyclerViewAdapter b;
     private String ad;
     private Intent AdDetails;
+
     public ViewAdvertFragment()
     {
 
@@ -102,7 +102,7 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         mDatabase = FirebaseDatabase.getInstance().getReference("advert");
         location = new ArrayList<>();
         advertMap = new HashMap<>();
-        tempAdvertMap = new HashMap<>();
+
         advertKey = new ArrayList();
 
         refresh();
@@ -210,10 +210,15 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
                         if (advertKey.get(temp) == child.getKey())
                         {
                             ad = child.getRef().getKey();
-                            AdDetails = new Intent(getContext(), MyAdvertDetailsActivity.class);
+
+                            Intent i = new Intent(getContext(), MyAdvertDetailsActivity.class);
+                            AdDetails = i;
                             Bundle mBundle = new Bundle();
+
                             mBundle.putSerializable("details",child.getValue(Advert.class));
+                            mBundle.putString("advertID",child.getKey());
                             AdDetails.putExtras(mBundle);
+
                             System.out.println(child.toString());
                             startActivity(AdDetails);
                         }
@@ -227,8 +232,6 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         });
 
     }
-
-
 
     @Override
     public void onAttach(Context context)
@@ -268,12 +271,6 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
         //Adds the items to a static list which is shown to the user
         ITEMS.add(item);
         ADVERTID.add(id);
-        ITEM_MAP.put(item.getName(),item);
-        ITEM_MAP.put(item.getFrom(),item);
-        ITEM_MAP.put(item.getTo(),item);
-        ITEM_MAP.put(item.getDeliveryType(), item);
-        ITEM_MAP.put(item.getSize(),item);
-        ITEM_MAP.put(item.getWeight(),item);
     }
 
     private void recyclerMethod(View view)
@@ -291,7 +288,8 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
             {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, mListener);
+            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, mListener, 0);
+
             recyclerView.setAdapter(recycleAdapter);
         }
 
@@ -300,7 +298,6 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
     {
         ITEMS.clear();
         ADVERTID.clear();
-        ITEM_MAP.clear();
     }
     public void checkDriver(final View view)
     {
@@ -357,39 +354,6 @@ public class ViewAdvertFragment extends Fragment implements MyItemRecyclerViewAd
             mListener.onListFragmentInteraction("View Adverts");
         }
     }
-
-    public ArrayList<String> getLocation(String from, String to)
-    {
-        ArrayList<String> location = new ArrayList<>();
-
-        String cityFrom = "";
-        String cityTo = "";
-        Geocoder gps = new Geocoder(getActivity(), Locale.getDefault());
-        if (gps.isPresent()) {
-            try {
-                List<Address> list = gps.getFromLocationName(from, 1);
-                Address address = list.get(0);
-                double lat = address.getLatitude();
-                double lng = address.getLongitude();
-                cityFrom = address.getLocality();
-
-                list = gps.getFromLocationName(to, 1);
-                address = list.get(0);
-                lat = address.getLatitude();
-                lng = address.getLongitude();
-                cityTo = address.getLocality();
-            } catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        location.add(cityFrom);
-        location.add(cityTo);
-
-        return location;
-    }
-
-
 
     @Override
     public void onListFragmentInteraction(String title)

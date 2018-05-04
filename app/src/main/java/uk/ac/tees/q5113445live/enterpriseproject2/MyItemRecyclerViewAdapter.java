@@ -1,6 +1,12 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +19,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
+import com.google.android.gms.maps.MapFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,11 +36,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+
 /**
  * specified {@link OnListFragmentInteractionListener}.
  *
  */
-public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder> {
+public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final List<Advert> mValues;
     private final List<String> mAds;
@@ -58,9 +67,12 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
     private String remainingWallet;
     public ArrayList<String> listBid;
     private ViewAdvertFragment advertFrag;
+    private int type;
 
-    public MyItemRecyclerViewAdapter(List<Advert> items,List<String> advertId, OnListFragmentInteractionListener listener)
+
+    public MyItemRecyclerViewAdapter(List<Advert> items,List<String> advertId, OnListFragmentInteractionListener listener,int i)
     {
+        type = i;
         mValues = items;
         mAds = advertId;
         mListener = listener;
@@ -72,75 +84,36 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
         void onListFragmentInteraction(String title);
     }
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
-
-        pos = -1;
-        final View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item, parent, false);
-        final View parentView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_item_list, parent, false);
-        advertMap = new HashMap<>();
-        //mDatabase = FirebaseDatabase.getInstance().getReference("advert");
-        fUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(final ViewHolder holder, final int position)
-    {
-        holder.mItem = mValues.get(position);
-        holder.n.setText(mValues.get(position).getName());
-        holder.c.setText(mValues.get(position).getFrom());
-        holder.d.setText(mValues.get(position).getTo());
-        holder.s.setText(mValues.get(position).getSize());
-        holder.w.setText(mValues.get(position).getWeight());
-        mStorageRef = FirebaseStorage.getInstance().getReference("AdvertImage").child(mAds.get(position));
-
-        //______________________________________________________________________________________
-        advertFrag = new ViewAdvertFragment();
-        //______________________________________________________________________________________
-
-        //holder.s.setText(mValues.get(position).getBid());
-        try
+        RecyclerView.ViewHolder viewHolder = null;
+        switch (type)
         {
-            getProfileImage(holder.mView,holder.i,mStorageRef);
-        } catch (IOException e)
-        {
-            e.printStackTrace();
+            case 0:
+                pos = -1;
+                final View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.fragment_item, parent, false);
+//                final View parentView = LayoutInflater.from(parent.getContext())
+//                        .inflate(R.layout.fragment_item_list, parent, false);
+                advertMap = new HashMap<>();
+                //mDatabase = FirebaseDatabase.getInstance().getReference("advert");
+                fUser = FirebaseAuth.getInstance().getCurrentUser();
+                viewHolder = new ViewHolder(view);
+                break;
+            case 1:
+                pos = -1;
+                final View view2 = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.accepted, parent, false);
+//                final View parentView = LayoutInflater.from(parent.getContext())
+//                        .inflate(R.layout.fragment_item_list, parent, false);
+                advertMap = new HashMap<>();
+                //mDatabase = FirebaseDatabase.getInstance().getReference("advert");
+                fUser = FirebaseAuth.getInstance().getCurrentUser();
+                viewHolder = new ViewHolder2(view2);
+                break;
         }
-        holder.mView.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem.getDeliveryType());
-                    pos = position;
-                    notifyDataSetChanged();
-                    //imageView = view.findViewById(R.id.imageView3);
-                }
-
-            }
-        });
-        if(pos == position)
-        {
-            //advertFrag.removeAdvert();
-            holder.mView.setBackgroundColor(Color.GREEN);
-        }
-        else {
-            holder.mView.setBackgroundColor(Color.WHITE);
-        }
-
+        return viewHolder;
     }
-
-    @Override
-    public int getItemCount() {
-        return mValues.size();
-    }
-
     public class ViewHolder extends RecyclerView.ViewHolder
     {
         public final View mView;
@@ -175,6 +148,132 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             return super.toString() + " '" +n.getText() +c.getText() + "'" + d.getText();
         }
     }
+    public class ViewHolder2 extends RecyclerView.ViewHolder
+    {
+        public final View mView;
+        public final TextView b;
+        public final TextView u;
+        //public final TextView d;
+
+        //public final TextView s;
+        //public final TextView s;
+
+        public Advert mItem;
+
+        public ViewHolder2(View view)
+        {
+            super(view);
+
+            mView = view;
+            //mBid = view;
+            b = view.findViewById(R.id.advertName);
+            u = (TextView) view.findViewById(R.id.bid);
+           // d = (TextView) view.findViewById(R.id.driverName);
+
+            //s = (TextView) view.findViewById(R.id.updateBid);
+        }
+
+        @Override
+        public String toString()
+        {
+            return "";
+        }
+    }
+    
+    @Override
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position)
+    {
+        switch(type)
+        {
+            case 0:
+                final ViewHolder viewholder;
+
+                viewholder = (ViewHolder) holder;
+                viewholder.mItem = mValues.get(position);
+                viewholder.mItem = mValues.get(position);
+                viewholder.n.setText(mValues.get(position).getName());
+                viewholder.c.setText(mValues.get(position).getFrom().getAddress());
+                viewholder.d.setText(mValues.get(position).getTo().getAddress());
+                viewholder.s.setText(mValues.get(position).getSize());
+                viewholder.w.setText(mValues.get(position).getWeight());
+                mStorageRef = FirebaseStorage.getInstance().getReference("AdvertImage").child(mAds.get(position));
+
+                //______________________________________________________________________________________
+                advertFrag = new ViewAdvertFragment();
+                //______________________________________________________________________________________
+
+                //holder.s.setText(mValues.get(position).getBid());
+                try
+                {
+                    getProfileImage(viewholder.mView,viewholder.i,mStorageRef);
+                } catch (IOException e)
+                {
+                    e.printStackTrace();
+                }
+                viewholder.mView.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v) {
+                        if (null != mListener) {
+                            // Notify the active callbacks interface (the activity, if the
+                            // fragment is attached to one) that an item has been selected.
+                            mListener.onListFragmentInteraction(viewholder.mItem.getDeliveryType());
+                            pos = position;
+                            notifyDataSetChanged();
+                            //imageView = view.findViewById(R.id.imageView3);
+                        }
+
+                    }
+                });
+                if(pos == position)
+                {
+                    //advertFrag.removeAdvert();
+                    viewholder.mView.setBackgroundColor(Color.GREEN);
+                }
+                else {
+                    viewholder.mView.setBackgroundColor(Color.WHITE);
+                }
+                break;
+            case 1:
+                ViewHolder2 viewHolder2;
+                boolean accepted;
+                viewHolder2 = (ViewHolder2) holder;
+                viewHolder2.mItem = mValues.get(position);
+                try
+                {
+                   accepted  = viewHolder2.mItem.getAccepted().get(fUser.getUid());
+                }
+                catch (NullPointerException e)
+                {
+                    accepted = false;
+                }
+
+                viewHolder2.b.setText(mValues.get(position).getName());
+                viewHolder2.u.setText("10");
+                if (accepted)
+                {
+                    viewHolder2.mView.setBackgroundColor(Color.GREEN);
+                }
+                else
+                {
+                    viewHolder2.mView.setBackgroundColor(Color.RED);
+                }
+                //viewHolder2.d.setText(mValues.get(position).getTo().getAddress());
+
+                //holder.s.setText(mValues.get(position).getBid());
+
+                break;
+        }
+
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return mValues.size();
+    }
+
+
 
     public void updateBid(final View view, final ArrayList<String> advertKey, DatabaseReference reference, final HashMap<String, String> advertMap, User user)
     {
@@ -202,7 +301,8 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
             {
                 Toast.makeText(view.getContext(), "You have insufficient funds in your wallet!", Toast.LENGTH_SHORT).show();
             }
-            else {
+            else
+            {
                 result.put(userKey, bidUser.getText().toString());
                 listBid.add(remainingWallet);
                 updateWallet(view);
@@ -256,7 +356,6 @@ public class MyItemRecyclerViewAdapter extends RecyclerView.Adapter<MyItemRecycl
                 .using(new FirebaseImageLoader())
                 .load(ref)
                 .into(i);
-
     }
 
     public static int getPosition()

@@ -4,9 +4,11 @@ import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -15,7 +17,7 @@ import java.util.Locale;
  * Created by Luke on 27/04/2018.
  */
 
-public class Location
+public class Location implements Serializable
 {
     private String address;
     private String lat;
@@ -28,6 +30,13 @@ public class Location
 //        postCode = "";
 //        context = null;
 //    }
+    Location(Place p)
+    {
+        address = p.getAddress().toString();
+        lat = Double.toString(p.getLatLng().latitude);
+        lng = Double.toString(p.getLatLng().longitude);
+
+    }
     Location(String a, String la, String ln)
     {
         address = a;
