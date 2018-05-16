@@ -43,6 +43,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class sign_up_user extends AppCompatActivity
+    //This allows you to create a new user, which is then added to google firebase
 {
     private static final String TAG = "SignUpActivity";
     private FirebaseAuth mAuth;
@@ -102,7 +103,7 @@ public class sign_up_user extends AppCompatActivity
 //                            {
 //                                locations.add(x.toString());
 //                            }
-                           User user = new User
+                           User user = new User                                                 //what is used to pass into the database
                            (
                              nameEdit.getText().toString(),
                                 emailEdit.getText().toString(),
@@ -125,6 +126,7 @@ public class sign_up_user extends AppCompatActivity
         );
     }
 
+    //allows you to upload an image for the user's profile
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -150,12 +152,12 @@ public class sign_up_user extends AppCompatActivity
             }
         }
     }
-    private void changeHome()
+    private void changeHome()//what is used after account has been created, goes to the home fragment
     {
         Intent home = new Intent(sign_up_user.this, NavigationDrawer.class);
         startActivity(home);
     }
-    private void createAccount(final User userIn, String password)
+    private void createAccount(final User userIn, String password) //creates the account
     {
         Log.d(TAG, "createAccount:" + userIn.getEmail());
         // [START create_user_with_email]
@@ -188,7 +190,7 @@ public class sign_up_user extends AppCompatActivity
                     }
                 });
     }
-    private void uploadProfile()
+    private void uploadProfile() //allows the user to see that their profile has been uploaded if there are any errors then they are notified
     {
         if(selectedImage != null)
         {
@@ -227,7 +229,7 @@ public class sign_up_user extends AppCompatActivity
 
     }
 
-    private void addPicture()
+    private void addPicture()//method to access gallery
     {
         startActivityForResult(new Intent(Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI),
@@ -235,13 +237,7 @@ public class sign_up_user extends AppCompatActivity
         );
 
     }
-    private void changeUserType(View v)
-    {
-        Intent intent;
-        intent = new Intent(this, sign_up_driver.class);
-        startActivity(intent);
-        finish();
-    }
+
     private void newUser(User user, String id)
     {
         mDatabase.child("users").child(id).setValue(user);
@@ -265,7 +261,7 @@ public class sign_up_user extends AppCompatActivity
 
         return locations;
     }
-    private void autocomplete()
+    private void autocomplete() //auto completes the users location so that you dont have to input your location manually
     {
         PlaceAutocompleteFragment autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.enterLoc);

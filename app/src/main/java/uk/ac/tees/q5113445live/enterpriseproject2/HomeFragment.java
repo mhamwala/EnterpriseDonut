@@ -1,12 +1,15 @@
 package uk.ac.tees.q5113445live.enterpriseproject2;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -14,11 +17,13 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,7 +33,9 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 /**
@@ -48,6 +55,7 @@ public class HomeFragment extends Fragment
 
     //region Firebase variables
     private DatabaseReference mDatabase;
+    private DatabaseReference aDatabase;
     private StorageReference mStorageRef;
     private DataSnapshot dataSnapshot;
     private FirebaseUser fUser;
@@ -62,8 +70,21 @@ public class HomeFragment extends Fragment
     private RatingBar rateBar;
     private Button rateButton;
     private User rateUser;
+    private RecyclerView recyclerView;
+    private MyItemRecyclerViewAdapter recycleAdapter;
+    private int mColumnCount = 1;
+    public static final List<Advert> ITEMS = new ArrayList<Advert>();
+    public static final List<String> ADVERTID = new ArrayList<>();
+    private HashMap<String, String> advertMap;
+    private String userBidOn;
+    private ArrayList advertKey;
+    private ViewFlipper mViewFlipper;
+    private float initialX;
+    private Button flip;
+
 
     private OnFragmentInteractionListener mListener;
+    private MyItemRecyclerViewAdapter.OnListFragmentInteractionListener aListener;
     public HomeFragment()
     {
         // Required empty public constructor
@@ -96,7 +117,12 @@ public class HomeFragment extends Fragment
         user = FirebaseAuth.getInstance().getCurrentUser();
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         mDatabase = FirebaseDatabase.getInstance().getReference("users").child(user.getUid());
+        aDatabase = FirebaseDatabase.getInstance().getReference("advert");
         mStorageRef = FirebaseStorage.getInstance().getReference("images").child(user.getUid());
+
+        advertMap = new HashMap<>();
+        advertKey = new ArrayList();
+        refresh();
         if (getArguments() != null)
         {
             mParam1 = getArguments().getString(ARG_PARAM1);
@@ -119,11 +145,24 @@ public class HomeFragment extends Fragment
     }
 
     //This method is for initialising buttons
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
+        mViewFlipper =  view.findViewById(R.id.homeViewFlipper);
+        flip = view.findViewById(R.id.flipbutton);
+        flip.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                mViewFlipper.showNext();
+            }
+        });
+        checkDriver2(view);
+        checkDriver(view);
 
         if (mListener != null)
         {
@@ -156,7 +195,8 @@ public class HomeFragment extends Fragment
                     }
                 });
 
-                rateButton.setOnClickListener(new View.OnClickListener() {
+                rateButton.setOnClickListener(new View.OnClickListener()
+                {
                     @Override
                     public void onClick(View view2) {
                         updateRating(view);
@@ -197,7 +237,9 @@ public class HomeFragment extends Fragment
     }
     //endregion
 
-    public void updateRating(final View view) {
+
+    public void updateRating(final View view) //allows you to give the driver a rating
+    {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
         reference.child("users").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -230,6 +272,15 @@ public class HomeFragment extends Fragment
     public void onAttach(Context context)
     {
         super.onAttach(context);
+        if (context instanceof MyItemRecyclerViewAdapter.OnListFragmentInteractionListener)
+        {
+            aListener = (MyItemRecyclerViewAdapter.OnListFragmentInteractionListener) context;
+        }
+        else
+        {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnListFragmentInteractionListener");
+        }
         if (context instanceof OnFragmentInteractionListener)
         {
             mListener = (OnFragmentInteractionListener) context;
@@ -265,7 +316,7 @@ public class HomeFragment extends Fragment
         void onFragmentInteraction(String title);
     }
 
-    public void getProfileImage() throws IOException
+    public void getProfileImage() throws IOException //gets the users profile image if they have and displays it, if not then this area remains blank
     {
         Glide.with(this)
                 .using(new FirebaseImageLoader())
@@ -273,64 +324,164 @@ public class HomeFragment extends Fragment
                 .into(imageView);
 
     }
-
-    //region Legacy methods for changing activities.
-    /*public void userButton(View view)
+    private void recyclerMethod2(View view)
     {
-        tempButton = view.findViewById(R.id.userButton);
-        tempButton.setOnClickListener(new View.OnClickListener()
+        //Recyclers which handles the showing of items to the user.
+        if (view.findViewById(R.id.list4) instanceof RecyclerView)
+        {
+            Context context = view.getContext();
+            recyclerView = (RecyclerView) view.findViewById(R.id.list4);
+            if (mColumnCount <= 1)
+            {
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            }
+            else
+            {
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
+            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, aListener, 1);
+
+            recyclerView.setAdapter(recycleAdapter);
+        }
+
+    }
+    private void recyclerMethod3(View view)
+    {
+        //Recyclers which handles the showing of items to the user.
+        if (view.findViewById(R.id.list5) instanceof RecyclerView)
+        {
+            Context context = view.getContext();
+            recyclerView = (RecyclerView) view.findViewById(R.id.list5);
+            if (mColumnCount <= 1)
+            {
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            }
+            else
+            {
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
+            recycleAdapter = new MyItemRecyclerViewAdapter(ITEMS,ADVERTID, aListener, 0);
+
+            recyclerView.setAdapter(recycleAdapter);
+        }
+
+    }
+
+    public void checkDriver2(final View view)
+    {
+        aDatabase.addChildEventListener(new ChildEventListener()
         {
             @Override
-            public void onClick(View view) {
-                Intent home = new Intent(getActivity(), UserActivity.class);
-                startActivity(home);
-            }
-        });
-    }
-
-
-    public void signOutButton(View view)
-    {
-        tempButton = view.findViewById(R.id.signOut);
-
-        tempButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
-                FirebaseAuth.getInstance().signOut();
-                Intent home = new Intent(getActivity(), login_activity.class);
-                startActivity(home);
-            }
-        });
+                boolean driverCheck = true;
+                //Add each advert to a list.
+                if(driverCheck)
+                {
+                    for(DataSnapshot child : dataSnapshot.getChildren())
+                    {
+                        for(DataSnapshot advert: child.getChildren())
+                        {
+                            for(DataSnapshot accepted: advert.getChildren())
+                            {
+                                for(DataSnapshot bid: accepted.getChildren())
+                                {
+                                    if (user.getUid().equals(bid.getKey()))
+                                    {
+                                        Advert advert2 = child.getValue(Advert.class);
+                                        if (!advertKey.contains(child.getKey()))
+                                        {
+                                            advertKey.add(child.getKey());
+                                        }
+                                        if (!child.getKey().equals(user.getUid()))
+                                        {
+                                            userBidOn = dataSnapshot.getKey();
+                                            advertMap.put(child.getKey().toString(), userBidOn);
+                                        }
 
+//                            location = getLocation(advert.from,advert.to);
+//                            advert.setFrom(location.get(0));
+//                            advert.setTo(location.get(1));
+                                        addItem(advert2, child.getKey().toString());
+                                        recyclerMethod2(view);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            //region Unused Overrides
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s){}
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+            //endregionfdUnu
+        });
     }
 
-    public void settingsButton(View view)
+    public void checkDriver(final View view)
     {
-        tempButton = view.findViewById(R.id.settingsButton);
-        tempButton.setOnClickListener(new View.OnClickListener() {
+        aDatabase.addChildEventListener(new ChildEventListener()
+        {
             @Override
-            public void onClick(View view) {
-                Intent home = new Intent(getActivity(), SettingsActivity.class);
-                startActivity(home);
-            }
-        });
-
-    }
-
-    public void driverButton(View view)
-    {
-        tempButton = view.findViewById(R.id.driverButton);
-        tempButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
+            public void onChildAdded(DataSnapshot dataSnapshot, String s)
             {
-                Intent home = new Intent(getActivity(), DriverActivity.class);
-                startActivity(home);
-            }
-        });
+                //Add each advert to a list.
+                for(DataSnapshot child : dataSnapshot.getChildren())
+                {
+                    if(user.getUid().equals(dataSnapshot.getKey()))
+                    {
+                        Advert advert = child.getValue(Advert.class);
+                        if(!advertKey.contains(child.getKey()))
+                        {
+                            //Singular adverts
+                            advertKey.add(child.getKey());
+                        }
+                        if (!child.getKey().equals(user.getUid()))
+                        {
+                            //UserBidOn = users adverts
+                            userBidOn = dataSnapshot.getKey();
+                            advertMap.put( child.getKey().toString(),userBidOn);
+                        }
 
+//                            location = getLocation(advert.from,advert.to);
+//                            advert.setFrom(location.get(0));
+//                            advert.setTo(location.get(1));
+                        addItem(advert,child.getKey().toString());
+                        recyclerMethod3(view);
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        });
     }
-    */
-    //endregion
+    private static void addItem(Advert item, String id)
+    {
+        //Adds the items to a static list which is shown to the user
+        ITEMS.add(item);
+        ADVERTID.add(id);
+    }
+    private void refresh()
+    {
+        ITEMS.clear();
+        ADVERTID.clear();
+    }
+
+
 }

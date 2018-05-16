@@ -62,7 +62,7 @@
                     android:layout_marginTop="24dp"
                     android:background="@color/Background3"
                     android:paddingHorizontal="10dp"
-                    android:text="confirm_delivery"
+                    android:text="@string/confirmDelivery"
                     android:textAllCaps="false" />
 
                 <RatingBar

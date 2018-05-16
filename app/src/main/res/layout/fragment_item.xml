@@ -17,14 +17,14 @@
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
         android:layout_width="match_parent"
-        android:layout_height="124dp"
+        android:layout_height="145dp"
         android:layout_gravity="center"
         android:layout_margin="5dp"
         card_view:cardCornerRadius="4dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="124dp">
+            android:layout_height="130dp">
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -32,9 +32,7 @@
                 android:layout_height="90dp"
 
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/advertName"
-                android:layout_marginStart="11dp"
-                android:layout_marginTop="7dp"
+                android:layout_below="@+id/textView"
                 app:srcCompat="@drawable/button_circle" />
 
             <TextView
@@ -51,11 +49,12 @@
 
             <TextView
                 android:id="@+id/collect"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:layout_height="35dp"
+                android:layout_above="@+id/size"
                 android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="46dp"
+                android:layout_marginStart="17dp"
+                android:layout_toEndOf="@+id/textView13"
                 android:gravity="center"
                 android:text="From: "
                 android:textAlignment="center"
@@ -63,10 +62,10 @@
 
             <TextView
                 android:id="@+id/deliver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/collect"
+                android:layout_width="300dp"
+                android:layout_height="35dp"
                 android:layout_alignStart="@+id/collect"
+                android:layout_below="@+id/advertName"
                 android:gravity="center"
                 android:text="To: "
                 android:textAlignment="center"
@@ -76,21 +75,9 @@
                 android:id="@+id/getBid"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView13"
-                android:layout_marginStart="51dp"
-                android:layout_toEndOf="@+id/imageView3"
+                android:layout_above="@+id/weights"
+                android:layout_alignStart="@+id/weights"
                 android:text="Size"
-                android:textAllCaps="true"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/weights"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:layout_alignStart="@+id/getBid"
-                android:layout_below="@+id/getBid"
-                android:text="Weight"
                 android:textAllCaps="true"
                 android:textStyle="bold" />
 
@@ -99,47 +86,58 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
+                android:layout_alignParentBottom="true"
                 android:layout_alignStart="@+id/size"
-                android:layout_below="@+id/size"
-                android:text="Weight:"
-
-                 />
+                android:text="Weight:" />
 
             <TextView
                 android:id="@+id/size"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
+                android:layout_above="@+id/weight"
                 android:layout_alignStart="@+id/collect"
-                android:layout_below="@+id/collect"
-                android:text="Size:"
-
-                 />
+                android:layout_marginStart="71dp"
+                android:text="Size:" />
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/deliver"
-                android:layout_alignBottom="@+id/deliver"
-                android:layout_alignStart="@+id/getBid"
+                android:layout_alignStart="@+id/textView13"
+                android:layout_below="@+id/advertName"
                 android:text="To:"
                 android:textAllCaps="true"
-                 />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/collect"
+                android:layout_alignBottom="@+id/collect"
                 android:layout_alignStart="@+id/getBid"
-                android:layout_centerVertical="true"
                 android:gravity="center"
                 android:text="From:"
                 android:textAllCaps="true"
-                 />
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/weights"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_alignBaseline="@+id/weight"
+                android:layout_alignBottom="@+id/weight"
+                android:layout_marginStart="12dp"
+                android:layout_toEndOf="@+id/imageView3"
+                android:text="Weight"
+                android:textAllCaps="true"
+                android:textStyle="bold" />
 
 
         </RelativeLayout>
+
     </android.support.v7.widget.CardView>
 
 

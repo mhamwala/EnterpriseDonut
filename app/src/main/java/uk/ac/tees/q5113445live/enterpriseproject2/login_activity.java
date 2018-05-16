@@ -120,7 +120,7 @@ public class login_activity extends AppCompatActivity
         intent = new Intent(this, sign_up_user.class);
         startActivity(intent);
     }
-    private void signIn(String email, String password)
+    private void signIn(String email, String password) //this uses the users stored username and password to sign in, if any are wrong it notifies user
     {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -149,57 +149,7 @@ public class login_activity extends AppCompatActivity
                     }
                 });
     }
-    //region Unused Create Account and getCurrentUser methods.
-//    private void createAccount(String email, String password)
-//    {
-//        Log.d(TAG, "createAccount:" + email);
-//        // [START create_user_with_email]
-//        mAuth.createUserWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task)
-//                    {
-//                        if (task.isSuccessful()) {
-//                            // Sign in success, update UI with the signed-in user's information
-//                            Log.d(TAG, "createUserWithEmail:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            updateUI(user);
-//                        }
-//                        else
-//                            {
-//                            // If sign in fails, display a message to the user.
-//                            Log.w(TAG, "createUserWithEmail:failure", task.getException());
-//                            Toast.makeText(login_activity.this, "Authentication failed.",
-//                                    Toast.LENGTH_SHORT).show();
-//                            updateUI(null);
-//                        }
-//
-//                        // [START_EXCLUDE]
-//
-//                        // [END_EXCLUDE]
-//                    }
-//                });
-//    }
 
-//    private void getCurrentUser()
-//    {
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        if (user != null) {
-//            // Name, email address, and profile photo Url
-//            String name = user.getDisplayName();
-//            String email = user.getEmail();
-//            Uri photoUrl = user.getPhotoUrl();
-//
-//            // Check if user's email is verified
-//            boolean emailVerified = user.isEmailVerified();
-//
-//            // The user's ID, unique to the Firebase project. Do NOT use this value to
-//            // authenticate with your backend server, if you have one. Use
-//            // FirebaseUser.getToken() instead.
-//            String uid = user.getUid();
-//        }
-//    }
-    //endregion
 
 
 }

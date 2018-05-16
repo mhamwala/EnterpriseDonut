@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,6 +28,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+//This is where the navigation for the hamburger menu is kept and where you can select the different fragments
 
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -37,8 +37,7 @@ public class NavigationDrawer extends AppCompatActivity
         DetailsFragment.OnFragmentInteractionListener,
         MyItemRecyclerViewAdapter.OnListFragmentInteractionListener,
         MyBidRecyclerViewAdapter.OnListFragmentInteractionListener,
-        JobFragment.OnListFragmentInteractionListener,
-        LocationFragment.OnFragmentInteractionListener
+        JobFragment.OnListFragmentInteractionListener
 
 {
 
@@ -80,7 +79,7 @@ public class NavigationDrawer extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed()
+    public void onBackPressed() //allows you to open and close the menu
     {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START))
@@ -119,7 +118,7 @@ public class NavigationDrawer extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item)
+    public boolean onNavigationItemSelected(MenuItem item) //This is what gives you access to the various fragments
     {
         int id = item.getItemId();
 
@@ -151,8 +150,9 @@ public class NavigationDrawer extends AppCompatActivity
         {
             //fragment = advertiseJobs(driver, fragment, ft);
 
+
             Bundle args = new Bundle();
-            fragment = new Map();
+            fragment = new MapFragment();
             args.putString("LAT", user2.getLocation().getLat());
             args.putString("LNG", user2.getLocation().getLng());
             fragment.setArguments(args);
@@ -202,13 +202,13 @@ public class NavigationDrawer extends AppCompatActivity
                 walletText.setText(user2.getWallet());
 
                 imageView = findViewById(R.id.nav_profile);
-                try
-                {
-                    getProfileImage();
-                } catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
+//                try
+//                {
+//                   // getProfileImage();
+//                } catch (IOException e)
+//                {
+//                    e.printStackTrace();
+//                }
             }
 
             @Override
@@ -219,7 +219,7 @@ public class NavigationDrawer extends AppCompatActivity
         };
         mDatabase.addListenerForSingleValueEvent(userListener);
     }
-    public void getProfileImage() throws IOException
+    public void getProfileImage() throws IOException //adds profile image to top of navigation view
     {
         Glide.with(this /* context */)
                 .using(new FirebaseImageLoader())
