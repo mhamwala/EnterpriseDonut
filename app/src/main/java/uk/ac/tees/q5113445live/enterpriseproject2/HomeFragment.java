@@ -238,7 +238,8 @@ public class HomeFragment extends Fragment
     //endregion
 
 
-    public void updateRating(final View view) {
+    public void updateRating(final View view) //allows you to give the driver a rating
+    {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         final DatabaseReference reference = firebaseDatabase.getReference();
         reference.child("users").child(fUser.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -315,7 +316,7 @@ public class HomeFragment extends Fragment
         void onFragmentInteraction(String title);
     }
 
-    public void getProfileImage() throws IOException
+    public void getProfileImage() throws IOException //gets the users profile image if they have and displays it, if not then this area remains blank
     {
         Glide.with(this)
                 .using(new FirebaseImageLoader())

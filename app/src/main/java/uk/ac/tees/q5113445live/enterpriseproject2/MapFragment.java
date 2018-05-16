@@ -36,7 +36,7 @@ import java.util.ArrayList;
  * Use the  factory method to
  * create an instance of this fragment.
  */
-public class MapFragment extends Fragment
+public class MapFragment extends Fragment //This allows you to display google maps with you accepted delivers and to see how far each job is in comparision to them
 {
 
     MapView mMapView;
@@ -56,7 +56,7 @@ public class MapFragment extends Fragment
             latitude = getArguments().getString("LAT");
             longitude = getArguments().getString("LNG");
         }
-        else
+        else  //gets the position
         {
              latitude ="0";
              longitude ="0";

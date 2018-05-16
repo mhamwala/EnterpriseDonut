@@ -28,6 +28,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.IOException;
+//This is where the navigation for the hamburger menu is kept and where you can select the different fragments
 
 public class NavigationDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -78,7 +79,7 @@ public class NavigationDrawer extends AppCompatActivity
     }
 
     @Override
-    public void onBackPressed()
+    public void onBackPressed() //allows you to open and close the menu
     {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START))
@@ -117,7 +118,7 @@ public class NavigationDrawer extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item)
+    public boolean onNavigationItemSelected(MenuItem item) //This is what gives you access to the various fragments
     {
         int id = item.getItemId();
 
@@ -218,7 +219,7 @@ public class NavigationDrawer extends AppCompatActivity
         };
         mDatabase.addListenerForSingleValueEvent(userListener);
     }
-    public void getProfileImage() throws IOException
+    public void getProfileImage() throws IOException //adds profile image to top of navigation view
     {
         Glide.with(this /* context */)
                 .using(new FirebaseImageLoader())
