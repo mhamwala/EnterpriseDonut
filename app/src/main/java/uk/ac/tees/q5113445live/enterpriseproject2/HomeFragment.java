@@ -152,7 +152,7 @@ public class HomeFragment extends Fragment
                     public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
                         //int a = rateBar.getNumStars();
                         rateUser.setRating(v);
-                        Toast.makeText(getContext(), "Confirm " + v + "Rating?", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Confirm " + v + " Rating?", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -185,7 +185,6 @@ public class HomeFragment extends Fragment
             }
         };
         mDatabase.addListenerForSingleValueEvent(userListener);
-
 
         String name = mDatabase.getKey();
         /*

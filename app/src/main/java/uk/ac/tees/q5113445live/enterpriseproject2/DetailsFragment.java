@@ -169,7 +169,6 @@ public class DetailsFragment extends Fragment
                     }
                 });
 
-
                 //Temporary code for updating driver
                 // TODO: Find correct location for views and button
                 final TextView testingUpdateDriver = view.findViewById(R.id.driverUpdate);

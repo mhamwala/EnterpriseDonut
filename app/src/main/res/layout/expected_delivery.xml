@@ -70,7 +70,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignEnd="@+id/confirmDelivery"
-                    android:layout_below="@+id/confirmDelivery" />
+                    android:layout_alignParentBottom="true" />
 
                 <TextView
                     android:id="@+id/rating"

@@ -57,10 +57,10 @@
                 android:id="@+id/textView20"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/ratingBar2"
                 android:layout_alignParentStart="true"
-                android:layout_marginBottom="13dp"
-                android:layout_marginStart="71dp"
+                android:layout_below="@+id/userId"
+                android:layout_marginStart="65dp"
+                android:layout_marginTop="18dp"
                 android:text="Rating"
                 android:textAllCaps="true"
                 android:textStyle="bold" />
@@ -75,12 +75,13 @@
                 android:layout_marginEnd="18dp"
                 android:text="TextView" />
 
-            <RatingBar
-                android:id="@+id/ratingBar2"
+            <TextView
+                android:id="@+id/rateText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignBottom="@+id/bid"
+                android:layout_alignStart="@+id/textView20"
+                android:text="TextView" />
 
 
         </RelativeLayout>
